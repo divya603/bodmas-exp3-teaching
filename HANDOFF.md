@@ -124,17 +124,32 @@ vice versa.
   the stored one, and bank integrity (12 / 72 distinct sentences, right != wrong everywhere,
   `outside_bracket_first` is the only bank whose right sentences mention "bracket"). **ALL CHECKS
   PASSED in this repo on 2026-09-16.**
-- **Not done yet:** the sampler (Python + JS, drawing the 24-trial form via the table above and
-  picking which bank/entry to show per trial), copying the pool into `src/user/data/`, and wiring
-  `TraceJudgmentView.vue` / `PracticeView.vue` to render advice instead of a belief statement.
+- **The sampler, built and deployed 2026-09-16** (`base-task/sample_form_advice.py`,
+  `src/user/utils/sampleFormAdvice.js`, `base-task/sample_form_advice_parity.mjs`): draws the
+  24-trial form via the table in item 3, using `misconception` alone to pick the trace for each cell
+  and (type, right/wrong) to pick the advice text (Type 1/3 wrong draws a random misconception's
+  wrong entry; Type 2 is always self-referential). `python3 sample_form_advice.py` passes 500-seed
+  balance checks; the JS/Python parity check is byte-exact over 500 seeds
+  (`python3 sample_form_advice.py --dump 500 | node sample_form_advice_parity.mjs`). Pool and banks
+  copied to `src/user/data/` (`stimulus_pool_advice.json`, `advice_banks.json`).
+- **`TraceJudgmentView.vue`, rewired 2026-09-16**: imports the advice pool/banks/sampler instead of
+  the belief ones, shows the full trace (`trace.slice(1)`, no hidden-line filtering), shows
+  `advice_text` instead of `belief_statement`, asks "Is this advice helpful?", and scores against
+  `advice_correct` (recorded field renamed from `statement_correct`/`responded_agree` to
+  `advice_correct`/`responded_helpful`, since this is a fresh experiment's data schema).
+- **Not done yet: `PracticeView.vue`**, deliberately (§4 below). It still uses the OLD belief-judgment
+  `practice_items.json` and asks "Is this what the student believes?", so the live site's practice
+  section does not match its own instructions or the real task that follows it. Do not run real
+  participants until this is fixed.
 
 **Still open:**
 
-4. **Screens and text.** Trial question (e.g. "Is this advice helpful?"), instructions, quiz,
-   practice items with feedback, strategy question, debrief. The user wants participant text short.
-   Draft wording for instructions / quiz / strategy question was proposed 2026-09-16 (not yet applied
-   to the Vue files); practice items explicitly deferred at the user's request ("leave practice for
-   now").
+4. **Screens and text.** Instructions, quiz and the strategy question were reworded for advice and
+   are live (2026-09-16; verified in the deployed bundle, see §1). **Practice items still need
+   rebuilding for advice** (deferred at the user's request, "leave practice for now"): 3 new items
+   (base-task/practice.py-equivalent) with feedback for the advice framing, and PracticeView.vue's
+   question text updated to match. Debrief not yet checked with the PI for Experiment 3 (§7
+   checklist).
 5. **The ideal observer's role.** It currently answers "does the student hold rule R?" (§4). Since
    helpfulness is now structural (which bank an item came from), the marginal is no longer the
    definition of ground truth; still deciding whether it stays as a recorded covariate (like
@@ -231,9 +246,11 @@ private); GitHub masks secret values in the public Actions logs.
 `deploy.yml` SKIPS the `deploy` job and still shows GREEN when secrets are missing, so after any
 deploy check with `gh run view <id>` that the **`deploy` job itself ran**.
 
-⚠️ The live URL now serves **Experiment 2's task** (hidden lines, belief statements) under
-Experiment 3's URL until the advice task is built. Do not share the URL. Every push to `main`
-that touches non-`.md` files now redeploys it.
+⚠️ **Since 2026-09-16 (push `795dcb2`, run 35125127435) the live URL serves Experiment 3's own advice
+task**: full work, real advice text, "Is this advice helpful?" — verified in the deployed JS bundle
+(contains both the commit hash and "Is this advice helpful"). Still do not share the URL: the
+practice section still shows the OLD belief-judgment items (§0 item 4) and nothing on the §7
+checklist is done yet. Every push to `main` that touches non-`.md` files redeploys it.
 
 Node: `.node_version` pins 20.18.1; Node 24 has been working locally. If `npm install` misbehaves,
 switch with `nvm use 20`.
@@ -549,16 +566,17 @@ npm run upload_config                      # push deploy secrets from env/*.loca
 ## 9. What is next
 
 1. **Design Experiment 3 with the user** (§0 "What Experiment 3 still needs"): advice content, hidden
-   lines vs. full work, the form, and the sampling table are decided (2026-09-16). Screens/text and
-   the observer's role are still open (§0 items 4-5).
-2. **Build it.** Done: the advice pool (`base-task/pool_advice.py` + `advice_content.py`, verified by
-   `verify_advice.py`, §0). Not done: the 24-trial sampler in both languages with parity (reusing the
-   table in §0 item 3), copying the pool into `src/user/data/`, the trial screen and practice view
-   rendering advice instead of a belief statement, and the instructions/quiz/strategy-question text
-   (draft proposed 2026-09-16, not yet applied).
-3. Deploys are set up (§1, done 2026-09-16). After building, push, and verify the live bundle
-   contains the advice task.
-4. The §7 checklist.
+   lines vs. full work, the form, and the sampling table are decided (2026-09-16). The observer's role
+   (§0 item 5) is still open; screens/text is open only for practice items (§0 item 4).
+2. **Build it.** Done and deployed 2026-09-16: the advice pool, the sampler (both languages, parity
+   verified), `TraceJudgmentView.vue`, and the instructions/quiz/strategy-question text (§0). **Not
+   done: practice items** — still the old belief-judgment `practice_items.json` and
+   `PracticeView.vue` text, inconsistent with the rest of the now-live task.
+3. Deploys are set up (§1, done 2026-09-16) and the advice task is live in the deployed bundle
+   (§1, push `795dcb2`, verified 2026-09-16). Do not share the URL yet: practice is still stale and
+   the §7 checklist is untouched.
+4. The §7 checklist (Prolific code, consent/debrief sign-off with the PI, end-to-end Prolific URL
+   test, fresh bonus ledger) — none of it done yet.
 
 ---
 

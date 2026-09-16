@@ -28,8 +28,9 @@ misconception, as in Experiments 1 and 2.
   ("Tara believes addition should be done before multiplication.") with one line of the work hidden,
   the instructions say "one step skipped", and the practice items, quiz and sampler are built for
   belief judgments with easy / medium / hard hidden lines. None of it asks about advice yet.
-- Not done: the Experiment 3 design (§9), deploy secrets (§1), anything about advice. No human or
-  LLM data exist.
+- Deploys are set up (§1, 2026-09-16): secrets uploaded, first real deploy verified. The live URL
+  serves Experiment 2's task until the advice task is built; do not share it.
+- Not done: the Experiment 3 design (§9), anything about advice. No human or LLM data exist.
 
 Provenance: Experiment 1 (`divya603/bodmas-exp1-position`) was split out of the archive repo
 `divya603/bodmas-model`; Experiment 2 was seeded from Experiment 1 and rebuilt its pool (v6) with
@@ -133,16 +134,22 @@ What each secrets step does:
   `SLACK_WEBHOOK_URL`, `SLACK_WEBHOOK_ERROR_URL`) to whatever repo `origin` points at. Only needed
   once per repo, not once per clone.
 
-**Status as of 2026-09-16: NOT set up.** The repo was created empty and has no GitHub secrets, so
-the initial push's deploy run skips its `deploy` job and nothing is served. The local checkout at
-`~/Desktop/NYU/Darpa/Bodmas-Exp3-Teaching/bodmas-exp3-teaching` was made with `git archive` from
-Experiment 2, so it has **no `node_modules`, no git hooks and no `env/*.local` secrets**: run
-`npm run get_secrets` and `npm run setup_project` before `npm run dev` or `npm run build`.
+**Status as of 2026-09-16: SET UP and deployed.** In the local checkout
+(`~/Desktop/NYU/Darpa/Bodmas-Exp3-Teaching/bodmas-exp3-teaching`) `get_secrets`, `upload_config`
+(8 repo secrets: `SECRET_APP_CONFIG` + the 7 deploy/Slack ones) and `setup_project` have been run
+(`node_modules` and git hooks present). The initial push's run (35115397174) skipped `deploy` (no
+secrets then); `npm run force_deploy` run **35116302964** deployed commit `783e110` with every
+`deploy` step green (rsync and Slack included). Verified live: `/divya603/bodmas-exp3-teaching/main/`
+and the codename URL `https://www.codec-lab.org/e/bill-shocking-reputation/` both return 200 and serve
+the same bundle, which contains `783e110`. A fresh clone still needs `get_secrets` and
+`setup_project` (not `upload_config`). The repo is **public** (the Smile template README assumes
+private); GitHub masks secret values in the public Actions logs.
 `deploy.yml` SKIPS the `deploy` job and still shows GREEN when secrets are missing, so after any
 deploy check with `gh run view <id>` that the **`deploy` job itself ran**.
 
-⚠️ Once secrets are uploaded, a deploy of this repo serves **Experiment 2's task** (hidden lines,
-belief statements) under Experiment 3's URL until the advice task is built. Do not share the URL.
+⚠️ The live URL now serves **Experiment 2's task** (hidden lines, belief statements) under
+Experiment 3's URL until the advice task is built. Do not share the URL. Every push to `main`
+that touches non-`.md` files now redeploys it.
 
 Node: `.node_version` pins 20.18.1; Node 24 has been working locally. If `npm install` misbehaves,
 switch with `nvm use 20`.
@@ -398,7 +405,7 @@ https://www.codec-lab.org/divya603/bodmas-exp3-teaching/main/?PROLIFIC_PID={{%PR
 ### Checklist before running any participant
 - [ ] Experiment 3 design decided (§0) and its trial screen, sampler, practice items, instructions
       and quiz built, deployed, and the LIVE bundle verified to contain them.
-- [ ] Deploy secrets uploaded and a real deploy confirmed (§1).
+- [x] Deploy secrets uploaded and a real deploy confirmed (§1, 2026-09-16, run 35116302964).
 - [ ] Prolific completion code replaced; `estimated_time` in `design.js` checked with the PI.
 - [ ] Consent and debrief checked with the PI for Experiment 3.
 - [ ] Prolific URL tested end to end with a fake PID (a `prolific_id` must appear in
@@ -462,7 +469,8 @@ npm run upload_config                      # push deploy secrets from env/*.loca
    role. Finish that discussion before writing code.
 2. **Build it**: advice items (in the pool or derived from it) with a verifier; the sampler in both
    languages with parity; the trial screen, practice items, instructions, quiz and strategy question.
-3. **Set up deploys** (§1), deploy, and verify the live bundle.
+3. Deploys are set up (§1, done 2026-09-16). After building, push, and verify the live bundle
+   contains the advice task.
 4. The §7 checklist.
 
 ---

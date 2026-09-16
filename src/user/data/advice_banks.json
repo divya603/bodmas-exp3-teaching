@@ -1,0 +1,222 @@
+{
+ "type1": {
+  "add_before_mul": {
+   "right": "Do multiplication before addition.",
+   "wrong": "Do addition before multiplication."
+  },
+  "add_before_div": {
+   "right": "Do division before addition.",
+   "wrong": "Do addition before division."
+  },
+  "sub_before_mul": {
+   "right": "Do multiplication before subtraction.",
+   "wrong": "Do subtraction before multiplication."
+  },
+  "sub_before_div": {
+   "right": "Do division before subtraction.",
+   "wrong": "Do subtraction before division."
+  },
+  "same_priority_rtl": {
+   "right": "When two operations have the same priority, work left to right.",
+   "wrong": "When two operations have the same priority, work right to left."
+  },
+  "outside_bracket_first": {
+   "right": "Solve what's inside the brackets first.",
+   "wrong": "Finish everything outside the brackets before opening them."
+  }
+ },
+ "type3": {
+  "add_before_mul": [
+   {
+    "expression": "2 + 3 × 4",
+    "right": "In an expression like 2 + 3 × 4, the right thing to do is 3 × 4 first.",
+    "wrong": "In an expression like 2 + 3 × 4, the right thing to do is 2 + 3 first."
+   },
+   {
+    "expression": "5 × 2 + 6",
+    "right": "In an expression like 5 × 2 + 6, the right thing to do is 5 × 2 first.",
+    "wrong": "In an expression like 5 × 2 + 6, the right thing to do is 2 + 6 first."
+   },
+   {
+    "expression": "1 + 4 × 3",
+    "right": "In an expression like 1 + 4 × 3, the right thing to do is 4 × 3 first.",
+    "wrong": "In an expression like 1 + 4 × 3, the right thing to do is 1 + 4 first."
+   },
+   {
+    "expression": "6 × 3 + 2",
+    "right": "In an expression like 6 × 3 + 2, the right thing to do is 6 × 3 first.",
+    "wrong": "In an expression like 6 × 3 + 2, the right thing to do is 3 + 2 first."
+   },
+   {
+    "expression": "3 + 5 × 2",
+    "right": "In an expression like 3 + 5 × 2, the right thing to do is 5 × 2 first.",
+    "wrong": "In an expression like 3 + 5 × 2, the right thing to do is 3 + 5 first."
+   },
+   {
+    "expression": "4 × 6 + 1",
+    "right": "In an expression like 4 × 6 + 1, the right thing to do is 4 × 6 first.",
+    "wrong": "In an expression like 4 × 6 + 1, the right thing to do is 6 + 1 first."
+   }
+  ],
+  "add_before_div": [
+   {
+    "expression": "3 + 8 ÷ 4",
+    "right": "In an expression like 3 + 8 ÷ 4, the right thing to do is 8 ÷ 4 first.",
+    "wrong": "In an expression like 3 + 8 ÷ 4, the right thing to do is 3 + 8 first."
+   },
+   {
+    "expression": "9 ÷ 3 + 5",
+    "right": "In an expression like 9 ÷ 3 + 5, the right thing to do is 9 ÷ 3 first.",
+    "wrong": "In an expression like 9 ÷ 3 + 5, the right thing to do is 3 + 5 first."
+   },
+   {
+    "expression": "2 + 6 ÷ 2",
+    "right": "In an expression like 2 + 6 ÷ 2, the right thing to do is 6 ÷ 2 first.",
+    "wrong": "In an expression like 2 + 6 ÷ 2, the right thing to do is 2 + 6 first."
+   },
+   {
+    "expression": "10 ÷ 5 + 4",
+    "right": "In an expression like 10 ÷ 5 + 4, the right thing to do is 10 ÷ 5 first.",
+    "wrong": "In an expression like 10 ÷ 5 + 4, the right thing to do is 5 + 4 first."
+   },
+   {
+    "expression": "7 + 12 ÷ 3",
+    "right": "In an expression like 7 + 12 ÷ 3, the right thing to do is 12 ÷ 3 first.",
+    "wrong": "In an expression like 7 + 12 ÷ 3, the right thing to do is 7 + 12 first."
+   },
+   {
+    "expression": "8 ÷ 4 + 6",
+    "right": "In an expression like 8 ÷ 4 + 6, the right thing to do is 8 ÷ 4 first.",
+    "wrong": "In an expression like 8 ÷ 4 + 6, the right thing to do is 4 + 6 first."
+   }
+  ],
+  "sub_before_mul": [
+   {
+    "expression": "5 - 2 × 3",
+    "right": "In an expression like 5 - 2 × 3, the right thing to do is 2 × 3 first.",
+    "wrong": "In an expression like 5 - 2 × 3, the right thing to do is 5 - 2 first."
+   },
+   {
+    "expression": "4 × 3 - 1",
+    "right": "In an expression like 4 × 3 - 1, the right thing to do is 4 × 3 first.",
+    "wrong": "In an expression like 4 × 3 - 1, the right thing to do is 3 - 1 first."
+   },
+   {
+    "expression": "9 - 3 × 2",
+    "right": "In an expression like 9 - 3 × 2, the right thing to do is 3 × 2 first.",
+    "wrong": "In an expression like 9 - 3 × 2, the right thing to do is 9 - 3 first."
+   },
+   {
+    "expression": "6 × 2 - 5",
+    "right": "In an expression like 6 × 2 - 5, the right thing to do is 6 × 2 first.",
+    "wrong": "In an expression like 6 × 2 - 5, the right thing to do is 2 - 5 first."
+   },
+   {
+    "expression": "7 - 4 × 1",
+    "right": "In an expression like 7 - 4 × 1, the right thing to do is 4 × 1 first.",
+    "wrong": "In an expression like 7 - 4 × 1, the right thing to do is 7 - 4 first."
+   },
+   {
+    "expression": "5 × 4 - 3",
+    "right": "In an expression like 5 × 4 - 3, the right thing to do is 5 × 4 first.",
+    "wrong": "In an expression like 5 × 4 - 3, the right thing to do is 4 - 3 first."
+   }
+  ],
+  "sub_before_div": [
+   {
+    "expression": "8 - 6 ÷ 2",
+    "right": "In an expression like 8 - 6 ÷ 2, the right thing to do is 6 ÷ 2 first.",
+    "wrong": "In an expression like 8 - 6 ÷ 2, the right thing to do is 8 - 6 first."
+   },
+   {
+    "expression": "9 ÷ 3 - 1",
+    "right": "In an expression like 9 ÷ 3 - 1, the right thing to do is 9 ÷ 3 first.",
+    "wrong": "In an expression like 9 ÷ 3 - 1, the right thing to do is 3 - 1 first."
+   },
+   {
+    "expression": "10 - 8 ÷ 4",
+    "right": "In an expression like 10 - 8 ÷ 4, the right thing to do is 8 ÷ 4 first.",
+    "wrong": "In an expression like 10 - 8 ÷ 4, the right thing to do is 10 - 8 first."
+   },
+   {
+    "expression": "12 ÷ 4 - 2",
+    "right": "In an expression like 12 ÷ 4 - 2, the right thing to do is 12 ÷ 4 first.",
+    "wrong": "In an expression like 12 ÷ 4 - 2, the right thing to do is 4 - 2 first."
+   },
+   {
+    "expression": "6 - 4 ÷ 2",
+    "right": "In an expression like 6 - 4 ÷ 2, the right thing to do is 4 ÷ 2 first.",
+    "wrong": "In an expression like 6 - 4 ÷ 2, the right thing to do is 6 - 4 first."
+   },
+   {
+    "expression": "15 ÷ 5 - 3",
+    "right": "In an expression like 15 ÷ 5 - 3, the right thing to do is 15 ÷ 5 first.",
+    "wrong": "In an expression like 15 ÷ 5 - 3, the right thing to do is 5 - 3 first."
+   }
+  ],
+  "same_priority_rtl": [
+   {
+    "expression": "8 ÷ 4 × 2",
+    "right": "In an expression like 8 ÷ 4 × 2, the right thing to do is 8 ÷ 4 first.",
+    "wrong": "In an expression like 8 ÷ 4 × 2, the right thing to do is 4 × 2 first."
+   },
+   {
+    "expression": "9 - 3 + 2",
+    "right": "In an expression like 9 - 3 + 2, the right thing to do is 9 - 3 first.",
+    "wrong": "In an expression like 9 - 3 + 2, the right thing to do is 3 + 2 first."
+   },
+   {
+    "expression": "12 ÷ 2 × 3",
+    "right": "In an expression like 12 ÷ 2 × 3, the right thing to do is 12 ÷ 2 first.",
+    "wrong": "In an expression like 12 ÷ 2 × 3, the right thing to do is 2 × 3 first."
+   },
+   {
+    "expression": "10 - 4 + 1",
+    "right": "In an expression like 10 - 4 + 1, the right thing to do is 10 - 4 first.",
+    "wrong": "In an expression like 10 - 4 + 1, the right thing to do is 4 + 1 first."
+   },
+   {
+    "expression": "6 × 2 ÷ 4",
+    "right": "In an expression like 6 × 2 ÷ 4, the right thing to do is 6 × 2 first.",
+    "wrong": "In an expression like 6 × 2 ÷ 4, the right thing to do is 2 ÷ 4 first."
+   },
+   {
+    "expression": "7 + 5 - 2",
+    "right": "In an expression like 7 + 5 - 2, the right thing to do is 7 + 5 first.",
+    "wrong": "In an expression like 7 + 5 - 2, the right thing to do is 5 - 2 first."
+   }
+  ],
+  "outside_bracket_first": [
+   {
+    "expression": "2 + 3 × (4 - 1)",
+    "right": "In an expression like 2 + 3 × (4 - 1), the right thing to do is work out the bracket (4 - 1) first.",
+    "wrong": "In an expression like 2 + 3 × (4 - 1), the right thing to do is 2 + 3 first."
+   },
+   {
+    "expression": "5 - 2 × (3 + 1)",
+    "right": "In an expression like 5 - 2 × (3 + 1), the right thing to do is work out the bracket (3 + 1) first.",
+    "wrong": "In an expression like 5 - 2 × (3 + 1), the right thing to do is 5 - 2 first."
+   },
+   {
+    "expression": "4 + 6 ÷ (2 + 1)",
+    "right": "In an expression like 4 + 6 ÷ (2 + 1), the right thing to do is work out the bracket (2 + 1) first.",
+    "wrong": "In an expression like 4 + 6 ÷ (2 + 1), the right thing to do is 4 + 6 first."
+   },
+   {
+    "expression": "7 - 3 ÷ (1 + 2)",
+    "right": "In an expression like 7 - 3 ÷ (1 + 2), the right thing to do is work out the bracket (1 + 2) first.",
+    "wrong": "In an expression like 7 - 3 ÷ (1 + 2), the right thing to do is 7 - 3 first."
+   },
+   {
+    "expression": "3 + 4 × (5 - 2)",
+    "right": "In an expression like 3 + 4 × (5 - 2), the right thing to do is work out the bracket (5 - 2) first.",
+    "wrong": "In an expression like 3 + 4 × (5 - 2), the right thing to do is 3 + 4 first."
+   },
+   {
+    "expression": "6 - 4 × (2 + 3)",
+    "right": "In an expression like 6 - 4 × (2 + 3), the right thing to do is work out the bracket (2 + 3) first.",
+    "wrong": "In an expression like 6 - 4 × (2 + 3), the right thing to do is 6 - 4 first."
+   }
+  ]
+ }
+}

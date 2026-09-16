@@ -17,10 +17,15 @@ function finish() {
   "Disagree when their mistake is a different one..." sentence removed), and again
   2026-09-16 (the "correct order of operations" paragraph removed; the 6-point scale
   replaced by YES / NO with the D / F keys; "Your Job" and the practice paragraph
-  reworded by the user, the "What happens next" label dropped).
+  reworded by the user, the "What happens next" label dropped) — and reworded again
+  2026-09-16 for the advice task (Experiment 3): full work is shown (no line
+  skipped), and the judgment is whether advice given to the student is helpful,
+  not whether a statement describes the student's belief. Practice items still
+  reflect the old belief-judgment task (2026-09-16: left for later at the user's
+  request), so the practice paragraph below is not yet accurate.
   The numbers here mirror the task code: $2 = MAX_BONUS and 3 seconds =
   UNLOCK_DELAY_MS in TraceJudgmentView.vue, 24 problems = the form size in
-  utils/sampleForm.js, 3 practice questions = data/practice_items.json. Change
+  utils/sampleFormAdvice.js, 3 practice questions = data/practice_items.json. Change
   them together.
 -->
 <template>
@@ -36,9 +41,8 @@ function finish() {
       </h1>
 
       <p class="text-left text-lg mb-4">
-        In this study you will see a math problem, the step-by-step work a student wrote while solving it with
-        <strong>one step skipped</strong>, and a statement about what that student believes about the order of
-        operations.
+        In this study you will see a math problem, the step-by-step work a student wrote while solving it, and some
+        advice the student was given.
       </p>
 
       <p class="text-left text-lg mb-4">
@@ -46,9 +50,8 @@ function finish() {
       </p>
 
       <p class="text-left text-lg mb-4">
-        <strong>Your Job.</strong> Decide whether the statement describes what the student believes, using their work
-        as evidence. Answer <strong>YES</strong> when the student's mistake is the one the statement describes and
-        <strong>NO</strong> otherwise.
+        <strong>Your Job.</strong> Decide whether the advice would help the student fix their mistake. Answer
+        <strong>YES</strong> if it would and <strong>NO</strong> if it would not.
       </p>
 
       <p class="text-left text-lg mb-4"><strong>Bonus.</strong> You can earn a bonus of up to $2.</p>

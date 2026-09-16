@@ -39,22 +39,106 @@ linked: **a change in Experiment 1 or 2 (model code, pool, screens) does not rea
 vice versa.
 
 ### What Experiment 3 still needs (decide with the user before building)
-1. **The advice.** What an advice item says (e.g. "Remember to multiply before you add."), how many
-   kinds there are, and what makes it helpful. One natural mapping onto the pool, NOT yet agreed:
-   advice that targets the misconception the student actually holds is helpful (the pool's category
-   A, whose statement names the present rule), and advice that targets a different rule is not
-   (category B, which names a foil that passes the observer and look-alike checks, §3). The pool's
-   `belief_statement` and `STATEMENT_TEMPLATES` would then be replaced by advice templates.
-2. **Hidden lines or not.** Every item stores all 7 lines plus a `hidden_line`. Showing the full
-   work means using one item per trace (`base_id`) and ignoring `hidden_line`; keeping Experiment 2's
-   easy / medium / hard hiding is also possible. Decide first; the sampler depends on it.
-3. **Form and counterbalancing.** Experiment 2's form is 24 trials (4 per misconception, 8 per
-   difficulty, 12 YES-correct / 12 NO-correct); see §0 "Inherited design". Keep, adapt or replace.
+
+**Decided so far (2026-09-16, design discussion, not yet built):**
+
+1. **The advice: three teaching types, each with a right (helpful) and wrong (unhelpful) version.**
+   Helpfulness is structural (which bank a shown item was drawn from), not defined via the observer's
+   marginal. Exact wording below is draft; mechanism is confirmed.
+   - **Type 1, general rule.** One fixed sentence pair per misconception (12 total), independent of
+     the trace, e.g. `add_before_mul` right "Do multiplication before addition.", wrong "Do addition
+     before multiplication." (the wrong one is literally the misconception restated as an
+     instruction). On an unhelpful trial, any of the 6 wrong sentences may be shown, regardless of
+     the trace's own misconception.
+   - **Type 2, step-level, the student's own expression.** Right advice names the exact operator pair
+     the student should have resolved at the error step (read off the pattern-matcher window already
+     computed for that trace); wrong advice restates the student's own actual mistake at that step,
+     e.g. trace `16 + 4 × 2 × 5` -> `20 × 2 × 5`: right "In step 4, do 4 × 2 first.", wrong "In step
+     4, do 16 + 4 first." Fully determined by the trace already in the pool; no new inference needed.
+     `outside_bracket_first` needs its own phrasing ("work out the bracket (...) first" /
+     "do [the outside pair] first") since its error is about bracket timing, not an adjacent-operator
+     pair (§3 gotcha 6 applies to this template too).
+   - **Type 3, step-level, a curated small expression instead of the student's.** Same idea as Type 2
+     but demonstrated on a hand-written 3-number expression, e.g. "In an expression like 2 × 3 + 4,
+     the right thing to do is 2 × 3 first." A bank of 6 right + 6 wrong hand-written sentences per
+     misconception (72 total). Helpful trials draw randomly from the matching misconception's
+     right-bank; unhelpful trials draw randomly from any of the 6 misconceptions' wrong-banks (36
+     sentences), same rule as Type 1. `outside_bracket_first`'s curated expressions need a bracket,
+     mirroring the Type 2 phrasing fix.
+   - **Built 2026-09-16** (`base-task/advice_content.py`, `base-task/pool_advice.py`,
+     `base-task/verify_advice.py`): a fresh 240-trace pool (40 per misconception, full work, no A/B,
+     no hidden versions, no observer gating) plus the Type 1 and Type 3 sentence banks and the Type 2
+     renderer, all independently re-derived and checked by `verify_advice.py` (ALL CHECKS PASSED).
+     Output is `base-task/stimulus_pool_advice.json`, NOT yet copied to `src/user/data/` (the frontend
+     still serves the old belief pool; wiring is the next step, with the sampler). Details below.
+2. **Hidden lines: NO. Full work only.** One item per trace (`base_id`); `hidden_line`, `difficulty`
+   and `io_marginal_hidden` are unused for Experiment 3. Reasoning: Type 2 and Type 3 advice name a
+   specific step, so hiding that step would undercut the advice; also the table below already spends
+   the "which of 3 axes" slot on advice type, leaving no room for a difficulty axis.
+3. **Form and counterbalancing: reuse Experiment 2's 24-trial table, relabeled.** Same shape (3 axes
+   x 8 trials, 4 per misconception, 12 right / 12 wrong), same 6-row table with misconceptions
+   randomly permuted into rows per participant, difficulty columns -> advice-type columns, A/B ->
+   right/wrong (R/W):
+
+   | row | Type 1 | Type 2 | Type 3 |
+   |---|---|---|---|
+   | 1 | R+W | R | W |
+   | 2 | R+W | W | R |
+   | 3 | R | R+W | W |
+   | 4 | W | R+W | R |
+   | 5 | R | W | R+W |
+   | 6 | W | R | R+W |
+
+   Each misconception (one row) gets 4 trials: 2 right / 2 wrong, one type getting both, the other two
+   getting one each. Same expectation-only balancing caveat as Experiment 2 (no cross-participant
+   counter in Smile).
+
+**The advice pool (`base-task/`), built 2026-09-16:**
+- **`advice_content.py`**: `TYPE1_ADVICE` (the 12 fixed sentences), `TYPE3_BANK` / `TYPE3_ADVICE` (the
+  72 curated sentences, 6 hand-written expressions per misconception, right and wrong both read off
+  the same expression), and the Type 2 machinery: `error_window(trace, k, m)` tokenizes
+  `trace[k-1]`/`trace[k]` (reusing `lookalike.py`'s `_TOKEN`/`_fired`/`_PRIO`, the same tokenizer
+  `error_step_rules` already uses) to find the operator that actually fired (the wrong move) and, for
+  the 4 operator-precedence misconceptions, the adjacent ×/÷ pair that should have fired instead; for
+  `same_priority_rtl`, the same-priority pair to its left; for `outside_bracket_first`, the adjacent
+  bracket's contents (bracket-matching over the token list). `render_type2` wraps this into the "In
+  step k, ..." sentences. Confirmed against the model directly: for a `same_priority_rtl` case where a
+  further-left pair also existed in the same chain, `traces._next_dags(dag, [])` (the expert, no
+  misconceptions) showed the identified "right" pair is independently expert-legal on its own, not
+  merely "less wrong" than the actual move (this generalizes because expert legality is per-window,
+  not a single global leftmost-only pointer, so multiple simultaneously-legal windows can coexist).
+- **`pool_advice.py`**: builds 240 traces (`PER_MISCONCEPTION = 40` x 6), one item per trace, no A/B
+  category and no ideal-observer gating (dropped: helpfulness is now structural, not something a trace
+  needs to earn via a marginal threshold). The only per-trace gate is `item_ok` (renamed from
+  `pool.py`'s `a_item_ok`, same logic): the error step must be inexplicable by any other single
+  misconception, and the true misconception's statement must plainly describe it
+  (`lookalike.error_step_rules`). Every draw that reached `item_ok` also rendered Type 2 cleanly (0
+  drops, 1885 expression draws for 240 traces). Item fields: `base_id` (`T000`..`T239`),
+  `misconception`, `error_position`, `expression`, `n_ops`, `trace` (all 7 lines), `student_name`,
+  `type2` (`{'right':..., 'wrong':...}`). No answer-leak concern the way the old pool had one
+  (`misconception` is meant to be used, not hidden, since helpfulness is structural): but it should
+  still never be shown verbatim to a participant, since a Type 1/3 "right" or "wrong" pick is what
+  actually communicates it.
+- **`verify_advice.py`**: independent re-derivation (`cd base-task && python3 verify_advice.py`, a few
+  seconds) of every trace's error step and `item_ok`, a fresh `render_type2` compared byte-for-byte to
+  the stored one, and bank integrity (12 / 72 distinct sentences, right != wrong everywhere,
+  `outside_bracket_first` is the only bank whose right sentences mention "bracket"). **ALL CHECKS
+  PASSED in this repo on 2026-09-16.**
+- **Not done yet:** the sampler (Python + JS, drawing the 24-trial form via the table above and
+  picking which bank/entry to show per trial), copying the pool into `src/user/data/`, and wiring
+  `TraceJudgmentView.vue` / `PracticeView.vue` to render advice instead of a belief statement.
+
+**Still open:**
+
 4. **Screens and text.** Trial question (e.g. "Is this advice helpful?"), instructions, quiz,
    practice items with feedback, strategy question, debrief. The user wants participant text short.
-5. **The ideal observer's role.** It currently answers "does the student hold rule R?" (§4). If
-   helpful advice is advice about the held rule, the same marginal answers "is this advice
-   helpful?"; otherwise it needs a new definition.
+   Draft wording for instructions / quiz / strategy question was proposed 2026-09-16 (not yet applied
+   to the Vue files); practice items explicitly deferred at the user's request ("leave practice for
+   now").
+5. **The ideal observer's role.** It currently answers "does the student hold rule R?" (§4). Since
+   helpfulness is now structural (which bank an item came from), the marginal is no longer the
+   definition of ground truth; still deciding whether it stays as a recorded covariate (like
+   `error_position`) or is dropped from the advice design.
 
 ### Inherited design (Experiment 2's, as it stands in this copy)
 - **Error position is NOT selected.** Each trace is drawn the way the learner would produce it (§3),
@@ -464,11 +548,14 @@ npm run upload_config                      # push deploy secrets from env/*.loca
 
 ## 9. What is next
 
-1. **Design Experiment 3 with the user** (§0 "What Experiment 3 still needs"): the advice items and
-   what makes one helpful, hidden lines or full work, the form, the screens and text, the observer's
-   role. Finish that discussion before writing code.
-2. **Build it**: advice items (in the pool or derived from it) with a verifier; the sampler in both
-   languages with parity; the trial screen, practice items, instructions, quiz and strategy question.
+1. **Design Experiment 3 with the user** (§0 "What Experiment 3 still needs"): advice content, hidden
+   lines vs. full work, the form, and the sampling table are decided (2026-09-16). Screens/text and
+   the observer's role are still open (§0 items 4-5).
+2. **Build it.** Done: the advice pool (`base-task/pool_advice.py` + `advice_content.py`, verified by
+   `verify_advice.py`, §0). Not done: the 24-trial sampler in both languages with parity (reusing the
+   table in §0 item 3), copying the pool into `src/user/data/`, the trial screen and practice view
+   rendering advice instead of a belief statement, and the instructions/quiz/strategy-question text
+   (draft proposed 2026-09-16, not yet applied).
 3. Deploys are set up (§1, done 2026-09-16). After building, push, and verify the live bundle
    contains the advice task.
 4. The §7 checklist.

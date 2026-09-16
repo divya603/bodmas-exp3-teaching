@@ -3,8 +3,9 @@ import { ref, watch, onBeforeUnmount } from 'vue'
 import useViewAPI from '@/core/composables/useViewAPI'
 import { Button } from '@/uikit/components/ui/button'
 import { ConstrainedTaskWindow } from '@/uikit/layouts'
-import pool from '@/user/data/stimulus_pool.json'
-import { sampleForm, randomSeed } from '@/user/utils/sampleForm'
+import pool from '@/user/data/stimulus_pool_advice.json'
+import adviceBanks from '@/user/data/advice_banks.json'
+import { sampleFormAdvice, randomSeed } from '@/user/utils/sampleFormAdvice'
 import { useMouseTracking } from '@/user/utils/useMouseTracking'
 import YesNoButtons from '@/user/components/trace_judgment/YesNoButtons.vue'
 
@@ -19,24 +20,15 @@ const mouse = useMouseTracking()
 if (!api.persist.isDefined('formSeed')) {
   api.persist.formSeed = randomSeed()
 }
-const form = sampleForm(pool, api.persist.formSeed)
+const form = sampleFormAdvice(pool, adviceBanks.type1, adviceBanks.type3, api.persist.formSeed)
 
 const trials = api.steps.append(form.map((item) => ({ ...item })))
 trials.append([{ id: 'summary' }])
 
-// Experiment 2: one line of the work, trace[hidden_line], is hidden. Nothing is
-// shown in its place; the work simply goes from the line before to the line
-// after (the instructions say one step is skipped). trace[0] is the expression,
-// shown above.
-function shownWork(item) {
-  return item.trace.filter((_, i) => i !== item.hidden_line).slice(1)
-}
-
 // ── bonus scoring ───────────────────────────────────────────────────
-// The answer is YES or NO (since 2026-09-16; Experiment 1 used a 6-point
-// scale). YES = agree. Each trial is scored against the item's ground-truth
-// direction (statement_correct). The performance bonus is rescaled so chance
-// (50%) earns $0 and perfect earns MAX_BONUS.
+// The answer is YES or NO. YES = the advice is helpful. Each trial is scored
+// against the item's ground truth (advice_correct). The performance bonus is
+// rescaled so chance (50%) earns $0 and perfect earns MAX_BONUS.
 const MAX_BONUS = 2.0
 const CHANCE = 0.5
 
@@ -44,11 +36,9 @@ if (!api.persist.isDefined('nScored')) api.persist.nScored = 0
 if (!api.persist.isDefined('nCorrect')) api.persist.nCorrect = 0
 
 function scoreResponse(response) {
-  const respondedAgree = response === 'yes'
-  const correctAgree = api.stepData.statement_correct === true
-  const isCorrect = respondedAgree === correctAgree
-  api.stepData.responded_agree = respondedAgree
-  api.stepData.correct_agree = correctAgree
+  const respondedHelpful = response === 'yes'
+  const isCorrect = respondedHelpful === api.stepData.advice_correct
+  api.stepData.responded_helpful = respondedHelpful
   api.stepData.is_correct = isCorrect
   api.persist.nScored = api.persist.nScored + 1
   if (isCorrect) api.persist.nCorrect = api.persist.nCorrect + 1
@@ -63,8 +53,8 @@ function computeBonus() {
 
 // ── read-before-answer lock ─────────────────────────────────────────
 // Ignore answers (buttons and keys) for the first UNLOCK_DELAY_MS of each trial
-// so participants actually read the expression, work, and belief statement
-// before answering. Re-arms on every new trial.
+// so participants actually read the expression, work, and advice before
+// answering. Re-arms on every new trial.
 const UNLOCK_DELAY_MS = 3000
 const locked = ref(false)
 const remaining = ref(0)
@@ -179,15 +169,16 @@ function finish() {
         Here is the final answer {{ api.stepData.student_name }} produced, along with their work:
       </p>
       <div class="font-mono text-base mb-5 space-y-1">
-        <p v-for="(step, i) in shownWork(api.stepData)" :key="i">= {{ step }}</p>
+        <p v-for="(step, i) in api.stepData.trace.slice(1)" :key="i">= {{ step }}</p>
       </div>
 
+      <p class="text-muted-foreground mb-2">Here is some advice {{ api.stepData.student_name }} was given:</p>
       <div class="border border-yellow-300 bg-yellow-50 rounded-lg p-4 mb-5">
-        <p class="italic text-yellow-800">{{ api.stepData.belief_statement }}</p>
+        <p class="italic text-yellow-800">{{ api.stepData.advice_text }}</p>
       </div>
 
       <p class="font-semibold mb-4">
-        Is this what the student believes?
+        Is this advice helpful?
         <span v-if="locked" class="ml-1 text-sm font-normal text-muted-foreground">
           (please read the work above: {{ remaining }}s)
         </span>

@@ -4,6 +4,8 @@
 // sides randomized by the sampler), a click to choose, then a 0-100 confidence
 // slider and Next. The choice can be changed until Next. No manipulation check
 // (dropped by the user 2026-10-02), no correctness, no performance bonus.
+// Hovering a problem card highlights its error step (ERROR_HIGHLIGHT below);
+// hover time per card is logged.
 import { ref, computed, watch } from 'vue'
 import useViewAPI from '@/core/composables/useViewAPI'
 import { Button } from '@/uikit/components/ui/button'
@@ -17,6 +19,10 @@ import { mathText } from '@/user/utils/mathText'
 
 const api = useViewAPI()
 const mouse = useMouseTracking()
+
+// error-step highlighting: 'none' | 'hover' | 'always' (see StudentWork.vue).
+// 'hover' is the nudge: participants judge advice, not hunt for the error.
+const ERROR_HIGHLIGHT = 'hover'
 
 // sample once, persist the seed so a reload mid-experiment keeps the same list
 if (!api.persist.isDefined('trialSeed')) api.persist.trialSeed = randomSeed()
@@ -34,6 +40,28 @@ const confidenceTouched = ref(false)
 let firstChoiceMs = null
 let choiceMs = null
 let nChoiceChanges = 0
+let hoverMs = [0, 0, 0] // total hover time per problem card
+let hoverStart = {} // problem -> elapsed ms when the pointer entered
+
+function onHover({ problem, entering }) {
+  const t = api.elapsedTime()
+  if (entering) hoverStart[problem] = t
+  else if (hoverStart[problem] !== undefined) {
+    hoverMs[problem - 1] += t - hoverStart[problem]
+    delete hoverStart[problem]
+  }
+}
+
+// close any open hover at submit, then summarize
+function hoverSummary() {
+  for (const p of Object.keys(hoverStart)) onHover({ problem: Number(p), entering: false })
+  const errorProblems = api.stepData.problems.filter((p) => p.is_error).map((p) => p.problem_index)
+  return {
+    hover_ms_by_problem: hoverMs.map(Math.round),
+    hovered_any: hoverMs.some((ms) => ms > 0),
+    hovered_error_problem: errorProblems.some((p) => hoverMs[p - 1] > 0),
+  }
+}
 
 function resetTrial() {
   chosenSide.value = null
@@ -42,6 +70,8 @@ function resetTrial() {
   firstChoiceMs = null
   choiceMs = null
   nChoiceChanges = 0
+  hoverMs = [0, 0, 0]
+  hoverStart = {}
   api.startTimer()
   mouse.reset()
 }
@@ -74,7 +104,7 @@ function record(side, conf, rt) {
     choose_policy: opt.scope === 'policy',
     confidence: conf,
     ...rt,
-    highlight_errors: false,
+    highlight_errors: ERROR_HIGHLIGHT,
     counterbalance_id: api.persist.trialSeed,
   })
 }
@@ -86,6 +116,7 @@ function submit() {
     first_choice_rt_ms: firstChoiceMs,
     submit_rt_ms: api.elapsedTime(),
     n_choice_changes: nChoiceChanges,
+    ...hoverSummary(),
   })
   api.stepData.mouse = mouse.getPoints()
   api.recordStep()
@@ -101,6 +132,9 @@ function autofill() {
         first_choice_rt_ms: rt,
         submit_rt_ms: rt + 2500,
         n_choice_changes: 0,
+        hover_ms_by_problem: [0, 0, 0],
+        hovered_any: false,
+        hovered_error_problem: false,
       })
     }
     api.recordStep()
@@ -128,7 +162,12 @@ function finish() {
         <span class="text-xs text-muted-foreground">{{ api.stepIndex + 1 }} of {{ trialList.length }}</span>
       </div>
 
-      <StudentWork :problems="api.stepData.problems" class="mb-5" />
+      <StudentWork
+        :problems="api.stepData.problems"
+        :highlight="ERROR_HIGHLIGHT"
+        class="mb-5"
+        @hover="onHover"
+      />
 
       <p class="font-semibold mb-3">
         Which advice would best help {{ api.stepData.student_name }} get future problems right?

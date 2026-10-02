@@ -17,6 +17,8 @@ Per problem:
                single misconception; its surface reads as this misconception
   diagnostic   misconceived answer != correct answer
   same prefix  both traces agree on every line before the error step
+  aligned      each step's result is centred under the operator that made it,
+               and no line leaves the expression's width
   advice       wrong_move / right_move recompute identically; the problem is
                never one of the example-advice expressions
                (src/user/data/advice_exp3.json)
@@ -58,6 +60,40 @@ def one_step(line, rules):
     return {dag_to_str(d) for d in _next_dags(build_dag(line), list(rules))}
 
 
+def check_offsets(trace, offs, where):
+    """Re-derive alignment independently of line_offsets: for each step, find
+    the one operator whose evaluation gives the next line (by brute force over
+    every operator character), and check the produced number's centre sits
+    under it. Also every line stays inside the expression's width."""
+    check(len(offs) == len(trace) and offs[0] == 0, f'{where}: offsets shape')
+    width = len(trace[0])
+    for k in range(1, len(trace)):
+        prev, nxt = trace[k - 1], trace[k]
+        lit = []
+        for c, ch in enumerate(prev):
+            if ch not in '+-×÷':
+                continue
+            l = re.search(r'(\d+) $', prev[:c]); r = re.match(r' (\d+)', prev[c + 1:])
+            if not (l and r):
+                continue
+            a, b = int(l.group(1)), int(r.group(1))
+            v = {'+': a + b, '-': a - b, '×': a * b, '÷': a // b if b and a % b == 0 else None}[ch]
+            if v is None:
+                continue
+            start, end = c - len(l.group(1)) - 1, c + 1 + len(r.group(1)) + 1
+            if prev[start - 1:start] == '(' and prev[end:end + 1] == ')':
+                start, end = start - 1, end + 1
+            if prev[:start] + str(v) + prev[end:] == nxt:
+                lit.append((c, start, len(str(v))))
+        check(len(lit) == 1, f'{where}: step {k} has {len(lit)} candidate operators')
+        if len(lit) != 1:
+            continue
+        c, start, n = lit[0]
+        check(abs((offs[k] + start + n / 2) - (offs[k - 1] + c + 0.5)) < 1e-9,
+              f'{where}: step {k} result not centred under its operator')
+        check(offs[k] >= 0 and offs[k] + len(nxt) <= width + 1e-9, f'{where}: step {k} outside the expression width')
+
+
 def verify_problem(p, m, where):
     e, cor, mis, k = p['expression'], p['correct_trace'], p['misconceived_trace'], p['error_step']
     check(len(NUM.findall(e)) == 4 and len(OPS.findall(e)) == 3, f'{where}: not 4 numbers / 3 ops: {e}')
@@ -86,6 +122,8 @@ def verify_problem(p, m, where):
     check(p['correct_answer'] == cor[-1] and p['misconceived_answer'] == mis[-1], f'{where}: stored answers stale')
     check(error_window(mis, k, m) == (p['wrong_move'], p['right_move']), f'{where}: advice moves stale')
     check(p['wrong_pair'] in p['wrong_move'] and p['right_pair'] in p['right_move'], f'{where}: bare pairs stale')
+    for name in ('correct', 'misconceived'):
+        check_offsets(p[f'{name}_trace'], p[f'{name}_offsets'], f'{where} {name}')
     check(p['expression'] not in EXAMPLE_EXPRESSIONS, f'{where}: same expression as an example advice')
 
 

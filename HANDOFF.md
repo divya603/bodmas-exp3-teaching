@@ -66,7 +66,13 @@ example); instance option form (flag / correction); misconception (the 6 below).
   or 2, since step 3 has just one operation left.
 - **Slip position** (which problem is wrong): each participant's 6 slip trials use positions 1, 1,
   2, 2, 3, 3, shuffled.
-- **No error highlighting.** Steps are numbered on screen (step 1 to 3 under each problem).
+- **Error highlighting on hover (user decision 2026-10-02, replacing "no highlighting").** Hovering a
+  problem card turns that card's error step pale yellow. A correct card shows nothing. This is a
+  nudge: the task is judging advice, not finding the error. The highlighted line is **"Step k"**, the
+  line holding the wrong result, which uses the same numbering as the flag/correction advice. The
+  mode switch is `ERROR_HIGHLIGHT` in `AdviceChoiceView.vue` (`none` / `hover` / `always`), logged as
+  `highlight_errors`. Hover does not exist on touch devices, so run desktop-only. The instructions
+  must mention the hover. Steps are numbered on screen (step 1 to 3 under each problem).
 
 **Advice (4 per misconception, all correct math; every trial shows 2; wording in
 `src/user/data/advice_exp3.json`, DRAFT, not yet approved by the user).** One option is policy-scoped
@@ -133,7 +139,18 @@ participant) + (1 | misconception)`. Exclusion: failed attention checks.
    problems).**
 2. **Trace renderer: DONE 2026-10-02.** `src/user/components/advice_choice/StudentWork.vue`: 3
    problem cards side by side (stacked on narrow screens), the expression, then "Step 1: = ..." lines.
-   No highlighting. `src/user/utils/mathText.js` is display-only formatting: a true minus sign, and
+   It has a `highlight` prop and emits `hover` events (see Stimuli above).
+   **Layout (user request 2026-10-02):** "PROBLEM n" bold on top; small "Step k" labels in a fixed
+   left column, then "="; the expression and the steps form one block of math, all the same size,
+   and the expression is not bold. **Each step's new number is centred under the operator that
+   produced it** (`1 + 3 × 3` -> `4 × 3` puts the 4 under the +). Each line shifts as a whole by
+   `offsets[k]` character widths, precomputed by `stimuli_exp3.line_offsets` and stored as
+   `correct_offsets` / `misconceived_offsets`. `verify_stimuli_exp3.check_offsets` re-derives the
+   fired operator by brute force and checks the centring and the width bound. Every character is
+   drawn in its own 1ch cell, so a font that draws ×, ÷ or − at another width can't break the
+   alignment. Adding this rejected 1 ambiguous draw (`2 × 1 × 2 -> 2 × 2`, where either × fits),
+   which shifted the RNG, so some later pool problems differ from the first deployed pool. No data
+   depends on that pool. A stale saved session without `offsets` falls back to no shift. `src/user/utils/mathText.js` is display-only formatting: a true minus sign, and
    non-breaking spaces so an expression never wraps mid-way.
 3. **Advice data file: DONE (wording DRAFT).** `src/user/data/advice_exp3.json`: rule, example and
    `example_expression` per misconception, plus the flag/correction templates. Every example is
@@ -147,7 +164,8 @@ participant) + (1 | misconception)`. Exclusion: failed attention checks.
    There is no correctness, no performance bonus and no read lock. Recorded per trial: everything the
    sampler gives, plus `choice`, `choice_side`, `choice_scope`, `choice_form`, `choose_policy`,
    `confidence`, `rt_ms` (time to the final choice click), `first_choice_rt_ms`, `submit_rt_ms`,
-   `n_choice_changes`, `highlight_errors` (false), `counterbalance_id` (the persisted sampler seed
+   `n_choice_changes`, `hover_ms_by_problem` ([ms, ms, ms]), `hovered_any`, `hovered_error_problem`,
+   `highlight_errors` (`'hover'`), `counterbalance_id` (the persisted sampler seed
    `trialSeed`) and the `mouse` path. Checked in the dev server: the screen renders, choice/slider/Next
    work, the state resets between trials, and every field lands in the store.
    **Still stale on the site:** instructions, quiz and strategy text (old YES/NO wording), the payrate

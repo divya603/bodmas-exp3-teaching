@@ -71,6 +71,7 @@ function buildProblems(set, errorType, slipPosition) {
       problem_index: p.problem_index,
       expression: p.expression,
       lines: isError ? p.misconceived_trace : p.correct_trace,
+      offsets: isError ? p.misconceived_offsets : p.correct_offsets,
       is_error: isError,
       error_step: isError ? p.error_step : null,
     }

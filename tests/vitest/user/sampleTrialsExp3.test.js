@@ -66,6 +66,7 @@ describe('sampleTrialsExp3, per participant', () => {
         t.problems.forEach((p, i) => {
           const src = set.problems[i]
           expect(p.lines).toEqual(p.is_error ? src.misconceived_trace : src.correct_trace)
+          expect(p.offsets).toEqual(p.is_error ? src.misconceived_offsets : src.correct_offsets)
         })
         const wrong = t.problems.filter((p) => p.is_error).map((p) => p.problem_index)
         expect(wrong).toEqual(t.error_type === 'systematic' ? [1, 2, 3] : [t.slip_position])

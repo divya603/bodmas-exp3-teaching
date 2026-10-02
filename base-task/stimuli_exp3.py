@@ -44,6 +44,7 @@ from generator_constrained import generate_expression, validate_trace, error_ste
 from find_pairs import usable_traces
 from pool_advice import item_ok
 from advice_content import error_window
+from lookalike import _TOKEN, _fired
 
 IDS = list(MISCONCEPTION_FLIPS.keys())
 
@@ -97,6 +98,31 @@ def correct_trace_for(expr, misconceived):
     return best
 
 
+def line_offsets(trace):
+    """Horizontal offset of each displayed line, in character widths (monospace),
+    so that the number a step produces sits centred under the operator that
+    produced it, e.g.
+        1 + 3 × 3
+          4 × 3        <- the 4 under the +
+    Line 0 (the expression) is at 0. Each later line keeps its own internal
+    spacing and shifts as a whole. Because every step is a single operation, the
+    fired operator is unique (lookalike._fired); raises ValueError otherwise."""
+    offs = [0.0]
+    for k in range(1, len(trace)):
+        ps = list(_TOKEN.finditer(trace[k - 1]))
+        ns = list(_TOKEN.finditer(trace[k]))
+        hits = _fired([t.group() for t in ps], [t.group() for t in ns])
+        if len(hits) != 1:
+            raise ValueError(f'step {k} is not one clean operation: {trace[k - 1]!r} -> {trace[k]!r}')
+        i = hits[0]
+        # a bracket reduced to one number also drops its two parentheses
+        j = i - 1 if len(ns) == len(ps) - 2 else i - 2
+        op_centre = ps[i].start() + 0.5
+        res_centre = (ns[j].start() + ns[j].end()) / 2
+        offs.append(offs[-1] + op_centre - res_centre)
+    return offs
+
+
 def sample_misconceived(expr, m, rng):
     """One usable single-error learner trace, drawn with the learner's own path
     probabilities (same draw as find_pairs.sample_trace, at N_OPS)."""
@@ -135,6 +161,7 @@ def make_problem(expr, m, rng):
         return None, 'not diagnostic'
     try:
         wrong_move, right_move = error_window(mis, k, m)
+        cor_offsets, mis_offsets = line_offsets(cor), line_offsets(mis)
     except ValueError as e:
         return None, f'error step not a clean move: {e}'
     return {
@@ -147,6 +174,8 @@ def make_problem(expr, m, rng):
         'right_move':          right_move,   # e.g. 'do 4 × 2 first'
         'wrong_pair':          bare_pair(wrong_move),   # e.g. '3 + 4'
         'right_pair':          bare_pair(right_move),   # e.g. '4 × 2'
+        'correct_offsets':     cor_offsets,   # display alignment, see line_offsets
+        'misconceived_offsets': mis_offsets,
         'correct_answer':      cor[-1],
         'misconceived_answer': mis[-1],
     }, None

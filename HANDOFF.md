@@ -13,32 +13,160 @@ conversation history.
 ## 0. What this repo is
 
 **Repo:** `divya603/bodmas-exp3-teaching` (GitHub, public; created empty by the user on 2026-09-16).
-**Experiment 3 of 3.** In the user's words: participants are asked whether **advice given to the
-student is helpful, YES or NO**. The student's step-by-step work contains one order-of-operations
-misconception, as in Experiments 1 and 2.
+**Experiment 3 of 3: advice-scope choice (design v2, agreed 2026-10-02).** Each trial shows one
+student's step-by-step work on 3 problems, plus two pieces of correct advice. The participant
+clicks the one that would best help the student. Research question: do people choose advice whose
+**scope** matches the type of error, i.e. policy advice for a systematic error and instance advice
+for a slip?
 
-**Status (2026-09-16): SEEDED ONLY. The Experiment 3 design is NOT decided.**
-- The repo is a copy of Experiment 2 (`divya603/bodmas-exp2-hidden`) at its commit `b26eb7a`, with
-  fresh git history (one initial commit). The user chose Experiment 2's stimulus pool (v6) over
-  Experiment 1's (v5).
-- What works as inherited: the v6 pool (verified, §3), the learner model, the Bayesian ideal
-  observer with hidden-step inference (§4, §5), the 24-trial sampler in JS and Python (§7), and a
-  complete Smile web experiment (§7).
-- **Everything task-specific is still Experiment 2's**: the trial screen shows a belief statement
-  ("Tara believes addition should be done before multiplication.") with one line of the work hidden,
-  the instructions say "one step skipped", and the practice items, quiz and sampler are built for
-  belief judgments with easy / medium / hard hidden lines. None of it asks about advice yet.
-- Deploys are set up (§1, 2026-09-16): secrets uploaded, first real deploy verified. The live URL
-  serves Experiment 2's task until the advice task is built; do not share it.
-- Not done: the Experiment 3 design (§9), anything about advice. No human or LLM data exist.
+**Status (2026-10-02): design v2 is decided, including sampling (12 trials). Built and tested: the
+pool (build step 1), the advice file (step 3; wording still DRAFT) and the sampler (step 5). The
+frontend (steps 2, 4, 6, 7) is next. The user expects many iterations on it.** The 2026-09-16 design (YES/NO "is this
+advice helpful?", 24 trials, Type 1/2/3 right/wrong banks) is **superseded**. Its code is still in
+the repo (`pool_advice.py`, `advice_content.py`, `sample_form_advice.*`, `verify_advice.py`,
+`TraceJudgmentView.vue`, `src/user/data/stimulus_pool_advice.json` and `advice_banks.json`), and
+the live deploy still serves it. Reused from it: `pool_advice.item_ok` (the "error step is unique to
+this misconception" gate) and `advice_content.error_window` (finds the wrong move and the correct
+move at the error step). The rest gets retired once v2 is wired up.
+- The repo is a copy of Experiment 2 (`divya603/bodmas-exp2-hidden`) at commit `b26eb7a`, with
+  fresh history. The learner model, the 6 misconceptions and the Smile web app are inherited (§3, §7).
+- Deploys are set up (§1). Do not share the live URL. No human or LLM data exist.
 
 Provenance: Experiment 1 (`divya603/bodmas-exp1-position`) was split out of the archive repo
-`divya603/bodmas-model`; Experiment 2 was seeded from Experiment 1 and rebuilt its pool (v6) with
-natural error positions and hidden-line versions; this repo was seeded from Experiment 2. Nothing is
-linked: **a change in Experiment 1 or 2 (model code, pool, screens) does not reach this repo**, and
+`divya603/bodmas-model`. Experiment 2 was seeded from Experiment 1. This repo was seeded from
+Experiment 2. Nothing is linked: **a change in Experiment 1 or 2 does not reach this repo**, and
 vice versa.
 
-### What Experiment 3 still needs (decide with the user before building)
+### Design v2 (agreed with the user 2026-10-02)
+
+**Hypotheses.** H1: P(choose policy advice) is higher for systematic traces than for slip traces.
+H2: for slips, the instance preference is stronger when the instance option is a flag than when it
+is a correction. H3 (exploratory): rule vs example form shifts P(policy), possibly by misconception.
+
+**Factors (all within subject).** Error type (systematic / slip); policy option form (rule /
+example); instance option form (flag / correction); misconception (the 6 below).
+
+**Stimuli (decided).**
+- **A pool of 20 sets per misconception** (120 sets, 360 problems, every expression distinct). Each
+  set has 3 problems, and each participant draws from the pool. Every problem has **4 numbers and 3
+  operators** (e.g. `1 + 3 × 4 - 7`).
+- Brackets appear only for `outside_bracket_first`, and **only as the right-hand operand**,
+  `a ± b ×/÷ (c op d)` (user decision). The bracket must change the answer, so there are no
+  redundant brackets. Consequence: every `outside_bracket_first` error is at step 1 (the student's
+  first move), and it also visibly reads as "+/− before ×/÷", since that is how the misconception
+  is defined.
+- **Positive whole numbers on every line**, so arithmetic never reads as a slip.
+- **Systematic version:** all 3 problems solved with the misconception. **Slip version:** the same 3
+  problems, 2 solved correctly and 1 with the misconception. The wrong problem's work is identical to
+  its systematic version.
+- **Exactly one misconception per trial, and it fires at exactly ONE step in each erroneous problem**
+  (user requirement: the flag and correction point at "step k", which breaks if the misconception
+  fires twice). So a slip trial has 1 wrong step and a systematic trial has 3.
+- **Error position is natural**, not hard-coded. With 3 operators the error can only fall at step 1
+  or 2, since step 3 has just one operation left.
+- **Slip position** (which problem is wrong): each participant's 6 slip trials use positions 1, 1,
+  2, 2, 3, 3, shuffled.
+- **No error highlighting.** Steps are numbered on screen (step 1 to 3 under each problem).
+
+**Advice (4 per misconception, all correct math; every trial shows 2; wording in
+`src/user/data/advice_exp3.json`, DRAFT, not yet approved by the user).** One option is policy-scoped
+(rule or example) and the other instance-scoped (flag or correction), giving 4 pairings. Left/right
+position is randomized per trial.
+- rule: a general rule, written per misconception, e.g. "Do multiplication before addition."
+- example: correct handling of a SHORT new 3-number expression, e.g. "If you see 2 + 3 × 5, do 3 × 5
+  first." It must be an expression where the misconception would also err, and not one of the 3 shown.
+- flag: location only, e.g. "Look again at step 2 of problem 3."
+- correction: location plus the correct move, e.g. "In problem 3, step 2, you should have done 1 × 2
+  before 17 + 1."
+- flag and correction always point at the first erroneous step of the first erroneous problem (so in
+  systematic trials they address only 1 of the 3 errors, which is intended). Both are filled from
+  templates at runtime. Keep all four similar in length and tone. Rule and example wording for
+  `same_priority_rtl` and `outside_bracket_first` will be drafted by the agent, for user approval.
+
+**Per participant: 12 trials (user decision 2026-10-02).** Each misconception appears once
+systematic and once slip, on 2 DIFFERENT sets (so no problem repeats). Each of the 4 pairings
+appears 3 times, randomly assigned to trials. The user explicitly does NOT want pairing balanced
+against error type or misconception ("as long as all combinations come it's ok"). Left/right is
+random. Order is random, with no misconception on consecutive trials. Balance across participants
+holds in expectation only (no Smile counter). 24 trials would be the smallest count that balances
+pairing × error type exactly; the user chose 12.
+
+**Trial.** The trace for 3 problems, then the 2 advice options, chosen **by mouse click** (no keys).
+Prompt: **"Which advice would best help this student get future problems right?"** (the user chose
+this "future problems" wording over "fix their error"). Then a **confidence slider, 0 to 100**. **No
+manipulation check** (dropped by the user 2026-10-02).
+
+**Other screens.** Consent, instructions (traces + order-of-operations rules), trials with 2 embedded
+attention checks, then the end survey (free text "How did you decide...?", demographics, math
+comfort, teaching/tutoring experience). **No practice trials for now** (the user will add them later).
+
+**Logging.** One row per trial: participant_id, trial_index, misconception_id, error_type,
+slip_position, policy_option, instance_option, left_option, right_option, choice, choice_scope,
+choice_form, rt_ms, confidence, highlight_errors, counterbalance_id (see build step 4 for the
+full list). Plus one
+participant-level row (counterbalance assignment, attention checks, free text, demographics, total time).
+
+**Analysis.** `choose_policy ~ error_type * policy_form * instance_form + (1 + error_type |
+participant) + (1 | misconception)`. Exclusion: failed attention checks.
+
+**Still open:**
+1. Advice wording approval (the drafts are in `advice_exp3.json`).
+2. Attention checks: what they look like and where they go (not in the sampler yet).
+3. N, platform, pay and an RT exclusion rule (on hold).
+4. Practice trials (later).
+
+### Build order and progress
+1. **Stimulus pool: DONE 2026-10-02.** `base-task/stimuli_exp3.py [--show]` writes
+   `base-task/stimuli_exp3.json` and the frontend copy `src/user/data/stimuli_exp3.json` (20 sets x 6
+   misconceptions x 3 problems, seed 2026, under a second to build). Capacity is not a problem: 430
+   (`outside_bracket_first`) to 11,368 (`add_before_mul`) valid problems exist per misconception. Each problem stores
+   `correct_trace`, `misconceived_trace`, `error_step`, `wrong_move`/`right_move` (from
+   `error_window`), `wrong_pair`/`right_pair` (the bare pairs the correction template uses), and
+   both answers. The misconceived trace is drawn
+   with the learner's own path probabilities (`usable_traces` at `n_ops=3`; note `find_pairs.sample_trace`
+   hardcodes `n_ops=6`, so don't call it). The correct trace is the expert trace sharing the longest
+   prefix with it. `python3 verify_stimuli_exp3.py` independently checks shape, clean numbers,
+   expert-legality of the correct trace, **exactly one expert-illegal step** in the misconceived trace
+   (tested: it catches a planted double-firing trace), learner-legality of every step, uniqueness of
+   the error step to its misconception, diagnosticity, a shared prefix, and the advice moves. It also checks right-hand answer-changing brackets, no overlap with the example
+   expressions, and that the frontend copy is identical. **ALL CHECKS PASSED (120 sets, 360
+   problems).**
+2. **Trace renderer: DONE 2026-10-02.** `src/user/components/advice_choice/StudentWork.vue`: 3
+   problem cards side by side (stacked on narrow screens), the expression, then "Step 1: = ..." lines.
+   No highlighting. `src/user/utils/mathText.js` is display-only formatting: a true minus sign, and
+   non-breaking spaces so an expression never wraps mid-way.
+3. **Advice data file: DONE (wording DRAFT).** `src/user/data/advice_exp3.json`: rule, example and
+   `example_expression` per misconception, plus the flag/correction templates. Every example is
+   checked to be one the misconception gets wrong. Flag/correction are filled by the sampler.
+4. **Trial screen: DONE 2026-10-02 (first version, the user will iterate).**
+   `src/user/components/advice_choice/AdviceChoiceView.vue`, wired into `design.js` as the `exp` view
+   (replacing `TraceJudgmentView`). Practice is removed from the timeline. Layout: the work, the prompt,
+   two clickable advice cards (no type labels; the choice can be changed until Next), then after the
+   first pick a 0-100 confidence slider (no fill, thumb hidden until touched, so no implied default)
+   and Next (enabled once both are done). **The manipulation check is DROPPED (user, 2026-10-02).**
+   There is no correctness, no performance bonus and no read lock. Recorded per trial: everything the
+   sampler gives, plus `choice`, `choice_side`, `choice_scope`, `choice_form`, `choose_policy`,
+   `confidence`, `rt_ms` (time to the final choice click), `first_choice_rt_ms`, `submit_rt_ms`,
+   `n_choice_changes`, `highlight_errors` (false), `counterbalance_id` (the persisted sampler seed
+   `trialSeed`) and the `mouse` path. Checked in the dev server: the screen renders, choice/slider/Next
+   work, the state resets between trials, and every field lands in the store.
+   **Still stale on the site:** instructions, quiz and strategy text (old YES/NO wording), the payrate
+   text (mentions a bonus), and `estimated_time`.
+5. **Sampler: DONE 2026-10-02.** `src/user/utils/sampleTrialsExp3.js` (`sampleTrialsExp3(pool,
+   advice, seed, config)`, seeded mulberry32 like the old sampler; persist the seed). Each trial gives
+   misconception, set, error type, slip position, policy/instance option, left/right, the options
+   with filled text, the 3 displayed problems (`lines`, `is_error`, `error_step`), the target
+   problem/step, and the student name. `CONFIG.trialsPerMisconceptionPerErrorType = 2` gives 24.
+   Tests: `npx vitest run tests/vitest/user/sampleTrialsExp3.test.js` (12 tests over 2,000 seeds:
+   counts, pairings 3 each, slip positions 2/2/2, no consecutive repeats, correct lines shown,
+   flag/correction text, every set seen in both error types). **All pass.** No Python twin.
+6. Full flow: consent, instructions, trials, attention checks, end survey.
+7. Data logging, then a self-pilot that checks every field.
+
+### Superseded 2026-09-16 design (kept for reference; replaced by design v2 above)
+
+The detail below describes the Type 1/2/3 YES/NO design and its code. It is no longer the plan.
+
 
 **Decided so far (2026-09-16, design discussion, not yet built):**
 
@@ -565,16 +693,12 @@ npm run upload_config                      # push deploy secrets from env/*.loca
 
 ## 9. What is next
 
-1. **Design Experiment 3 with the user** (§0 "What Experiment 3 still needs"): advice content, hidden
-   lines vs. full work, the form, and the sampling table are decided (2026-09-16). The observer's role
-   (§0 item 5) is still open; screens/text is open only for practice items (§0 item 4).
-2. **Build it.** Done and deployed 2026-09-16: the advice pool, the sampler (both languages, parity
-   verified), `TraceJudgmentView.vue`, and the instructions/quiz/strategy-question text (§0). **Not
-   done: practice items** — still the old belief-judgment `practice_items.json` and
-   `PracticeView.vue` text, inconsistent with the rest of the now-live task.
-3. Deploys are set up (§1, done 2026-09-16) and the advice task is live in the deployed bundle
-   (§1, push `795dcb2`, verified 2026-09-16). Do not share the URL yet: practice is still stale and
-   the §7 checklist is untouched.
+1. **Design v2 is agreed (2026-10-02, §0)**, including 12 trials per participant. Still open: advice
+   wording approval and attention-check design.
+2. **Build v2 in the §0 build order.** Done: pool, advice file (draft wording), sampler. Next: the
+   trial screen and trace renderer (steps 2 and 4), then the full flow. The user will iterate a lot
+   on the frontend.
+3. The live deploy still serves the superseded 2026-09-16 YES/NO task. Do not share the URL.
 4. The §7 checklist (Prolific code, consent/debrief sign-off with the PI, end-to-end Prolific URL
    test, fresh bonus ledger) — none of it done yet.
 

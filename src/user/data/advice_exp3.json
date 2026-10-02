@@ -1,0 +1,39 @@
+{
+ "_note": "Experiment 3 advice (design v2, HANDOFF §0). DRAFT wording 2026-10-02, not yet approved by the user. rule and example are fixed per misconception; flag and correction are templates filled per trial with the first erroneous problem {problem}, its error step {step}, and that step's {right_pair} / {wrong_pair} from src/user/data/stimuli_exp3.json. Every example_expression is one the misconception gets wrong, and no pool problem uses it (checked by base-task/verify_stimuli_exp3.py).",
+ "templates": {
+  "flag": "You should look again at step {step} of problem {problem}.",
+  "correction": "In problem {problem}, step {step}, you should have done {right_pair} before {wrong_pair}."
+ },
+ "by_misconception": {
+  "add_before_mul": {
+   "rule": "You should do multiplication before addition.",
+   "example": "If you see 2 + 3 × 5, you should do 3 × 5 first.",
+   "example_expression": "2 + 3 × 5"
+  },
+  "add_before_div": {
+   "rule": "You should do division before addition.",
+   "example": "If you see 4 + 8 ÷ 2, you should do 8 ÷ 2 first.",
+   "example_expression": "4 + 8 ÷ 2"
+  },
+  "sub_before_mul": {
+   "rule": "You should do multiplication before subtraction.",
+   "example": "If you see 9 - 2 × 3, you should do 2 × 3 first.",
+   "example_expression": "9 - 2 × 3"
+  },
+  "sub_before_div": {
+   "rule": "You should do division before subtraction.",
+   "example": "If you see 10 - 6 ÷ 2, you should do 6 ÷ 2 first.",
+   "example_expression": "10 - 6 ÷ 2"
+  },
+  "same_priority_rtl": {
+   "rule": "When operations have the same priority, you should work left to right.",
+   "example": "If you see 9 - 4 + 2, you should do 9 - 4 first.",
+   "example_expression": "9 - 4 + 2"
+  },
+  "outside_bracket_first": {
+   "rule": "You should work out what is inside brackets first.",
+   "example": "If you see 2 + 3 × (4 + 1), you should do 4 + 1 first.",
+   "example_expression": "2 + 3 × (4 + 1)"
+  }
+ }
+}

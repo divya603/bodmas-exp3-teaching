@@ -28,8 +28,7 @@ import WindowSizerView from '@/builtins/windowSizer/WindowSizerView.vue'
 
 // 2. Import user View components
 import InstructionsView from '@/user/components/trace_judgment/InstructionsView.vue'
-import PracticeView from '@/user/components/trace_judgment/PracticeView.vue'
-import TraceJudgmentView from '@/user/components/trace_judgment/TraceJudgmentView.vue'
+import AdviceChoiceView from '@/user/components/advice_choice/AdviceChoiceView.vue'
 import StrategyQuestionView from '@/user/components/trace_judgment/StrategyQuestionView.vue'
 import TaskFeedbackSurveyView from '@/user/components/TaskFeedbackSurveyView.vue'
 
@@ -188,13 +187,8 @@ timeline.pushSeqView({
   },
 })
 
-// practice trials: 3 fixed items (base-task/practice.py) answered like real
-// trials, each followed by feedback (the erroneous step highlighted + the right
-// answer explained). Not scored toward the bonus.
-timeline.pushSeqView({
-  name: 'practice',
-  component: PracticeView,
-})
+// practice trials: none for now (design v2, user decision 2026-10-02; to be
+// added later). The old belief-judgment PracticeView.vue is unused.
 
 // main experiment
 // note: by default, the path will be set to the name of the view
@@ -202,7 +196,7 @@ timeline.pushSeqView({
 timeline.pushSeqView({
   name: 'exp',
   path: '/experiment',
-  component: TraceJudgmentView,
+  component: AdviceChoiceView, // design v2 trial screen (HANDOFF §0)
 })
 
 // strategy free-response (its own screen, right after the task)

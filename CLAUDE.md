@@ -3,8 +3,9 @@
 1. **Read `HANDOFF.md` first.** It is the complete, current orientation for this repo: what
    Experiment 3 is, what was inherited from Experiment 2 (pool, model, ideal observer, sampler, web
    experiment), setup and deploys, and what is next.
-2. **The Experiment 3 design is NOT decided yet** (HANDOFF §0). Everything task-specific in the repo
-   is still Experiment 2's. Finish the design discussion with the user before writing code.
+2. **The Experiment 3 design is "v2" (HANDOFF §0, agreed 2026-10-02)**, including sampling (12
+   trials). The older 2026-09-16 YES/NO design and its code are superseded.
+   Build in the §0 build order and check open design questions with the user before coding them.
 3. **Keep `HANDOFF.md` current.** As you complete work (scripts, figures, findings, decisions,
    payments, deploys), update its relevant sections incrementally, or at the latest before the
    session ends. The next session must be able to pick up cold from HANDOFF.md alone.

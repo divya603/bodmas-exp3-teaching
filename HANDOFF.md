@@ -716,7 +716,10 @@ npm run upload_config                      # push deploy secrets from env/*.loca
 2. **Build v2 in the §0 build order.** Done: pool, advice file (draft wording), sampler. Next: the
    trial screen and trace renderer (steps 2 and 4), then the full flow. The user will iterate a lot
    on the frontend.
-3. **Design v2 trial screen is live** (push `23528d0`, deploy run 37029062895, verified 2026-10-02:
+3. **Hover highlight + aligned steps + new layout are live** (push `d806553`, deploy run
+   37032355341, verified 2026-10-02: the live bundle has the offsets, the hover logging and the
+   highlight style).
+   Earlier: **design v2 trial screen went live** (push `23528d0`, deploy run 37029062895, verified 2026-10-02:
    the live bundle contains the new prompt, slider and advice text, and no longer contains "Is this
    advice helpful"). The instructions, quiz and strategy text are still the old YES/NO wording. The
    user is reviewing the live link. Do not share the URL with participants.

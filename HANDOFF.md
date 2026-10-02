@@ -698,7 +698,10 @@ npm run upload_config                      # push deploy secrets from env/*.loca
 2. **Build v2 in the §0 build order.** Done: pool, advice file (draft wording), sampler. Next: the
    trial screen and trace renderer (steps 2 and 4), then the full flow. The user will iterate a lot
    on the frontend.
-3. The live deploy still serves the superseded 2026-09-16 YES/NO task. Do not share the URL.
+3. **Design v2 trial screen is live** (push `23528d0`, deploy run 37029062895, verified 2026-10-02:
+   the live bundle contains the new prompt, slider and advice text, and no longer contains "Is this
+   advice helpful"). The instructions, quiz and strategy text are still the old YES/NO wording. The
+   user is reviewing the live link. Do not share the URL with participants.
 4. The §7 checklist (Prolific code, consent/debrief sign-off with the PI, end-to-end Prolific URL
    test, fresh bonus ledger) — none of it done yet.
 

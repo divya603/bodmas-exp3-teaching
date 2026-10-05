@@ -16,10 +16,10 @@ function finish() {
   user's wording (the word "teacher" removed at the user's request): the
   participant checks a student's work on
   three problems, marks each right or wrong, then picks the advice that helps
-  the student learn and do better on the next problems. No bonus, no practice.
-  The numbers mirror the task code: 12 students = the trial count in
-  utils/sampleTrialsExp3.js. Change them together. (Earlier YES/NO wording for
-  the 2026-09-16 design is in git history.)
+  the student learn and do better on the next problems. No bonus. Practice
+  follows the quiz (PracticeView.vue). The trial count ("12 students") is stated
+  on the practice "ready" screen, not here (removed here at the user's request
+  2026-10-05). Earlier YES/NO wording for the 2026-09-16 design is in git history.
 -->
 <template>
   <ConstrainedTaskWindow

@@ -763,7 +763,9 @@ npm run upload_config                      # push deploy secrets from env/*.loca
 2. **Build v2 in the §0 build order.** Done: pool, advice file (draft wording), sampler. Next: the
    trial screen and trace renderer (steps 2 and 4), then the full flow. The user will iterate a lot
    on the frontend.
-3. **"Now the real task" screen live; "12 students" and "not told if marks are correct" lines
+3. **Practice intro reworded (no "kinds of mistakes")** live (push `9b03cbd`, deploy run
+   37335115638, verified 2026-10-05).
+   Earlier: **"Now the real task" screen live; "12 students" and "not told if marks are correct" lines
    removed** (push `376d693`, deploy run 37333148009, verified 2026-10-05 in the live bundle).
    Earlier: **practice + left-to-right pool fix went live** (pushes `66a4d59`, `191c7e5`; deploy run
    37331435224, verified 2026-10-05: the live bundle has the practice screens, and an old flagged

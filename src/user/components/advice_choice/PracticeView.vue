@@ -79,13 +79,10 @@ api.setAutofill(autofill)
   >
     <div v-if="isIntro" class="w-[80%] text-left">
       <h1 class="text-2xl font-bold mb-4">Practice</h1>
-      <p class="text-lg mb-4">
-        Now you will look at a few examples, to see the kinds of mistakes students make.
-      </p>
+      <p class="text-lg mb-4">Now you will practice with a few examples.</p>
       <p class="text-lg mb-4">
         Each example shows a student's work on <strong>one problem</strong>. Check the work and mark it
-        <strong>right</strong> or <strong>wrong</strong>. We will tell you if you are correct and explain the
-        mistake.
+        <strong>right</strong> or <strong>wrong</strong>. We will tell you if you are correct and explain why.
       </p>
       <div class="flex justify-end mt-6">
         <Button id="start-practice" @click="next()">

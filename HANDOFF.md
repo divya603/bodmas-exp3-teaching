@@ -120,7 +120,9 @@ decide...?", demographics, math comfort, teaching/tutoring experience).
 
 **Practice (user decision 2026-10-05; the user may add more items).** It sits after the quiz, so
 failing the quiz (which returns to the instructions) does not repeat practice. An intro screen ("Now
-you will look at a few examples, to see the kinds of mistakes students make...") is followed by **one
+you will practice with a few examples... Check the work and mark it right or wrong. We will tell you
+if you are correct and explain why."; the "kinds of mistakes" framing was dropped 2026-10-05 at the
+user's request, since every item is marked right/wrong) is followed by **one
 problem per item**, shown like a trial card. The work is **already visible** (no Show work step; that
 is for the real trials only, user 2026-10-05). The participant marks it right or wrong. The mark then locks, the error step is highlighted, and feedback says "Correct!" or "Not
 quite." with the mistake explained **either way**. There is no advice choice in practice. Items, in

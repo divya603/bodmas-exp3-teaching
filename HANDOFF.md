@@ -730,7 +730,10 @@ npm run upload_config                      # push deploy secrets from env/*.loca
 2. **Build v2 in the §0 build order.** Done: pool, advice file (draft wording), sampler. Next: the
    trial screen and trace renderer (steps 2 and 4), then the full flow. The user will iterate a lot
    on the frontend.
-3. **Hover highlight + aligned steps + new layout are live** (push `d806553`, deploy run
+3. **Open-and-mark trial screen is live** (pushes `c668035`, `6c606cb`, `49c4d01`; deploy run
+   37318209467, verified 2026-10-05: the live bundle has the marking text and logging, and no longer
+   has the slider or countdown text). The user is reviewing it.
+   Earlier: **hover highlight + aligned steps + new layout went live** (push `d806553`, deploy run
    37032355341, verified 2026-10-02: the live bundle has the offsets, the hover logging and the
    highlight style).
    Earlier: **design v2 trial screen went live** (push `23528d0`, deploy run 37029062895, verified 2026-10-02:

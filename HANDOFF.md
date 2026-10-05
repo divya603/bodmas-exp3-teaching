@@ -72,6 +72,7 @@ example); instance option form (flag / correction); misconception (the 6 below).
   participant opens any one. 3 s later (`REVEAL_DELAY_MS`) another can be opened, in any order, then
   the last. 3 s after the third opens (`OPTIONS_DELAY_MS`), the advice options unlock. The options
   are **visible but dimmed from the start**, so people read the work knowing what they will judge.
+  Locked buttons and options just look greyed out. **No countdown text** (user, 2026-10-05).
   Waits are checked against the clock on every click (`settle()`), not only when a timer fires,
   because browsers delay timers in background tabs. Locked buttons are `aria-disabled` rather than
   `disabled` so the click still reaches that check. Steps are numbered on screen (step 1 to 3 under each problem).
@@ -101,8 +102,8 @@ pairing × error type exactly; the user chose 12.
 
 **Trial.** The trace for 3 problems, then the 2 advice options, chosen **by mouse click** (no keys).
 Prompt: **"Which advice would best help this student get future problems right?"** (the user chose
-this "future problems" wording over "fix their error"). Then a **confidence slider, 0 to 100**. **No
-manipulation check** (dropped by the user 2026-10-02).
+this "future problems" wording over "fix their error"). Then Next. **No confidence slider** (dropped by
+the user 2026-10-05) and **no manipulation check** (dropped 2026-10-02).
 
 **Other screens.** Consent, instructions (traces + order-of-operations rules), trials with 2 embedded
 attention checks, then the end survey (free text "How did you decide...?", demographics, math
@@ -110,7 +111,7 @@ comfort, teaching/tutoring experience). **No practice trials for now** (the user
 
 **Logging.** One row per trial: participant_id, trial_index, misconception_id, error_type,
 slip_position, policy_option, instance_option, left_option, right_option, choice, choice_scope,
-choice_form, rt_ms, confidence, highlight_errors, counterbalance_id (see build step 4 for the
+choice_form, rt_ms, highlight_errors, counterbalance_id (see build step 4 for the
 full list). Plus one
 participant-level row (counterbalance assignment, attention checks, free text, demographics, total time).
 
@@ -160,12 +161,11 @@ participant) + (1 | misconception)`. Exclusion: failed attention checks.
 4. **Trial screen: DONE 2026-10-02 (first version, the user will iterate).**
    `src/user/components/advice_choice/AdviceChoiceView.vue`, wired into `design.js` as the `exp` view
    (replacing `TraceJudgmentView`). Practice is removed from the timeline. Layout: the work, the prompt,
-   two clickable advice cards (no type labels; the choice can be changed until Next), then after the
-   first pick a 0-100 confidence slider (no fill, thumb hidden until touched, so no implied default)
-   and Next (enabled once both are done). **The manipulation check is DROPPED (user, 2026-10-02).**
+   two clickable advice cards (no type labels; the choice can be changed until Next), then Next,
+   enabled once a pick is made. (A 0-100 confidence slider was here until it was removed 2026-10-05.) **The manipulation check is DROPPED (user, 2026-10-02).**
    There is no correctness, no performance bonus and no read lock. Recorded per trial: everything the
    sampler gives, plus `choice`, `choice_side`, `choice_scope`, `choice_form`, `choose_policy`,
-   `confidence`, `rt_ms` (time to the final choice click), `first_choice_rt_ms`, `submit_rt_ms`,
+   `rt_ms` (time to the final choice click), `first_choice_rt_ms`, `submit_rt_ms`,
    `n_choice_changes`, `reveal_order` (e.g. [2, 3, 1]), `reveal_ms` (when each was opened),
    `options_unlocked_ms`, `choice_rt_from_unlock_ms` (the clean choice RT; `rt_ms` includes the forced
    waits), `highlight_errors` (false), `counterbalance_id` (the persisted sampler seed

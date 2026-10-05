@@ -1,15 +1,17 @@
 <script setup>
 // The Experiment 3 trial screen (design v2, HANDOFF §0). Each trial: one
 // student's work on 3 problems, two pieces of advice (one policy, one instance;
-// sides randomized by the sampler), a click to choose, then a 0-100 confidence
-// slider and Next. The choice can be changed until Next. No manipulation check
+// sides randomized by the sampler), a click to choose, then Next. The choice
+// can be changed until Next. No confidence slider (dropped by the user
+// 2026-10-05). No manipulation check
 // (dropped by the user 2026-10-02), no correctness, no performance bonus.
 //
 // Progressive reveal (user decision 2026-10-05, replacing the hover
 // highlight): the 3 problems start closed (expression only). The participant
 // opens any one; REVEAL_DELAY_MS later the next can be opened, in any order.
 // OPTIONS_DELAY_MS after the third is opened, the advice options (visible but
-// dimmed from the start) become clickable. No error highlighting.
+// dimmed from the start) become clickable. Locked controls just stay greyed
+// out, with no countdown shown (user, 2026-10-05). No error highlighting.
 import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import useViewAPI from '@/core/composables/useViewAPI'
 import { Button } from '@/uikit/components/ui/button'
@@ -38,8 +40,6 @@ const isSummary = computed(() => api.path[0] === 'summary')
 
 // per-trial response state, reset on every new trial
 const chosenSide = ref(null) // 'left' | 'right'
-const confidence = ref(50)
-const confidenceTouched = ref(false)
 let firstChoiceMs = null
 let choiceMs = null
 let nChoiceChanges = 0
@@ -48,7 +48,6 @@ let nChoiceChanges = 0
 const revealed = ref([]) // problem indices, in the order opened
 const canReveal = ref(true)
 const optionsUnlocked = ref(false)
-const countdown = ref(0) // seconds left on the current wait
 let revealMs = [] // elapsed ms of each opening, same order as `revealed`
 let optionsUnlockedMs = null
 
@@ -61,23 +60,18 @@ let tickTimer = null
 function clearWait() {
   clearInterval(tickTimer)
   tickTimer = waitUntil = onWaitDone = null
-  countdown.value = 0
 }
 
 // finish the current wait if its time is up
 function settle() {
   if (waitUntil === null) return
-  const left = waitUntil - performance.now()
-  if (left > 0) {
-    countdown.value = Math.ceil(left / 1000)
-    return
-  }
+  if (performance.now() < waitUntil) return
   const done = onWaitDone
   clearWait()
   done()
 }
 
-// wait `ms`, showing a seconds countdown, then run `done`
+// wait `ms`, then run `done`
 function wait(ms, done) {
   clearWait()
   waitUntil = performance.now() + ms
@@ -106,8 +100,6 @@ onBeforeUnmount(clearWait)
 
 function resetTrial() {
   chosenSide.value = null
-  confidence.value = 50
-  confidenceTouched.value = false
   firstChoiceMs = null
   choiceMs = null
   nChoiceChanges = 0
@@ -135,13 +127,9 @@ function choose(side) {
   choiceMs = t
 }
 
-function onSlider() {
-  confidenceTouched.value = true
-}
+const canSubmit = computed(() => chosenSide.value !== null)
 
-const canSubmit = computed(() => chosenSide.value !== null && confidenceTouched.value)
-
-function record(side, conf, rt) {
+function record(side, rt) {
   const opt = api.stepData.options[side === 'left' ? 0 : 1]
   Object.assign(api.stepData, {
     choice: opt.code,
@@ -149,7 +137,6 @@ function record(side, conf, rt) {
     choice_scope: opt.scope,
     choice_form: opt.form,
     choose_policy: opt.scope === 'policy',
-    confidence: conf,
     ...rt,
     highlight_errors: false,
     counterbalance_id: api.persist.trialSeed,
@@ -158,7 +145,7 @@ function record(side, conf, rt) {
 
 function submit() {
   if (!canSubmit.value) return
-  record(chosenSide.value, Number(confidence.value), {
+  record(chosenSide.value, {
     rt_ms: choiceMs, // trial start -> final choice click (includes the forced waits)
     choice_rt_from_unlock_ms: choiceMs - optionsUnlockedMs, // options unlocked -> final choice
     first_choice_rt_ms: firstChoiceMs,
@@ -177,7 +164,7 @@ function autofill() {
   while (api.stepIndex < api.nSteps) {
     if (api.path[0] !== 'summary') {
       const rt = api.faker.rnorm(9000, 2000)
-      record(api.faker.rchoice(['left', 'right']), Math.round(api.faker.rnorm(70, 15)), {
+      record(api.faker.rchoice(['left', 'right']), {
         rt_ms: rt,
         choice_rt_from_unlock_ms: rt - 12000,
         first_choice_rt_ms: rt,
@@ -217,7 +204,6 @@ function finish() {
         :problems="api.stepData.problems"
         :revealed="revealed"
         :canReveal="canReveal"
-        :countdown="countdown"
         class="mb-5"
         @reveal="onReveal"
       />
@@ -226,11 +212,7 @@ function finish() {
         Which advice would best help {{ api.stepData.student_name }} get future problems right?
       </p>
       <p class="text-sm text-muted-foreground mb-3 h-5">
-        <template v-if="optionsUnlocked">Click the advice you choose.</template>
-        <template v-else-if="revealed.length < api.stepData.problems.length">
-          Open all three problems to choose.
-        </template>
-        <template v-else>You can choose in {{ countdown }}s.</template>
+        <template v-if="revealed.length < api.stepData.problems.length">Open all three problems to choose.</template>
       </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
         <button
@@ -253,29 +235,6 @@ function finish() {
         </button>
       </div>
 
-      <div v-if="chosenSide !== null" class="mb-4">
-        <p class="font-semibold mb-2">How confident are you in your choice?</p>
-        <div class="flex items-center gap-3">
-          <span class="text-xs text-muted-foreground w-20 text-right">Not at all confident</span>
-          <input
-            id="confidence"
-            v-model="confidence"
-            type="range"
-            min="0"
-            max="100"
-            step="1"
-            class="confidence-slider flex-1"
-            :class="{ untouched: !confidenceTouched }"
-            @input="onSlider"
-            @pointerdown="onSlider"
-          />
-          <span class="text-xs text-muted-foreground w-20">Completely confident</span>
-        </div>
-        <p class="text-center text-sm text-muted-foreground mt-1">
-          {{ confidenceTouched ? confidence : 'Click or drag the slider' }}
-        </p>
-      </div>
-
       <div class="flex justify-end">
         <Button id="next" :disabled="!canSubmit" @click="submit()">Next</Button>
       </div>
@@ -289,36 +248,3 @@ function finish() {
     </div>
   </ConstrainedTaskWindow>
 </template>
-
-<style scoped>
-/* plain track with no fill, and the thumb hidden until the participant
-   interacts, so no default value is implied */
-.confidence-slider {
-  appearance: none;
-  -webkit-appearance: none;
-  height: 6px;
-  border-radius: 9999px;
-  background: color-mix(in srgb, var(--muted-foreground) 35%, transparent);
-  cursor: pointer;
-}
-.confidence-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 9999px;
-  background: var(--primary);
-}
-.confidence-slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border: none;
-  border-radius: 9999px;
-  background: var(--primary);
-}
-.confidence-slider.untouched::-webkit-slider-thumb {
-  opacity: 0;
-}
-.confidence-slider.untouched::-moz-range-thumb {
-  opacity: 0;
-}
-</style>

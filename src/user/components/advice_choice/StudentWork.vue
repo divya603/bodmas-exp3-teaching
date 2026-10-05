@@ -14,8 +14,8 @@
 // Progressive reveal (user decision 2026-10-05, replacing the hover
 // highlight): each card starts showing only its expression and a "Show work"
 // button. The parent decides which cards are open (`revealed`) and whether a
-// card may be opened right now (`canReveal`, with `countdown` seconds left
-// otherwise), and gets 'reveal' with the problem index on a click. Hidden
+// card may be opened right now (`canReveal`; locked buttons just look greyed
+// out, no countdown), and gets 'reveal' with the problem index on a click. Hidden
 // steps keep their space, so the card does not change height when opened.
 // Locked buttons are aria-disabled, not disabled, so a click still reaches the
 // parent, which checks the wait against the clock (timers can fire late).
@@ -25,7 +25,6 @@ defineProps({
   problems: { type: Array, required: true },
   revealed: { type: Array, required: true },
   canReveal: { type: Boolean, default: true },
-  countdown: { type: Number, default: 0 },
 })
 const emit = defineEmits(['reveal'])
 
@@ -80,7 +79,7 @@ function cells(line) {
           :aria-disabled="!canReveal"
           @click="emit('reveal', p.problem_index)"
         >
-          {{ canReveal ? 'Show work' : `Available in ${countdown}s` }}
+          Show work
         </button>
       </div>
     </div>

@@ -128,7 +128,9 @@ order: `outside_bracket_first` (`6 + 2 × (3 + 1)`, Sam) then `same_priority_rtl
 Lily). Both contain the mistake, so the correct mark is "wrong". They are built by
 `base-task/practice_exp3.py` -> `src/user/data/practice_exp3.json` using `stimuli_exp3.make_problem`
 (same rules as the pool), are not pool problems, and use names not in the trial list. View:
-`src/user/components/advice_choice/PracticeView.vue`. Logged per item: `mark`, `mark_correct`,
+`src/user/components/advice_choice/PracticeView.vue`. After the last item, a **"Now the real task"**
+screen (12 students, three problems each; open, check, mark, then choose advice; marks get no
+feedback) has a **Start** button that begins the trials (user, 2026-10-05). Logged per item: `mark`, `mark_correct`,
 `mark_rt_ms`.
 
 **Left-to-right fix (2026-10-05; the pool deployed before it had the problem).** The model treats

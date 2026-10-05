@@ -5,7 +5,8 @@
 // Show work step: that is for the real trials only, user 2026-10-05). The
 // participant marks it right or wrong; the mark then locks, the error step is highlighted,
 // and feedback says whether the mark was correct and explains the mistake
-// (explained either way). No advice choice in practice. Not scored.
+// (explained either way). No advice choice in practice. Not scored. A final
+// "ready" screen introduces the real task; its Start button begins the trials.
 import { ref, computed, watch } from 'vue'
 import useViewAPI from '@/core/composables/useViewAPI'
 import { Button } from '@/uikit/components/ui/button'
@@ -17,8 +18,10 @@ const api = useViewAPI()
 
 const steps = api.steps.append([{ id: 'intro' }])
 steps.append(practiceItems.map((it) => ({ ...it })))
+steps.append([{ id: 'ready' }])
 
 const isIntro = computed(() => api.path[0] === 'intro')
+const isReady = computed(() => api.path[0] === 'ready')
 
 const marks = ref({})
 const answered = ref(false)
@@ -45,7 +48,7 @@ function onMark({ problem, mark }) {
 const correct = computed(() => api.stepData.mark_correct)
 
 function next() {
-  if (!isIntro.value) api.recordStep()
+  if (!isIntro.value && !isReady.value) api.recordStep()
   if (api.isLastStep()) {
     api.saveData(true)
     api.goNextView()
@@ -56,7 +59,7 @@ function next() {
 
 function autofill() {
   while (api.stepIndex < api.nSteps) {
-    if (!isIntro.value) {
+    if (!isIntro.value && !isReady.value) {
       Object.assign(api.stepData, { mark: 'wrong', mark_correct: true, mark_rt_ms: 6000 })
     }
     api.recordStep()
@@ -87,6 +90,26 @@ api.setAutofill(autofill)
       <div class="flex justify-end mt-6">
         <Button id="start-practice" @click="next()">
           Start practice
+          <i-fa6-solid-arrow-right />
+        </Button>
+      </div>
+    </div>
+
+    <div v-else-if="isReady" class="w-[80%] text-left">
+      <h1 class="text-2xl font-bold mb-4">Now the real task</h1>
+      <p class="text-lg mb-4">
+        You have finished the practice. Now you will see the work of <strong>12 students</strong>, one at a time,
+        each on <strong>three problems</strong>.
+      </p>
+      <p class="text-lg mb-2">For each student:</p>
+      <ol class="text-lg mb-4 list-decimal pl-6 space-y-1">
+        <li>Open each problem, check the work, and mark it <strong>right</strong> or <strong>wrong</strong>.</li>
+        <li>Then choose the advice you think will best help the student do better on the next problems.</li>
+      </ol>
+      <p class="text-lg mb-4">You will not be told if your marks are correct.</p>
+      <div class="flex justify-end mt-6">
+        <Button id="start-task" @click="next()">
+          Start
           <i-fa6-solid-arrow-right />
         </Button>
       </div>

@@ -1,0 +1,145 @@
+<script setup>
+// Experiment 3 practice (user decision 2026-10-05). An intro screen, then the
+// items in data/practice_exp3.json (built by base-task/practice_exp3.py): one
+// problem each, shown like a trial card. The participant opens the work and
+// marks it right or wrong; the mark then locks, the error step is highlighted,
+// and feedback says whether the mark was correct and explains the mistake
+// (explained either way). No advice choice in practice. Not scored.
+import { ref, computed, watch } from 'vue'
+import useViewAPI from '@/core/composables/useViewAPI'
+import { Button } from '@/uikit/components/ui/button'
+import { ConstrainedTaskWindow } from '@/uikit/layouts'
+import practiceItems from '@/user/data/practice_exp3.json'
+import StudentWork from '@/user/components/advice_choice/StudentWork.vue'
+
+const api = useViewAPI()
+
+const steps = api.steps.append([{ id: 'intro' }])
+steps.append(practiceItems.map((it) => ({ ...it })))
+
+const isIntro = computed(() => api.path[0] === 'intro')
+
+const revealed = ref([])
+const marks = ref({})
+const answered = ref(false)
+let revealMs = null
+
+function resetItem() {
+  revealed.value = []
+  marks.value = {}
+  answered.value = false
+  revealMs = null
+  api.startTimer()
+}
+watch(() => api.stepIndex, resetItem)
+resetItem()
+
+function onReveal(problem) {
+  if (revealed.value.includes(problem)) return
+  revealed.value = [problem]
+  revealMs = api.elapsedTime()
+}
+
+function onMark({ problem, mark }) {
+  if (answered.value) return
+  marks.value = { [problem]: mark }
+  answered.value = true
+  Object.assign(api.stepData, {
+    mark,
+    mark_correct: mark === api.stepData.correct_mark,
+    reveal_ms: Math.round(revealMs),
+    mark_rt_ms: Math.round(api.elapsedTime()),
+  })
+}
+
+const correct = computed(() => api.stepData.mark_correct)
+
+function next() {
+  if (!isIntro.value) api.recordStep()
+  if (api.isLastStep()) {
+    api.saveData(true)
+    api.goNextView()
+  } else {
+    api.goNextStep()
+  }
+}
+
+function autofill() {
+  while (api.stepIndex < api.nSteps) {
+    if (!isIntro.value) {
+      Object.assign(api.stepData, { mark: 'wrong', mark_correct: true, reveal_ms: 1500, mark_rt_ms: 6000 })
+    }
+    api.recordStep()
+    if (api.isLastStep()) break
+    api.goNextStep()
+  }
+}
+api.setAutofill(autofill)
+</script>
+
+<template>
+  <ConstrainedTaskWindow
+    variant="ghost"
+    :responsiveUI="api.config.responsiveUI"
+    :width="api.config.windowsizerRequest.width"
+    :height="api.config.windowsizerRequest.height"
+  >
+    <div v-if="isIntro" class="w-[80%] text-left">
+      <h1 class="text-2xl font-bold mb-4">Practice</h1>
+      <p class="text-lg mb-4">
+        Now you will look at a few examples, to see the kinds of mistakes students make.
+      </p>
+      <p class="text-lg mb-4">
+        Each example shows a student's work on <strong>one problem</strong>. Open it, check the work, and mark it
+        <strong>right</strong> or <strong>wrong</strong>. We will tell you if you are correct and explain the
+        mistake.
+      </p>
+      <div class="flex justify-end mt-6">
+        <Button id="start-practice" @click="next()">
+          Start practice
+          <i-fa6-solid-arrow-right />
+        </Button>
+      </div>
+    </div>
+
+    <div v-else class="text-left w-full h-full overflow-y-auto px-2">
+      <div class="flex justify-between items-baseline gap-4 mb-3">
+        <p class="text-muted-foreground">
+          Here is {{ api.stepData.student_name }}'s work on one problem. Open it, check the work, and mark it right
+          or wrong.
+        </p>
+        <span class="text-xs text-muted-foreground whitespace-nowrap shrink-0">
+          Practice {{ api.stepIndex }} of {{ practiceItems.length }}
+        </span>
+      </div>
+
+      <StudentWork
+        :problems="[api.stepData.problem]"
+        :revealed="revealed"
+        :canReveal="true"
+        :marks="marks"
+        :marksLocked="answered"
+        :highlightErrors="answered"
+        class="mb-5"
+        @reveal="onReveal"
+        @mark="onMark"
+      />
+
+      <div
+        v-if="answered"
+        id="feedback"
+        class="max-w-lg mx-auto rounded-lg border-2 px-4 py-3 mb-5"
+        :class="correct ? 'border-green-600 bg-green-50' : 'border-red-600 bg-red-50'"
+      >
+        <p class="font-semibold mb-1" :class="correct ? 'text-green-800' : 'text-red-800'">
+          {{ correct ? 'Correct! This work has a mistake.' : 'Not quite. This work has a mistake.' }}
+        </p>
+        <p class="text-sm">{{ api.stepData.explanation }}</p>
+      </div>
+
+      <div class="flex justify-end max-w-lg mx-auto">
+        <Button id="next" :disabled="!answered" @click="next()">Next</Button>
+      </div>
+    </div>
+  </ConstrainedTaskWindow>
+</template>

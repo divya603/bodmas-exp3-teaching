@@ -17,6 +17,11 @@ of the same expression:
                       with the misconceived trace, so the two versions look
                       the same up to the error step.
 
+Every step other than the error, in both traces, follows strict left-to-right
+order within a priority level (rtl_look.py). The model also accepts doing the
+right-hand operation first in a+b-c and a×b÷c (same answer either way), but a
+participant told "left to right" would read that as a mistake.
+
 A trial's systematic version shows all PROBLEMS_PER_SET misconceived traces;
 its slip version shows the misconceived trace for one problem and the correct
 trace for the others (which problem is decided at sample time, not here).
@@ -45,6 +50,7 @@ from find_pairs import usable_traces
 from pool_advice import item_ok
 from advice_content import error_window
 from lookalike import _TOKEN, _fired
+from rtl_look import rtl_looking_steps
 
 IDS = list(MISCONCEPTION_FLIPS.keys())
 
@@ -90,6 +96,8 @@ def correct_trace_for(expr, misconceived):
     for t in generate_traces(build_dag(expr), []):
         if len(t) != N_OPS + 1 or not validate_trace(t):
             continue
+        if rtl_looking_steps(t):   # legal, but reads as a right-to-left mistake
+            continue
         n = 0
         while n < len(t) and t[n] == misconceived[n]:
             n += 1
@@ -127,6 +135,10 @@ def sample_misconceived(expr, m, rng):
     """One usable single-error learner trace, drawn with the learner's own path
     probabilities (same draw as find_pairs.sample_trace, at N_OPS)."""
     cands = usable_traces(expr, m, positions=POSITIONS, n_ops=N_OPS)
+    # every step other than the error must also read as correct to someone
+    # told "left to right" (see rtl_look.py; added 2026-10-05)
+    cands = [(p, t) for p, t in cands
+             if not rtl_looking_steps(t, skip=(error_steps(t)[0],))]
     if not cands:
         return None
     r = rng.random() * sum(p for p, _ in cands)

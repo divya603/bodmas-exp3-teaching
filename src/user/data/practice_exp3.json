@@ -1,0 +1,52 @@
+[
+ {
+  "id": "practice1",
+  "misconception": "outside_bracket_first",
+  "student_name": "Sam",
+  "problem": {
+   "problem_index": 1,
+   "expression": "6 + 2 × (3 + 1)",
+   "lines": [
+    "6 + 2 × (3 + 1)",
+    "8 × (3 + 1)",
+    "8 × 4",
+    "32"
+   ],
+   "offsets": [
+    0.0,
+    2.0,
+    5.0,
+    6.5
+   ],
+   "is_error": true,
+   "error_step": 1
+  },
+  "correct_mark": "wrong",
+  "explanation": "In step 1, the student did 6 + 2 first. But the bracket (3 + 1) should be worked out first: brackets come before everything else. The right answer is 14."
+ },
+ {
+  "id": "practice2",
+  "misconception": "same_priority_rtl",
+  "student_name": "Lily",
+  "problem": {
+   "problem_index": 1,
+   "expression": "12 - 5 + 2 × 2",
+   "lines": [
+    "12 - 5 + 2 × 2",
+    "12 - 5 + 4",
+    "12 - 9",
+    "3"
+   ],
+   "offsets": [
+    0.0,
+    2.0,
+    4.0,
+    7.0
+   ],
+   "is_error": true,
+   "error_step": 2
+  },
+  "correct_mark": "wrong",
+  "explanation": "In step 2, the student did 5 + 4 first. But − and + have the same priority, so you work left to right: 12 − 5 comes first. The right answer is 11."
+ }
+]

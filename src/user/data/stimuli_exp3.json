@@ -16,32 +16,32 @@
      "operators": "+××",
      "correct_trace": [
       "8 + 3 × 6 × 4",
-      "8 + 3 × 24",
+      "8 + 18 × 4",
       "8 + 72",
       "80"
      ],
      "misconceived_trace": [
       "8 + 3 × 6 × 4",
-      "8 + 3 × 24",
-      "11 × 24",
+      "11 × 6 × 4",
+      "66 × 4",
       "264"
      ],
-     "error_step": 2,
+     "error_step": 1,
      "wrong_move": "do 8 + 3 first",
-     "right_move": "do 3 × 24 first",
+     "right_move": "do 3 × 6 first",
      "wrong_pair": "8 + 3",
-     "right_pair": "3 × 24",
+     "right_pair": "3 × 6",
      "correct_offsets": [
       0.0,
       1.5,
-      3.0,
-      4.5
+      4.0,
+      5.5
      ],
      "misconceived_offsets": [
       0.0,
       1.5,
-      3.0,
-      5.0
+      4.0,
+      6.0
      ],
      "correct_answer": "80",
      "misconceived_answer": "264",
@@ -210,7 +210,7 @@
      "misconceived_trace": [
       "8 + 10 × 6 × 2",
       "18 × 6 × 2",
-      "18 × 12",
+      "108 × 2",
       "216"
      ],
      "error_step": 1,
@@ -227,8 +227,8 @@
      "misconceived_offsets": [
       0.0,
       1.5,
-      3.0,
-      5.0
+      3.5,
+      6.5
      ],
      "correct_answer": "128",
      "misconceived_answer": "216",
@@ -252,15 +252,15 @@
      ],
      "misconceived_trace": [
       "5 × 5 × 4 + 10",
-      "5 × 5 × 14",
+      "25 × 4 + 10",
       "25 × 14",
       "350"
      ],
-     "error_step": 1,
+     "error_step": 2,
      "wrong_move": "do 4 + 10 first",
-     "right_move": "do 5 × 4 first",
+     "right_move": "do 25 × 4 first",
      "wrong_pair": "4 + 10",
-     "right_pair": "5 × 4",
+     "right_pair": "25 × 4",
      "correct_offsets": [
       0.0,
       1.5,
@@ -278,42 +278,6 @@
      "problem_index": 1
     },
     {
-     "expression": "11 × 4 ÷ 2 + 5",
-     "operators": "×÷+",
-     "correct_trace": [
-      "11 × 4 ÷ 2 + 5",
-      "11 × 2 + 5",
-      "22 + 5",
-      "27"
-     ],
-     "misconceived_trace": [
-      "11 × 4 ÷ 2 + 5",
-      "11 × 2 + 5",
-      "11 × 7",
-      "77"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 + 5 first",
-     "right_move": "do 11 × 2 first",
-     "wrong_pair": "2 + 5",
-     "right_pair": "11 × 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.5,
-      7.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.5
-     ],
-     "correct_answer": "27",
-     "misconceived_answer": "77",
-     "problem_index": 2
-    },
-    {
      "expression": "8 + 2 × 4 ÷ 2",
      "operators": "+×÷",
      "correct_trace": [
@@ -325,7 +289,7 @@
      "misconceived_trace": [
       "8 + 2 × 4 ÷ 2",
       "10 × 4 ÷ 2",
-      "10 × 2",
+      "40 ÷ 2",
       "20"
      ],
      "error_step": 1,
@@ -342,20 +306,13 @@
      "misconceived_offsets": [
       0.0,
       1.5,
-      3.5,
-      6.0
+      4.0,
+      6.5
      ],
      "correct_answer": "12",
      "misconceived_answer": "20",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__4",
-   "misconception": "add_before_mul",
-   "set_index": 4,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "5 - 4 + 11 × 5",
      "operators": "-+×",
@@ -390,8 +347,15 @@
      ],
      "correct_answer": "56",
      "misconceived_answer": "60",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__4",
+   "misconception": "add_before_mul",
+   "set_index": 4,
+   "problems": [
     {
      "expression": "12 × 3 + 4 ÷ 2",
      "operators": "×+÷",
@@ -426,7 +390,7 @@
      ],
      "correct_answer": "38",
      "misconceived_answer": "60",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "4 × 5 × 6 + 5",
@@ -462,15 +426,8 @@
      ],
      "correct_answer": "125",
      "misconceived_answer": "220",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__5",
-   "misconception": "add_before_mul",
-   "set_index": 5,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "5 + 3 + 3 × 4",
      "operators": "++×",
@@ -505,8 +462,15 @@
      ],
      "correct_answer": "20",
      "misconceived_answer": "44",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__5",
+   "misconception": "add_before_mul",
+   "set_index": 5,
+   "problems": [
     {
      "expression": "11 × 5 + 6 ÷ 3",
      "operators": "×+÷",
@@ -541,7 +505,7 @@
      ],
      "correct_answer": "57",
      "misconceived_answer": "77",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "3 × 6 × 3 + 2",
@@ -577,15 +541,8 @@
      ],
      "correct_answer": "56",
      "misconceived_answer": "90",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__6",
-   "misconception": "add_before_mul",
-   "set_index": 6,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "12 + 11 + 10 × 3",
      "operators": "++×",
@@ -620,42 +577,85 @@
      ],
      "correct_answer": "53",
      "misconceived_answer": "99",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__6",
+   "misconception": "add_before_mul",
+   "set_index": 6,
+   "problems": [
     {
      "expression": "11 + 2 × 5 × 5",
      "operators": "+××",
      "correct_trace": [
       "11 + 2 × 5 × 5",
-      "11 + 2 × 25",
+      "11 + 10 × 5",
       "11 + 50",
       "61"
      ],
      "misconceived_trace": [
       "11 + 2 × 5 × 5",
-      "11 + 2 × 25",
-      "13 × 25",
+      "13 × 5 × 5",
+      "65 × 5",
       "325"
      ],
-     "error_step": 2,
+     "error_step": 1,
      "wrong_move": "do 11 + 2 first",
-     "right_move": "do 2 × 25 first",
+     "right_move": "do 2 × 5 first",
      "wrong_pair": "11 + 2",
-     "right_pair": "2 × 25",
+     "right_pair": "2 × 5",
      "correct_offsets": [
       0.0,
       1.5,
-      3.0,
-      5.5
+      4.0,
+      6.5
      ],
      "misconceived_offsets": [
       0.0,
-      1.5,
-      4.0,
-      6.0
+      2.5,
+      5.0,
+      7.0
      ],
      "correct_answer": "61",
      "misconceived_answer": "325",
+     "problem_index": 1
+    },
+    {
+     "expression": "12 + 3 + 5 × 5",
+     "operators": "++×",
+     "correct_trace": [
+      "12 + 3 + 5 × 5",
+      "15 + 5 × 5",
+      "15 + 25",
+      "40"
+     ],
+     "misconceived_trace": [
+      "12 + 3 + 5 × 5",
+      "15 + 5 × 5",
+      "20 × 5",
+      "100"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 15 + 5 first",
+     "right_move": "do 5 × 5 first",
+     "wrong_pair": "15 + 5",
+     "right_pair": "5 × 5",
+     "correct_offsets": [
+      0.0,
+      2.5,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.5,
+      5.0,
+      7.0
+     ],
+     "correct_answer": "40",
+     "misconceived_answer": "100",
      "problem_index": 2
     },
     {
@@ -853,42 +853,6 @@
      "problem_index": 1
     },
     {
-     "expression": "11 × 4 + 4 + 2",
-     "operators": "×++",
-     "correct_trace": [
-      "11 × 4 + 4 + 2",
-      "11 × 4 + 6",
-      "44 + 6",
-      "50"
-     ],
-     "misconceived_trace": [
-      "11 × 4 + 4 + 2",
-      "11 × 4 + 6",
-      "11 × 10",
-      "110"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 4 + 6 first",
-     "right_move": "do 11 × 4 first",
-     "wrong_pair": "4 + 6",
-     "right_pair": "11 × 4",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.5,
-      7.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      5.5
-     ],
-     "correct_answer": "50",
-     "misconceived_answer": "110",
-     "problem_index": 2
-    },
-    {
      "expression": "7 + 5 × 2 - 1",
      "operators": "+×-",
      "correct_trace": [
@@ -922,6 +886,42 @@
      ],
      "correct_answer": "16",
      "misconceived_answer": "23",
+     "problem_index": 2
+    },
+    {
+     "expression": "7 + 4 × 6 × 6",
+     "operators": "+××",
+     "correct_trace": [
+      "7 + 4 × 6 × 6",
+      "7 + 24 × 6",
+      "7 + 144",
+      "151"
+     ],
+     "misconceived_trace": [
+      "7 + 4 × 6 × 6",
+      "11 × 6 × 6",
+      "66 × 6",
+      "396"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 7 + 4 first",
+     "right_move": "do 4 × 6 first",
+     "wrong_pair": "7 + 4",
+     "right_pair": "4 × 6",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      3.5,
+      4.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.0
+     ],
+     "correct_answer": "151",
+     "misconceived_answer": "396",
      "problem_index": 3
     }
    ]
@@ -932,76 +932,40 @@
    "set_index": 9,
    "problems": [
     {
-     "expression": "7 + 4 × 6 × 6",
-     "operators": "+××",
+     "expression": "3 + 8 × 5 - 1",
+     "operators": "+×-",
      "correct_trace": [
-      "7 + 4 × 6 × 6",
-      "7 + 4 × 36",
-      "7 + 144",
-      "151"
+      "3 + 8 × 5 - 1",
+      "3 + 40 - 1",
+      "43 - 1",
+      "42"
      ],
      "misconceived_trace": [
-      "7 + 4 × 6 × 6",
-      "7 + 4 × 36",
-      "11 × 36",
-      "396"
+      "3 + 8 × 5 - 1",
+      "11 × 5 - 1",
+      "55 - 1",
+      "54"
      ],
-     "error_step": 2,
-     "wrong_move": "do 7 + 4 first",
-     "right_move": "do 4 × 36 first",
-     "wrong_pair": "7 + 4",
-     "right_pair": "4 × 36",
+     "error_step": 1,
+     "wrong_move": "do 3 + 8 first",
+     "right_move": "do 8 × 5 first",
+     "wrong_pair": "3 + 8",
+     "right_pair": "8 × 5",
      "correct_offsets": [
-      0.0,
-      1.5,
-      2.5,
-      3.5
-     ],
-     "misconceived_offsets": [
       0.0,
       1.5,
       3.0,
-      5.0
-     ],
-     "correct_answer": "151",
-     "misconceived_answer": "396",
-     "problem_index": 1
-    },
-    {
-     "expression": "2 × 4 + 11 + 3",
-     "operators": "×++",
-     "correct_trace": [
-      "2 × 4 + 11 + 3",
-      "2 × 4 + 14",
-      "8 + 14",
-      "22"
-     ],
-     "misconceived_trace": [
-      "2 × 4 + 11 + 3",
-      "2 × 4 + 14",
-      "2 × 18",
-      "36"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 4 + 14 first",
-     "right_move": "do 2 × 4 first",
-     "wrong_pair": "4 + 14",
-     "right_pair": "2 × 4",
-     "correct_offsets": [
-      0.0,
-      2.5,
-      4.5,
-      6.0
+      5.5
      ],
      "misconceived_offsets": [
       0.0,
-      2.5,
+      1.5,
       4.0,
-      5.5
+      6.5
      ],
-     "correct_answer": "22",
-     "misconceived_answer": "36",
-     "problem_index": 2
+     "correct_answer": "42",
+     "misconceived_answer": "54",
+     "problem_index": 1
     },
     {
      "expression": "12 ÷ 3 + 7 × 2",
@@ -1037,15 +1001,8 @@
      ],
      "correct_answer": "18",
      "misconceived_answer": "22",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__10",
-   "misconception": "add_before_mul",
-   "set_index": 10,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "7 × 4 + 5 × 5",
      "operators": "×+×",
@@ -1080,8 +1037,15 @@
      ],
      "correct_answer": "53",
      "misconceived_answer": "315",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__10",
+   "misconception": "add_before_mul",
+   "set_index": 10,
+   "problems": [
     {
      "expression": "9 + 9 + 1 × 2",
      "operators": "++×",
@@ -1116,7 +1080,7 @@
      ],
      "correct_answer": "20",
      "misconceived_answer": "38",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "10 - 9 + 8 × 2",
@@ -1152,15 +1116,8 @@
      ],
      "correct_answer": "17",
      "misconceived_answer": "18",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__11",
-   "misconception": "add_before_mul",
-   "set_index": 11,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "2 + 7 × 3 - 1",
      "operators": "+×-",
@@ -1195,8 +1152,15 @@
      ],
      "correct_answer": "22",
      "misconceived_answer": "26",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__11",
+   "misconception": "add_before_mul",
+   "set_index": 11,
+   "problems": [
     {
      "expression": "7 × 3 + 5 - 4",
      "operators": "×+-",
@@ -1231,7 +1195,7 @@
      ],
      "correct_answer": "22",
      "misconceived_answer": "52",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "5 × 6 + 12 ÷ 6",
@@ -1267,15 +1231,8 @@
      ],
      "correct_answer": "32",
      "misconceived_answer": "40",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__12",
-   "misconception": "add_before_mul",
-   "set_index": 12,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "4 + 1 + 11 × 4",
      "operators": "++×",
@@ -1310,8 +1267,15 @@
      ],
      "correct_answer": "49",
      "misconceived_answer": "64",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__12",
+   "misconception": "add_before_mul",
+   "set_index": 12,
+   "problems": [
     {
      "expression": "2 × 3 + 7 × 3",
      "operators": "×+×",
@@ -1346,166 +1310,8 @@
      ],
      "correct_answer": "27",
      "misconceived_answer": "60",
-     "problem_index": 2
-    },
-    {
-     "expression": "5 × 5 + 6 + 12",
-     "operators": "×++",
-     "correct_trace": [
-      "5 × 5 + 6 + 12",
-      "5 × 5 + 18",
-      "25 + 18",
-      "43"
-     ],
-     "misconceived_trace": [
-      "5 × 5 + 6 + 12",
-      "5 × 5 + 18",
-      "5 × 23",
-      "115"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 5 + 18 first",
-     "right_move": "do 5 × 5 first",
-     "wrong_pair": "5 + 18",
-     "right_pair": "5 × 5",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      3.0,
-      5.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      1.5,
-      3.0,
-      4.0
-     ],
-     "correct_answer": "43",
-     "misconceived_answer": "115",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__13",
-   "misconception": "add_before_mul",
-   "set_index": 13,
-   "problems": [
-    {
-     "expression": "3 × 6 + 5 × 5",
-     "operators": "×+×",
-     "correct_trace": [
-      "3 × 6 + 5 × 5",
-      "18 + 5 × 5",
-      "18 + 25",
-      "43"
-     ],
-     "misconceived_trace": [
-      "3 × 6 + 5 × 5",
-      "3 × 11 × 5",
-      "3 × 55",
-      "165"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 6 + 5 first",
-     "right_move": "do 5 × 5 first",
-     "wrong_pair": "6 + 5",
-     "right_pair": "5 × 5",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      3.0,
-      5.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      1.5,
-      4.0,
-      5.0
-     ],
-     "correct_answer": "43",
-     "misconceived_answer": "165",
      "problem_index": 1
     },
-    {
-     "expression": "9 + 12 × 4 ÷ 2",
-     "operators": "+×÷",
-     "correct_trace": [
-      "9 + 12 × 4 ÷ 2",
-      "9 + 12 × 2",
-      "9 + 24",
-      "33"
-     ],
-     "misconceived_trace": [
-      "9 + 12 × 4 ÷ 2",
-      "9 + 12 × 2",
-      "21 × 2",
-      "42"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 9 + 12 first",
-     "right_move": "do 12 × 2 first",
-     "wrong_pair": "9 + 12",
-     "right_pair": "12 × 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.5,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      6.0
-     ],
-     "correct_answer": "33",
-     "misconceived_answer": "42",
-     "problem_index": 2
-    },
-    {
-     "expression": "1 + 1 × 5 - 1",
-     "operators": "+×-",
-     "correct_trace": [
-      "1 + 1 × 5 - 1",
-      "1 + 5 - 1",
-      "6 - 1",
-      "5"
-     ],
-     "misconceived_trace": [
-      "1 + 1 × 5 - 1",
-      "2 × 5 - 1",
-      "10 - 1",
-      "9"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 1 + 1 first",
-     "right_move": "do 1 × 5 first",
-     "wrong_pair": "1 + 1",
-     "right_pair": "1 × 5",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      6.5
-     ],
-     "correct_answer": "5",
-     "misconceived_answer": "9",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__14",
-   "misconception": "add_before_mul",
-   "set_index": 14,
-   "problems": [
     {
      "expression": "8 - 1 + 4 × 2",
      "operators": "-+×",
@@ -1540,7 +1346,7 @@
      ],
      "correct_answer": "15",
      "misconceived_answer": "22",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "7 + 4 + 6 × 2",
@@ -1576,85 +1382,49 @@
      ],
      "correct_answer": "23",
      "misconceived_answer": "34",
-     "problem_index": 2
-    },
-    {
-     "expression": "3 + 10 × 3 × 2",
-     "operators": "+××",
-     "correct_trace": [
-      "3 + 10 × 3 × 2",
-      "3 + 10 × 6",
-      "3 + 60",
-      "63"
-     ],
-     "misconceived_trace": [
-      "3 + 10 × 3 × 2",
-      "3 + 10 × 6",
-      "13 × 6",
-      "78"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 3 + 10 first",
-     "right_move": "do 10 × 6 first",
-     "wrong_pair": "3 + 10",
-     "right_pair": "10 × 6",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.5,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      6.0
-     ],
-     "correct_answer": "63",
-     "misconceived_answer": "78",
      "problem_index": 3
     }
    ]
   },
   {
-   "set_id": "add_before_mul__15",
+   "set_id": "add_before_mul__13",
    "misconception": "add_before_mul",
-   "set_index": 15,
+   "set_index": 13,
    "problems": [
     {
-     "expression": "11 × 6 ÷ 3 + 6",
-     "operators": "×÷+",
+     "expression": "3 + 10 × 3 × 2",
+     "operators": "+××",
      "correct_trace": [
-      "11 × 6 ÷ 3 + 6",
-      "11 × 2 + 6",
-      "22 + 6",
-      "28"
+      "3 + 10 × 3 × 2",
+      "3 + 30 × 2",
+      "3 + 60",
+      "63"
      ],
      "misconceived_trace": [
-      "11 × 6 ÷ 3 + 6",
-      "11 × 2 + 6",
-      "11 × 8",
-      "88"
+      "3 + 10 × 3 × 2",
+      "13 × 3 × 2",
+      "39 × 2",
+      "78"
      ],
-     "error_step": 2,
-     "wrong_move": "do 2 + 6 first",
-     "right_move": "do 11 × 2 first",
-     "wrong_pair": "2 + 6",
-     "right_pair": "11 × 2",
+     "error_step": 1,
+     "wrong_move": "do 3 + 10 first",
+     "right_move": "do 10 × 3 first",
+     "wrong_pair": "3 + 10",
+     "right_pair": "10 × 3",
      "correct_offsets": [
       0.0,
-      2.0,
-      4.5,
-      7.0
+      2.5,
+      5.0,
+      6.5
      ],
      "misconceived_offsets": [
       0.0,
-      2.0,
+      1.5,
       4.0,
       6.5
      ],
-     "correct_answer": "28",
-     "misconceived_answer": "88",
+     "correct_answer": "63",
+     "misconceived_answer": "78",
      "problem_index": 1
     },
     {
@@ -1732,44 +1502,44 @@
    ]
   },
   {
-   "set_id": "add_before_mul__16",
+   "set_id": "add_before_mul__14",
    "misconception": "add_before_mul",
-   "set_index": 16,
+   "set_index": 14,
    "problems": [
     {
      "expression": "2 × 4 + 3 - 1",
      "operators": "×+-",
      "correct_trace": [
       "2 × 4 + 3 - 1",
-      "2 × 4 + 2",
-      "8 + 2",
+      "8 + 3 - 1",
+      "11 - 1",
       "10"
      ],
      "misconceived_trace": [
       "2 × 4 + 3 - 1",
-      "2 × 4 + 2",
-      "2 × 6",
-      "12"
+      "2 × 7 - 1",
+      "14 - 1",
+      "13"
      ],
-     "error_step": 2,
-     "wrong_move": "do 4 + 2 first",
+     "error_step": 1,
+     "wrong_move": "do 4 + 3 first",
      "right_move": "do 2 × 4 first",
-     "wrong_pair": "4 + 2",
+     "wrong_pair": "4 + 3",
      "right_pair": "2 × 4",
      "correct_offsets": [
       0.0,
       2.0,
-      4.0,
-      5.5
+      3.5,
+      6.0
      ],
      "misconceived_offsets": [
       0.0,
       2.0,
-      4.0,
-      5.5
+      3.5,
+      6.0
      ],
      "correct_answer": "10",
-     "misconceived_answer": "12",
+     "misconceived_answer": "13",
      "problem_index": 1
     },
     {
@@ -1809,49 +1579,6 @@
      "problem_index": 2
     },
     {
-     "expression": "9 × 3 + 4 + 9",
-     "operators": "×++",
-     "correct_trace": [
-      "9 × 3 + 4 + 9",
-      "9 × 3 + 13",
-      "27 + 13",
-      "40"
-     ],
-     "misconceived_trace": [
-      "9 × 3 + 4 + 9",
-      "9 × 3 + 13",
-      "9 × 16",
-      "144"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 3 + 13 first",
-     "right_move": "do 9 × 3 first",
-     "wrong_pair": "3 + 13",
-     "right_pair": "9 × 3",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      3.0,
-      5.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      1.5,
-      3.0,
-      4.0
-     ],
-     "correct_answer": "40",
-     "misconceived_answer": "144",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__17",
-   "misconception": "add_before_mul",
-   "set_index": 17,
-   "problems": [
-    {
      "expression": "3 + 5 × 5 × 6",
      "operators": "+××",
      "correct_trace": [
@@ -1863,7 +1590,7 @@
      "misconceived_trace": [
       "3 + 5 × 5 × 6",
       "8 × 5 × 6",
-      "8 × 30",
+      "40 × 6",
       "240"
      ],
      "error_step": 1,
@@ -1881,12 +1608,19 @@
       0.0,
       2.0,
       3.5,
-      4.5
+      5.5
      ],
      "correct_answer": "153",
      "misconceived_answer": "240",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__15",
+   "misconception": "add_before_mul",
+   "set_index": 15,
+   "problems": [
     {
      "expression": "5 × 6 × 5 + 6",
      "operators": "××+",
@@ -1921,7 +1655,7 @@
      ],
      "correct_answer": "156",
      "misconceived_answer": "330",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "9 ÷ 3 + 12 × 3",
@@ -1957,15 +1691,8 @@
      ],
      "correct_answer": "39",
      "misconceived_answer": "45",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__18",
-   "misconception": "add_before_mul",
-   "set_index": 18,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "9 × 6 + 6 ÷ 2",
      "operators": "×+÷",
@@ -2000,44 +1727,15 @@
      ],
      "correct_answer": "57",
      "misconceived_answer": "81",
-     "problem_index": 1
-    },
-    {
-     "expression": "6 × 4 ÷ 2 + 11",
-     "operators": "×÷+",
-     "correct_trace": [
-      "6 × 4 ÷ 2 + 11",
-      "6 × 2 + 11",
-      "12 + 11",
-      "23"
-     ],
-     "misconceived_trace": [
-      "6 × 4 ÷ 2 + 11",
-      "6 × 2 + 11",
-      "6 × 13",
-      "78"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 + 11 first",
-     "right_move": "do 6 × 2 first",
-     "wrong_pair": "2 + 11",
-     "right_pair": "6 × 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      5.0
-     ],
-     "correct_answer": "23",
-     "misconceived_answer": "78",
-     "problem_index": 2
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__16",
+   "misconception": "add_before_mul",
+   "set_index": 16,
+   "problems": [
     {
      "expression": "6 + 10 + 5 × 5",
      "operators": "++×",
@@ -2072,15 +1770,8 @@
      ],
      "correct_answer": "41",
      "misconceived_answer": "105",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__19",
-   "misconception": "add_before_mul",
-   "set_index": 19,
-   "problems": [
+     "problem_index": 1
+    },
     {
      "expression": "9 × 2 + 1 × 2",
      "operators": "×+×",
@@ -2115,44 +1806,51 @@
      ],
      "correct_answer": "20",
      "misconceived_answer": "54",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
-     "expression": "5 × 4 ÷ 2 + 8",
-     "operators": "×÷+",
+     "expression": "2 + 1 × 4 ÷ 2",
+     "operators": "+×÷",
      "correct_trace": [
-      "5 × 4 ÷ 2 + 8",
-      "5 × 2 + 8",
-      "10 + 8",
-      "18"
+      "2 + 1 × 4 ÷ 2",
+      "2 + 4 ÷ 2",
+      "2 + 2",
+      "4"
      ],
      "misconceived_trace": [
-      "5 × 4 ÷ 2 + 8",
-      "5 × 2 + 8",
-      "5 × 10",
-      "50"
+      "2 + 1 × 4 ÷ 2",
+      "3 × 4 ÷ 2",
+      "12 ÷ 2",
+      "6"
      ],
-     "error_step": 2,
-     "wrong_move": "do 2 + 8 first",
-     "right_move": "do 5 × 2 first",
-     "wrong_pair": "2 + 8",
-     "right_pair": "5 × 2",
+     "error_step": 1,
+     "wrong_move": "do 2 + 1 first",
+     "right_move": "do 1 × 4 first",
+     "wrong_pair": "2 + 1",
+     "right_pair": "1 × 4",
      "correct_offsets": [
       0.0,
       2.0,
-      3.5,
+      4.0,
       6.0
      ],
      "misconceived_offsets": [
       0.0,
       2.0,
       3.5,
-      5.0
+      6.5
      ],
-     "correct_answer": "18",
-     "misconceived_answer": "50",
-     "problem_index": 2
-    },
+     "correct_answer": "4",
+     "misconceived_answer": "6",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__17",
+   "misconception": "add_before_mul",
+   "set_index": 17,
+   "problems": [
     {
      "expression": "10 + 10 + 6 × 3",
      "operators": "++×",
@@ -2187,50 +1885,43 @@
      ],
      "correct_answer": "38",
      "misconceived_answer": "78",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_mul__20",
-   "misconception": "add_before_mul",
-   "set_index": 20,
-   "problems": [
+     "problem_index": 1
+    },
     {
      "expression": "10 + 9 × 2 × 5",
      "operators": "+××",
      "correct_trace": [
       "10 + 9 × 2 × 5",
-      "10 + 9 × 10",
+      "10 + 18 × 5",
       "10 + 90",
       "100"
      ],
      "misconceived_trace": [
       "10 + 9 × 2 × 5",
-      "10 + 9 × 10",
-      "19 × 10",
+      "19 × 2 × 5",
+      "38 × 5",
       "190"
      ],
-     "error_step": 2,
+     "error_step": 1,
      "wrong_move": "do 10 + 9 first",
-     "right_move": "do 9 × 10 first",
+     "right_move": "do 9 × 2 first",
      "wrong_pair": "10 + 9",
-     "right_pair": "9 × 10",
+     "right_pair": "9 × 2",
      "correct_offsets": [
-      0.0,
-      1.5,
-      3.0,
-      5.0
-     ],
-     "misconceived_offsets": [
       0.0,
       1.5,
       4.0,
       6.0
      ],
+     "misconceived_offsets": [
+      0.0,
+      2.5,
+      5.0,
+      7.0
+     ],
      "correct_answer": "100",
      "misconceived_answer": "190",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "4 - 3 + 11 × 4",
@@ -2266,27 +1957,34 @@
      ],
      "correct_answer": "45",
      "misconceived_answer": "48",
-     "problem_index": 2
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__18",
+   "misconception": "add_before_mul",
+   "set_index": 18,
+   "problems": [
     {
      "expression": "3 × 2 + 2 - 1",
      "operators": "×+-",
      "correct_trace": [
       "3 × 2 + 2 - 1",
-      "3 × 2 + 1",
-      "6 + 1",
+      "6 + 2 - 1",
+      "8 - 1",
       "7"
      ],
      "misconceived_trace": [
       "3 × 2 + 2 - 1",
-      "3 × 2 + 1",
-      "3 × 3",
-      "9"
+      "3 × 4 - 1",
+      "12 - 1",
+      "11"
      ],
-     "error_step": 2,
-     "wrong_move": "do 2 + 1 first",
+     "error_step": 1,
+     "wrong_move": "do 2 + 2 first",
      "right_move": "do 3 × 2 first",
-     "wrong_pair": "2 + 1",
+     "wrong_pair": "2 + 2",
      "right_pair": "3 × 2",
      "correct_offsets": [
       0.0,
@@ -2297,11 +1995,313 @@
      "misconceived_offsets": [
       0.0,
       2.0,
-      4.0,
+      3.5,
       6.0
      ],
      "correct_answer": "7",
-     "misconceived_answer": "9",
+     "misconceived_answer": "11",
+     "problem_index": 1
+    },
+    {
+     "expression": "10 + 4 + 8 × 6",
+     "operators": "++×",
+     "correct_trace": [
+      "10 + 4 + 8 × 6",
+      "14 + 8 × 6",
+      "14 + 48",
+      "62"
+     ],
+     "misconceived_trace": [
+      "10 + 4 + 8 × 6",
+      "14 + 8 × 6",
+      "22 × 6",
+      "132"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 14 + 8 first",
+     "right_move": "do 8 × 6 first",
+     "wrong_pair": "14 + 8",
+     "right_pair": "8 × 6",
+     "correct_offsets": [
+      0.0,
+      2.5,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.5,
+      5.0,
+      7.0
+     ],
+     "correct_answer": "62",
+     "misconceived_answer": "132",
+     "problem_index": 2
+    },
+    {
+     "expression": "12 - 10 + 6 × 5",
+     "operators": "-+×",
+     "correct_trace": [
+      "12 - 10 + 6 × 5",
+      "2 + 6 × 5",
+      "2 + 30",
+      "32"
+     ],
+     "misconceived_trace": [
+      "12 - 10 + 6 × 5",
+      "2 + 6 × 5",
+      "8 × 5",
+      "40"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 2 + 6 first",
+     "right_move": "do 6 × 5 first",
+     "wrong_pair": "2 + 6",
+     "right_pair": "6 × 5",
+     "correct_offsets": [
+      0.0,
+      3.0,
+      4.5,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      3.0,
+      5.0,
+      6.5
+     ],
+     "correct_answer": "32",
+     "misconceived_answer": "40",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__19",
+   "misconception": "add_before_mul",
+   "set_index": 19,
+   "problems": [
+    {
+     "expression": "9 × 5 + 7 × 3",
+     "operators": "×+×",
+     "correct_trace": [
+      "9 × 5 + 7 × 3",
+      "45 + 7 × 3",
+      "45 + 21",
+      "66"
+     ],
+     "misconceived_trace": [
+      "9 × 5 + 7 × 3",
+      "9 × 12 × 3",
+      "108 × 3",
+      "324"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 5 + 7 first",
+     "right_move": "do 7 × 3 first",
+     "wrong_pair": "5 + 7",
+     "right_pair": "7 × 3",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      3.0,
+      5.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      2.5,
+      5.5
+     ],
+     "correct_answer": "66",
+     "misconceived_answer": "324",
+     "problem_index": 1
+    },
+    {
+     "expression": "9 + 7 × 4 ÷ 2",
+     "operators": "+×÷",
+     "correct_trace": [
+      "9 + 7 × 4 ÷ 2",
+      "9 + 28 ÷ 2",
+      "9 + 14",
+      "23"
+     ],
+     "misconceived_trace": [
+      "9 + 7 × 4 ÷ 2",
+      "16 × 4 ÷ 2",
+      "64 ÷ 2",
+      "32"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 9 + 7 first",
+     "right_move": "do 7 × 4 first",
+     "wrong_pair": "9 + 7",
+     "right_pair": "7 × 4",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      5.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "correct_answer": "23",
+     "misconceived_answer": "32",
+     "problem_index": 2
+    },
+    {
+     "expression": "6 ÷ 2 + 1 × 4",
+     "operators": "÷+×",
+     "correct_trace": [
+      "6 ÷ 2 + 1 × 4",
+      "3 + 1 × 4",
+      "3 + 4",
+      "7"
+     ],
+     "misconceived_trace": [
+      "6 ÷ 2 + 1 × 4",
+      "3 + 1 × 4",
+      "4 × 4",
+      "16"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 3 + 1 first",
+     "right_move": "do 1 × 4 first",
+     "wrong_pair": "3 + 1",
+     "right_pair": "1 × 4",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      5.5
+     ],
+     "correct_answer": "7",
+     "misconceived_answer": "16",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_mul__20",
+   "misconception": "add_before_mul",
+   "set_index": 20,
+   "problems": [
+    {
+     "expression": "2 + 7 × 4 - 2",
+     "operators": "+×-",
+     "correct_trace": [
+      "2 + 7 × 4 - 2",
+      "2 + 28 - 2",
+      "30 - 2",
+      "28"
+     ],
+     "misconceived_trace": [
+      "2 + 7 × 4 - 2",
+      "9 × 4 - 2",
+      "36 - 2",
+      "34"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 2 + 7 first",
+     "right_move": "do 7 × 4 first",
+     "wrong_pair": "2 + 7",
+     "right_pair": "7 × 4",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      3.0,
+      5.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      3.5,
+      6.0
+     ],
+     "correct_answer": "28",
+     "misconceived_answer": "34",
+     "problem_index": 1
+    },
+    {
+     "expression": "8 ÷ 4 × 5 + 8",
+     "operators": "÷×+",
+     "correct_trace": [
+      "8 ÷ 4 × 5 + 8",
+      "2 × 5 + 8",
+      "10 + 8",
+      "18"
+     ],
+     "misconceived_trace": [
+      "8 ÷ 4 × 5 + 8",
+      "2 × 5 + 8",
+      "2 × 13",
+      "26"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 5 + 8 first",
+     "right_move": "do 2 × 5 first",
+     "wrong_pair": "5 + 8",
+     "right_pair": "2 × 5",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      3.5,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      3.5,
+      5.0
+     ],
+     "correct_answer": "18",
+     "misconceived_answer": "26",
+     "problem_index": 2
+    },
+    {
+     "expression": "5 - 4 + 2 × 6",
+     "operators": "-+×",
+     "correct_trace": [
+      "5 - 4 + 2 × 6",
+      "1 + 2 × 6",
+      "1 + 12",
+      "13"
+     ],
+     "misconceived_trace": [
+      "5 - 4 + 2 × 6",
+      "1 + 2 × 6",
+      "3 × 6",
+      "18"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 1 + 2 first",
+     "right_move": "do 2 × 6 first",
+     "wrong_pair": "1 + 2",
+     "right_pair": "2 × 6",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      3.5,
+      5.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      5.5
+     ],
+     "correct_answer": "13",
+     "misconceived_answer": "18",
      "problem_index": 3
     }
    ]
@@ -2312,145 +2312,30 @@
    "set_index": 1,
    "problems": [
     {
-     "expression": "4 + 3 × 4 ÷ 2",
-     "operators": "+×÷",
+     "expression": "9 - 4 + 10 ÷ 5",
+     "operators": "-+÷",
      "correct_trace": [
-      "4 + 3 × 4 ÷ 2",
-      "4 + 12 ÷ 2",
-      "4 + 6",
-      "10"
-     ],
-     "misconceived_trace": [
-      "4 + 3 × 4 ÷ 2",
-      "4 + 12 ÷ 2",
-      "16 ÷ 2",
-      "8"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 4 + 12 first",
-     "right_move": "do 12 ÷ 2 first",
-     "wrong_pair": "4 + 12",
-     "right_pair": "12 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      4.5,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      1.5,
-      3.0,
-      6.0
-     ],
-     "correct_answer": "10",
-     "misconceived_answer": "8",
-     "problem_index": 1
-    },
-    {
-     "expression": "6 ÷ 2 + 1 × 4",
-     "operators": "÷+×",
-     "correct_trace": [
-      "6 ÷ 2 + 1 × 4",
-      "6 ÷ 2 + 4",
-      "3 + 4",
+      "9 - 4 + 10 ÷ 5",
+      "5 + 10 ÷ 5",
+      "5 + 2",
       "7"
      ],
      "misconceived_trace": [
-      "6 ÷ 2 + 1 × 4",
-      "6 ÷ 2 + 4",
-      "6 ÷ 6",
-      "1"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 + 4 first",
-     "right_move": "do 6 ÷ 2 first",
-     "wrong_pair": "2 + 4",
-     "right_pair": "6 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "7",
-     "misconceived_answer": "1",
-     "problem_index": 2
-    },
-    {
-     "expression": "6 - 4 + 4 ÷ 2",
-     "operators": "-+÷",
-     "correct_trace": [
-      "6 - 4 + 4 ÷ 2",
-      "2 + 4 ÷ 2",
-      "2 + 2",
-      "4"
-     ],
-     "misconceived_trace": [
-      "6 - 4 + 4 ÷ 2",
-      "2 + 4 ÷ 2",
-      "6 ÷ 2",
+      "9 - 4 + 10 ÷ 5",
+      "5 + 10 ÷ 5",
+      "15 ÷ 5",
       "3"
      ],
      "error_step": 2,
-     "wrong_move": "do 2 + 4 first",
-     "right_move": "do 4 ÷ 2 first",
-     "wrong_pair": "2 + 4",
-     "right_pair": "4 ÷ 2",
+     "wrong_move": "do 5 + 10 first",
+     "right_move": "do 10 ÷ 5 first",
+     "wrong_pair": "5 + 10",
+     "right_pair": "10 ÷ 5",
      "correct_offsets": [
       0.0,
       2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "4",
-     "misconceived_answer": "3",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_div__2",
-   "misconception": "add_before_div",
-   "set_index": 2,
-   "problems": [
-    {
-     "expression": "9 - 3 + 4 ÷ 2",
-     "operators": "-+÷",
-     "correct_trace": [
-      "9 - 3 + 4 ÷ 2",
-      "6 + 4 ÷ 2",
-      "6 + 2",
-      "8"
-     ],
-     "misconceived_trace": [
-      "9 - 3 + 4 ÷ 2",
-      "6 + 4 ÷ 2",
-      "10 ÷ 2",
-      "5"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 6 + 4 first",
-     "right_move": "do 4 ÷ 2 first",
-     "wrong_pair": "6 + 4",
-     "right_pair": "4 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
+      5.0,
+      7.0
      ],
      "misconceived_offsets": [
       0.0,
@@ -2458,8 +2343,8 @@
       3.5,
       6.5
      ],
-     "correct_answer": "8",
-     "misconceived_answer": "5",
+     "correct_answer": "7",
+     "misconceived_answer": "3",
      "problem_index": 1
     },
     {
@@ -2537,9 +2422,9 @@
    ]
   },
   {
-   "set_id": "add_before_div__3",
+   "set_id": "add_before_div__2",
    "misconception": "add_before_div",
-   "set_index": 3,
+   "set_index": 2,
    "problems": [
     {
      "expression": "9 × 4 ÷ 2 + 1",
@@ -2652,9 +2537,9 @@
    ]
   },
   {
-   "set_id": "add_before_div__4",
+   "set_id": "add_before_div__3",
    "misconception": "add_before_div",
-   "set_index": 4,
+   "set_index": 3,
    "problems": [
     {
      "expression": "6 × 2 + 6 ÷ 2",
@@ -2767,9 +2652,9 @@
    ]
   },
   {
-   "set_id": "add_before_div__5",
+   "set_id": "add_before_div__4",
    "misconception": "add_before_div",
-   "set_index": 5,
+   "set_index": 4,
    "problems": [
     {
      "expression": "4 + 11 + 9 ÷ 3",
@@ -2882,9 +2767,9 @@
    ]
   },
   {
-   "set_id": "add_before_div__6",
+   "set_id": "add_before_div__5",
    "misconception": "add_before_div",
-   "set_index": 6,
+   "set_index": 5,
    "problems": [
     {
      "expression": "10 + 10 ÷ 2 × 4",
@@ -2997,9 +2882,9 @@
    ]
   },
   {
-   "set_id": "add_before_div__7",
+   "set_id": "add_before_div__6",
    "misconception": "add_before_div",
-   "set_index": 7,
+   "set_index": 6,
    "problems": [
     {
      "expression": "3 + 6 ÷ 3 - 2",
@@ -3074,49 +2959,6 @@
      "problem_index": 2
     },
     {
-     "expression": "6 ÷ 2 + 8 - 4",
-     "operators": "÷+-",
-     "correct_trace": [
-      "6 ÷ 2 + 8 - 4",
-      "6 ÷ 2 + 4",
-      "3 + 4",
-      "7"
-     ],
-     "misconceived_trace": [
-      "6 ÷ 2 + 8 - 4",
-      "6 ÷ 2 + 4",
-      "6 ÷ 6",
-      "1"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 + 4 first",
-     "right_move": "do 6 ÷ 2 first",
-     "wrong_pair": "2 + 4",
-     "right_pair": "6 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "7",
-     "misconceived_answer": "1",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_div__8",
-   "misconception": "add_before_div",
-   "set_index": 8,
-   "problems": [
-    {
      "expression": "6 × 4 + 6 ÷ 2",
      "operators": "×+÷",
      "correct_trace": [
@@ -3150,8 +2992,15 @@
      ],
      "correct_answer": "27",
      "misconceived_answer": "15",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_div__7",
+   "misconception": "add_before_div",
+   "set_index": 7,
+   "problems": [
     {
      "expression": "8 + 4 ÷ 2 × 6",
      "operators": "+÷×",
@@ -3186,87 +3035,87 @@
      ],
      "correct_answer": "20",
      "misconceived_answer": "36",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
-     "expression": "12 ÷ 2 + 7 + 3",
-     "operators": "÷++",
+     "expression": "4 + 10 + 4 ÷ 2",
+     "operators": "++÷",
      "correct_trace": [
-      "12 ÷ 2 + 7 + 3",
-      "12 ÷ 2 + 10",
-      "6 + 10",
+      "4 + 10 + 4 ÷ 2",
+      "14 + 4 ÷ 2",
+      "14 + 2",
       "16"
      ],
      "misconceived_trace": [
-      "12 ÷ 2 + 7 + 3",
-      "12 ÷ 2 + 10",
-      "12 ÷ 12",
-      "1"
+      "4 + 10 + 4 ÷ 2",
+      "14 + 4 ÷ 2",
+      "18 ÷ 2",
+      "9"
      ],
      "error_step": 2,
-     "wrong_move": "do 2 + 10 first",
-     "right_move": "do 12 ÷ 2 first",
-     "wrong_pair": "2 + 10",
-     "right_pair": "12 ÷ 2",
+     "wrong_move": "do 14 + 4 first",
+     "right_move": "do 4 ÷ 2 first",
+     "wrong_pair": "14 + 4",
+     "right_pair": "4 ÷ 2",
      "correct_offsets": [
       0.0,
       1.5,
-      4.5,
+      3.5,
       6.0
      ],
      "misconceived_offsets": [
       0.0,
       1.5,
-      3.0,
-      6.0
+      4.0,
+      7.0
      ],
      "correct_answer": "16",
-     "misconceived_answer": "1",
+     "misconceived_answer": "9",
+     "problem_index": 2
+    },
+    {
+     "expression": "12 × 6 ÷ 2 + 4",
+     "operators": "×÷+",
+     "correct_trace": [
+      "12 × 6 ÷ 2 + 4",
+      "72 ÷ 2 + 4",
+      "36 + 4",
+      "40"
+     ],
+     "misconceived_trace": [
+      "12 × 6 ÷ 2 + 4",
+      "72 ÷ 2 + 4",
+      "72 ÷ 6",
+      "12"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 2 + 4 first",
+     "right_move": "do 72 ÷ 2 first",
+     "wrong_pair": "2 + 4",
+     "right_pair": "72 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      2.5,
+      5.0,
+      7.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.5,
+      4.5,
+      7.0
+     ],
+     "correct_answer": "40",
+     "misconceived_answer": "12",
      "problem_index": 3
     }
    ]
   },
   {
-   "set_id": "add_before_div__9",
+   "set_id": "add_before_div__8",
    "misconception": "add_before_div",
-   "set_index": 9,
+   "set_index": 8,
    "problems": [
-    {
-     "expression": "10 + 4 ÷ 2 - 1",
-     "operators": "+÷-",
-     "correct_trace": [
-      "10 + 4 ÷ 2 - 1",
-      "10 + 2 - 1",
-      "12 - 1",
-      "11"
-     ],
-     "misconceived_trace": [
-      "10 + 4 ÷ 2 - 1",
-      "14 ÷ 2 - 1",
-      "7 - 1",
-      "6"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 10 + 4 first",
-     "right_move": "do 4 ÷ 2 first",
-     "wrong_pair": "10 + 4",
-     "right_pair": "4 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.5,
-      7.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.5,
-      5.5,
-      7.5
-     ],
-     "correct_answer": "11",
-     "misconceived_answer": "6",
-     "problem_index": 1
-    },
     {
      "expression": "12 × 3 + 9 ÷ 3",
      "operators": "×+÷",
@@ -3301,7 +3150,7 @@
      ],
      "correct_answer": "39",
      "misconceived_answer": "15",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "11 + 1 + 6 ÷ 3",
@@ -3337,50 +3186,7 @@
      ],
      "correct_answer": "14",
      "misconceived_answer": "6",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_div__10",
-   "misconception": "add_before_div",
-   "set_index": 10,
-   "problems": [
-    {
-     "expression": "10 × 2 + 10 ÷ 5",
-     "operators": "×+÷",
-     "correct_trace": [
-      "10 × 2 + 10 ÷ 5",
-      "20 + 10 ÷ 5",
-      "20 + 2",
-      "22"
-     ],
-     "misconceived_trace": [
-      "10 × 2 + 10 ÷ 5",
-      "20 + 10 ÷ 5",
-      "30 ÷ 5",
-      "6"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 20 + 10 first",
-     "right_move": "do 10 ÷ 5 first",
-     "wrong_pair": "20 + 10",
-     "right_pair": "10 ÷ 5",
-     "correct_offsets": [
-      0.0,
-      2.5,
-      5.5,
-      8.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.5,
-      5.0,
-      8.0
-     ],
-     "correct_answer": "22",
-     "misconceived_answer": "6",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "10 × 4 ÷ 2 + 6",
@@ -3416,6 +3222,85 @@
      ],
      "correct_answer": "26",
      "misconceived_answer": "5",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_div__9",
+   "misconception": "add_before_div",
+   "set_index": 9,
+   "problems": [
+    {
+     "expression": "6 × 4 ÷ 2 + 4",
+     "operators": "×÷+",
+     "correct_trace": [
+      "6 × 4 ÷ 2 + 4",
+      "24 ÷ 2 + 4",
+      "12 + 4",
+      "16"
+     ],
+     "misconceived_trace": [
+      "6 × 4 ÷ 2 + 4",
+      "6 × 4 ÷ 6",
+      "24 ÷ 6",
+      "4"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 2 + 4 first",
+     "right_move": "do 4 ÷ 2 first",
+     "wrong_pair": "2 + 4",
+     "right_pair": "4 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      3.5,
+      6.5
+     ],
+     "correct_answer": "16",
+     "misconceived_answer": "4",
+     "problem_index": 1
+    },
+    {
+     "expression": "11 × 3 + 9 ÷ 3",
+     "operators": "×+÷",
+     "correct_trace": [
+      "11 × 3 + 9 ÷ 3",
+      "33 + 9 ÷ 3",
+      "33 + 3",
+      "36"
+     ],
+     "misconceived_trace": [
+      "11 × 3 + 9 ÷ 3",
+      "33 + 9 ÷ 3",
+      "42 ÷ 3",
+      "14"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 33 + 9 first",
+     "right_move": "do 9 ÷ 3 first",
+     "wrong_pair": "33 + 9",
+     "right_pair": "9 ÷ 3",
+     "correct_offsets": [
+      0.0,
+      2.5,
+      4.5,
+      7.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.5,
+      5.0,
+      7.5
+     ],
+     "correct_answer": "36",
+     "misconceived_answer": "14",
      "problem_index": 2
     },
     {
@@ -3457,9 +3342,9 @@
    ]
   },
   {
-   "set_id": "add_before_div__11",
+   "set_id": "add_before_div__10",
    "misconception": "add_before_div",
-   "set_index": 11,
+   "set_index": 10,
    "problems": [
     {
      "expression": "4 - 1 + 6 ÷ 3",
@@ -3498,42 +3383,6 @@
      "problem_index": 1
     },
     {
-     "expression": "12 × 6 ÷ 2 + 4",
-     "operators": "×÷+",
-     "correct_trace": [
-      "12 × 6 ÷ 2 + 4",
-      "72 ÷ 2 + 4",
-      "36 + 4",
-      "40"
-     ],
-     "misconceived_trace": [
-      "12 × 6 ÷ 2 + 4",
-      "12 × 6 ÷ 6",
-      "72 ÷ 6",
-      "12"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 2 + 4 first",
-     "right_move": "do 6 ÷ 2 first",
-     "wrong_pair": "2 + 4",
-     "right_pair": "6 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.5,
-      5.0,
-      7.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.5,
-      7.0
-     ],
-     "correct_answer": "40",
-     "misconceived_answer": "12",
-     "problem_index": 2
-    },
-    {
      "expression": "8 + 12 × 4 ÷ 2",
      "operators": "+×÷",
      "correct_trace": [
@@ -3567,15 +3416,8 @@
      ],
      "correct_answer": "32",
      "misconceived_answer": "28",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_div__12",
-   "misconception": "add_before_div",
-   "set_index": 12,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "9 × 3 + 9 ÷ 3",
      "operators": "×+÷",
@@ -3610,8 +3452,15 @@
      ],
      "correct_answer": "30",
      "misconceived_answer": "12",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_div__11",
+   "misconception": "add_before_div",
+   "set_index": 11,
+   "problems": [
     {
      "expression": "4 + 4 ÷ 2 × 3",
      "operators": "+÷×",
@@ -3646,7 +3495,7 @@
      ],
      "correct_answer": "10",
      "misconceived_answer": "12",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "8 + 9 × 6 ÷ 2",
@@ -3682,15 +3531,8 @@
      ],
      "correct_answer": "35",
      "misconceived_answer": "31",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_div__13",
-   "misconception": "add_before_div",
-   "set_index": 13,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "9 ÷ 3 + 3 × 2",
      "operators": "÷+×",
@@ -3725,8 +3567,15 @@
      ],
      "correct_answer": "9",
      "misconceived_answer": "1",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_div__12",
+   "misconception": "add_before_div",
+   "set_index": 12,
+   "problems": [
     {
      "expression": "7 + 5 + 10 ÷ 2",
      "operators": "++÷",
@@ -3761,7 +3610,7 @@
      ],
      "correct_answer": "17",
      "misconceived_answer": "11",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "6 + 4 × 4 ÷ 2",
@@ -3797,15 +3646,8 @@
      ],
      "correct_answer": "14",
      "misconceived_answer": "11",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_div__14",
-   "misconception": "add_before_div",
-   "set_index": 14,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "8 + 10 ÷ 2 - 1",
      "operators": "+÷-",
@@ -3840,8 +3682,15 @@
      ],
      "correct_answer": "12",
      "misconceived_answer": "8",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_div__13",
+   "misconception": "add_before_div",
+   "set_index": 13,
+   "problems": [
     {
      "expression": "4 × 6 + 4 ÷ 2",
      "operators": "×+÷",
@@ -3876,7 +3725,7 @@
      ],
      "correct_answer": "26",
      "misconceived_answer": "14",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "9 + 6 + 9 ÷ 3",
@@ -3912,15 +3761,8 @@
      ],
      "correct_answer": "18",
      "misconceived_answer": "8",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_div__15",
-   "misconception": "add_before_div",
-   "set_index": 15,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "4 - 2 + 6 ÷ 2",
      "operators": "-+÷",
@@ -3955,8 +3797,15 @@
      ],
      "correct_answer": "5",
      "misconceived_answer": "4",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_div__14",
+   "misconception": "add_before_div",
+   "set_index": 14,
+   "problems": [
     {
      "expression": "9 + 9 ÷ 3 - 2",
      "operators": "+÷-",
@@ -3991,7 +3840,7 @@
      ],
      "correct_answer": "10",
      "misconceived_answer": "4",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "10 + 4 × 4 ÷ 2",
@@ -4027,50 +3876,7 @@
      ],
      "correct_answer": "18",
      "misconceived_answer": "13",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_div__16",
-   "misconception": "add_before_div",
-   "set_index": 16,
-   "problems": [
-    {
-     "expression": "10 + 10 × 4 ÷ 2",
-     "operators": "+×÷",
-     "correct_trace": [
-      "10 + 10 × 4 ÷ 2",
-      "10 + 40 ÷ 2",
-      "10 + 20",
-      "30"
-     ],
-     "misconceived_trace": [
-      "10 + 10 × 4 ÷ 2",
-      "10 + 40 ÷ 2",
-      "50 ÷ 2",
-      "25"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 10 + 40 first",
-     "right_move": "do 40 ÷ 2 first",
-     "wrong_pair": "10 + 40",
-     "right_pair": "40 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.5,
-      5.0,
-      7.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.5,
-      5.0,
-      7.5
-     ],
-     "correct_answer": "30",
-     "misconceived_answer": "25",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "5 × 3 + 10 ÷ 5",
@@ -4106,7 +3912,50 @@
      ],
      "correct_answer": "17",
      "misconceived_answer": "5",
-     "problem_index": 2
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_div__15",
+   "misconception": "add_before_div",
+   "set_index": 15,
+   "problems": [
+    {
+     "expression": "6 × 3 + 4 ÷ 2",
+     "operators": "×+÷",
+     "correct_trace": [
+      "6 × 3 + 4 ÷ 2",
+      "18 + 4 ÷ 2",
+      "18 + 2",
+      "20"
+     ],
+     "misconceived_trace": [
+      "6 × 3 + 4 ÷ 2",
+      "18 + 4 ÷ 2",
+      "22 ÷ 2",
+      "11"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 18 + 4 first",
+     "right_move": "do 4 ÷ 2 first",
+     "wrong_pair": "18 + 4",
+     "right_pair": "4 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      3.5,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "correct_answer": "20",
+     "misconceived_answer": "11",
+     "problem_index": 1
     },
     {
      "expression": "9 + 7 + 4 ÷ 2",
@@ -4142,85 +3991,6 @@
      ],
      "correct_answer": "18",
      "misconceived_answer": "10",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "add_before_div__17",
-   "misconception": "add_before_div",
-   "set_index": 17,
-   "problems": [
-    {
-     "expression": "11 × 5 + 10 ÷ 5",
-     "operators": "×+÷",
-     "correct_trace": [
-      "11 × 5 + 10 ÷ 5",
-      "55 + 10 ÷ 5",
-      "55 + 2",
-      "57"
-     ],
-     "misconceived_trace": [
-      "11 × 5 + 10 ÷ 5",
-      "55 + 10 ÷ 5",
-      "65 ÷ 5",
-      "13"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 55 + 10 first",
-     "right_move": "do 10 ÷ 5 first",
-     "wrong_pair": "55 + 10",
-     "right_pair": "10 ÷ 5",
-     "correct_offsets": [
-      0.0,
-      2.5,
-      5.5,
-      8.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.5,
-      5.0,
-      7.5
-     ],
-     "correct_answer": "57",
-     "misconceived_answer": "13",
-     "problem_index": 1
-    },
-    {
-     "expression": "4 ÷ 2 + 3 - 1",
-     "operators": "÷+-",
-     "correct_trace": [
-      "4 ÷ 2 + 3 - 1",
-      "4 ÷ 2 + 2",
-      "2 + 2",
-      "4"
-     ],
-     "misconceived_trace": [
-      "4 ÷ 2 + 3 - 1",
-      "4 ÷ 2 + 2",
-      "4 ÷ 4",
-      "1"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 + 2 first",
-     "right_move": "do 4 ÷ 2 first",
-     "wrong_pair": "2 + 2",
-     "right_pair": "4 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "4",
-     "misconceived_answer": "1",
      "problem_index": 2
     },
     {
@@ -4262,9 +4032,9 @@
    ]
   },
   {
-   "set_id": "add_before_div__18",
+   "set_id": "add_before_div__16",
    "misconception": "add_before_div",
-   "set_index": 18,
+   "set_index": 16,
    "problems": [
     {
      "expression": "9 × 4 ÷ 2 + 4",
@@ -4377,9 +4147,9 @@
    ]
   },
   {
-   "set_id": "add_before_div__19",
+   "set_id": "add_before_div__17",
    "misconception": "add_before_div",
-   "set_index": 19,
+   "set_index": 17,
    "problems": [
     {
      "expression": "6 × 4 + 9 ÷ 3",
@@ -4492,9 +4262,9 @@
    ]
   },
   {
-   "set_id": "add_before_div__20",
+   "set_id": "add_before_div__18",
    "misconception": "add_before_div",
-   "set_index": 20,
+   "set_index": 18,
    "problems": [
     {
      "expression": "11 + 11 + 10 ÷ 2",
@@ -4569,39 +4339,269 @@
      "problem_index": 2
     },
     {
-     "expression": "10 ÷ 2 + 11 - 8",
-     "operators": "÷+-",
+     "expression": "10 + 4 ÷ 2 - 1",
+     "operators": "+÷-",
      "correct_trace": [
-      "10 ÷ 2 + 11 - 8",
-      "10 ÷ 2 + 3",
-      "5 + 3",
-      "8"
+      "10 + 4 ÷ 2 - 1",
+      "10 + 2 - 1",
+      "12 - 1",
+      "11"
      ],
      "misconceived_trace": [
-      "10 ÷ 2 + 11 - 8",
-      "10 ÷ 2 + 3",
-      "10 ÷ 5",
-      "2"
+      "10 + 4 ÷ 2 - 1",
+      "14 ÷ 2 - 1",
+      "7 - 1",
+      "6"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 10 + 4 first",
+     "right_move": "do 4 ÷ 2 first",
+     "wrong_pair": "10 + 4",
+     "right_pair": "4 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.5,
+      7.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.5,
+      5.5,
+      7.5
+     ],
+     "correct_answer": "11",
+     "misconceived_answer": "6",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_div__19",
+   "misconception": "add_before_div",
+   "set_index": 19,
+   "problems": [
+    {
+     "expression": "9 × 2 + 8 ÷ 2",
+     "operators": "×+÷",
+     "correct_trace": [
+      "9 × 2 + 8 ÷ 2",
+      "18 + 8 ÷ 2",
+      "18 + 4",
+      "22"
+     ],
+     "misconceived_trace": [
+      "9 × 2 + 8 ÷ 2",
+      "18 + 8 ÷ 2",
+      "26 ÷ 2",
+      "13"
      ],
      "error_step": 2,
-     "wrong_move": "do 2 + 3 first",
-     "right_move": "do 10 ÷ 2 first",
-     "wrong_pair": "2 + 3",
-     "right_pair": "10 ÷ 2",
+     "wrong_move": "do 18 + 8 first",
+     "right_move": "do 8 ÷ 2 first",
+     "wrong_pair": "18 + 8",
+     "right_pair": "8 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      3.5,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "correct_answer": "22",
+     "misconceived_answer": "13",
+     "problem_index": 1
+    },
+    {
+     "expression": "9 + 11 + 4 ÷ 2",
+     "operators": "++÷",
+     "correct_trace": [
+      "9 + 11 + 4 ÷ 2",
+      "20 + 4 ÷ 2",
+      "20 + 2",
+      "22"
+     ],
+     "misconceived_trace": [
+      "9 + 11 + 4 ÷ 2",
+      "20 + 4 ÷ 2",
+      "24 ÷ 2",
+      "12"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 20 + 4 first",
+     "right_move": "do 4 ÷ 2 first",
+     "wrong_pair": "20 + 4",
+     "right_pair": "4 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      3.5,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "correct_answer": "22",
+     "misconceived_answer": "12",
+     "problem_index": 2
+    },
+    {
+     "expression": "3 + 12 ÷ 3 × 2",
+     "operators": "+÷×",
+     "correct_trace": [
+      "3 + 12 ÷ 3 × 2",
+      "3 + 4 × 2",
+      "3 + 8",
+      "11"
+     ],
+     "misconceived_trace": [
+      "3 + 12 ÷ 3 × 2",
+      "15 ÷ 3 × 2",
+      "5 × 2",
+      "10"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 3 + 12 first",
+     "right_move": "do 12 ÷ 3 first",
+     "wrong_pair": "3 + 12",
+     "right_pair": "12 ÷ 3",
      "correct_offsets": [
       0.0,
       3.0,
-      6.0,
-      8.0
+      5.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      4.5,
+      6.0
+     ],
+     "correct_answer": "11",
+     "misconceived_answer": "10",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "add_before_div__20",
+   "misconception": "add_before_div",
+   "set_index": 20,
+   "problems": [
+    {
+     "expression": "4 × 6 + 9 ÷ 3",
+     "operators": "×+÷",
+     "correct_trace": [
+      "4 × 6 + 9 ÷ 3",
+      "24 + 9 ÷ 3",
+      "24 + 3",
+      "27"
+     ],
+     "misconceived_trace": [
+      "4 × 6 + 9 ÷ 3",
+      "24 + 9 ÷ 3",
+      "33 ÷ 3",
+      "11"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 24 + 9 first",
+     "right_move": "do 9 ÷ 3 first",
+     "wrong_pair": "24 + 9",
+     "right_pair": "9 ÷ 3",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      3.5,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "correct_answer": "27",
+     "misconceived_answer": "11",
+     "problem_index": 1
+    },
+    {
+     "expression": "9 + 1 + 12 ÷ 2",
+     "operators": "++÷",
+     "correct_trace": [
+      "9 + 1 + 12 ÷ 2",
+      "10 + 12 ÷ 2",
+      "10 + 6",
+      "16"
+     ],
+     "misconceived_trace": [
+      "9 + 1 + 12 ÷ 2",
+      "10 + 12 ÷ 2",
+      "22 ÷ 2",
+      "11"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 10 + 12 first",
+     "right_move": "do 12 ÷ 2 first",
+     "wrong_pair": "10 + 12",
+     "right_pair": "12 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.5,
+      7.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "correct_answer": "16",
+     "misconceived_answer": "11",
+     "problem_index": 2
+    },
+    {
+     "expression": "10 - 7 + 9 ÷ 3",
+     "operators": "-+÷",
+     "correct_trace": [
+      "10 - 7 + 9 ÷ 3",
+      "3 + 9 ÷ 3",
+      "3 + 3",
+      "6"
+     ],
+     "misconceived_trace": [
+      "10 - 7 + 9 ÷ 3",
+      "3 + 9 ÷ 3",
+      "12 ÷ 3",
+      "4"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 3 + 9 first",
+     "right_move": "do 9 ÷ 3 first",
+     "wrong_pair": "3 + 9",
+     "right_pair": "9 ÷ 3",
+     "correct_offsets": [
+      0.0,
+      3.0,
+      5.0,
+      7.0
      ],
      "misconceived_offsets": [
       0.0,
       3.0,
-      5.0,
-      8.0
+      4.5,
+      7.5
      ],
-     "correct_answer": "8",
-     "misconceived_answer": "2",
+     "correct_answer": "6",
+     "misconceived_answer": "4",
      "problem_index": 3
     }
    ]
@@ -4612,499 +4612,39 @@
    "set_index": 1,
    "problems": [
     {
-     "expression": "11 × 4 - 2 × 6",
-     "operators": "×-×",
-     "correct_trace": [
-      "11 × 4 - 2 × 6",
-      "44 - 2 × 6",
-      "44 - 12",
-      "32"
-     ],
-     "misconceived_trace": [
-      "11 × 4 - 2 × 6",
-      "11 × 2 × 6",
-      "11 × 12",
-      "132"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 4 - 2 first",
-     "right_move": "do 2 × 6 first",
-     "wrong_pair": "4 - 2",
-     "right_pair": "2 × 6",
-     "correct_offsets": [
-      0.0,
-      2.5,
-      4.0,
-      6.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      5.5
-     ],
-     "correct_answer": "32",
-     "misconceived_answer": "132",
-     "problem_index": 1
-    },
-    {
-     "expression": "4 × 4 × 3 - 1",
-     "operators": "××-",
-     "correct_trace": [
-      "4 × 4 × 3 - 1",
-      "16 × 3 - 1",
-      "48 - 1",
-      "47"
-     ],
-     "misconceived_trace": [
-      "4 × 4 × 3 - 1",
-      "4 × 4 × 2",
-      "4 × 8",
-      "32"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 3 - 1 first",
-     "right_move": "do 4 × 3 first",
-     "wrong_pair": "3 - 1",
-     "right_pair": "4 × 3",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      4.0,
-      6.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "correct_answer": "47",
-     "misconceived_answer": "32",
-     "problem_index": 2
-    },
-    {
-     "expression": "10 - 3 × 3 + 5",
-     "operators": "-×+",
-     "correct_trace": [
-      "10 - 3 × 3 + 5",
-      "10 - 9 + 5",
-      "1 + 5",
-      "6"
-     ],
-     "misconceived_trace": [
-      "10 - 3 × 3 + 5",
-      "7 × 3 + 5",
-      "21 + 5",
-      "26"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 10 - 3 first",
-     "right_move": "do 3 × 3 first",
-     "wrong_pair": "10 - 3",
-     "right_pair": "3 × 3",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      5.0,
-      7.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      3.0,
-      4.5,
-      7.0
-     ],
-     "correct_answer": "6",
-     "misconceived_answer": "26",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__2",
-   "misconception": "sub_before_mul",
-   "set_index": 2,
-   "problems": [
-    {
-     "expression": "8 × 3 - 2 + 9",
+     "expression": "12 × 4 - 3 + 6",
      "operators": "×-+",
      "correct_trace": [
-      "8 × 3 - 2 + 9",
-      "24 - 2 + 9",
-      "22 + 9",
-      "31"
+      "12 × 4 - 3 + 6",
+      "48 - 3 + 6",
+      "45 + 6",
+      "51"
      ],
      "misconceived_trace": [
-      "8 × 3 - 2 + 9",
-      "8 × 1 + 9",
-      "8 + 9",
-      "17"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 3 - 2 first",
-     "right_move": "do 8 × 3 first",
-     "wrong_pair": "3 - 2",
-     "right_pair": "8 × 3",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      4.0,
-      6.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "correct_answer": "31",
-     "misconceived_answer": "17",
-     "problem_index": 1
-    },
-    {
-     "expression": "5 + 5 - 1 × 6",
-     "operators": "+-×",
-     "correct_trace": [
-      "5 + 5 - 1 × 6",
-      "10 - 1 × 6",
-      "10 - 6",
-      "4"
-     ],
-     "misconceived_trace": [
-      "5 + 5 - 1 × 6",
-      "5 + 4 × 6",
-      "5 + 24",
-      "29"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 5 - 1 first",
-     "right_move": "do 1 × 6 first",
-     "wrong_pair": "5 - 1",
-     "right_pair": "1 × 6",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      3.5,
-      6.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      5.0
-     ],
-     "correct_answer": "4",
-     "misconceived_answer": "29",
-     "problem_index": 2
-    },
-    {
-     "expression": "12 - 2 - 1 × 2",
-     "operators": "--×",
-     "correct_trace": [
-      "12 - 2 - 1 × 2",
-      "10 - 1 × 2",
-      "10 - 2",
-      "8"
-     ],
-     "misconceived_trace": [
-      "12 - 2 - 1 × 2",
-      "10 - 1 × 2",
-      "9 × 2",
+      "12 × 4 - 3 + 6",
+      "12 × 1 + 6",
+      "12 + 6",
       "18"
      ],
-     "error_step": 2,
-     "wrong_move": "do 10 - 1 first",
-     "right_move": "do 1 × 2 first",
-     "wrong_pair": "10 - 1",
-     "right_pair": "1 × 2",
+     "error_step": 1,
+     "wrong_move": "do 4 - 3 first",
+     "right_move": "do 12 × 4 first",
+     "wrong_pair": "4 - 3",
+     "right_pair": "12 × 4",
      "correct_offsets": [
       0.0,
       2.5,
-      4.5,
+      5.0,
       7.5
      ],
      "misconceived_offsets": [
       0.0,
-      2.5,
-      5.5,
+      2.0,
+      4.5,
       7.0
      ],
-     "correct_answer": "8",
+     "correct_answer": "51",
      "misconceived_answer": "18",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__3",
-   "misconception": "sub_before_mul",
-   "set_index": 3,
-   "problems": [
-    {
-     "expression": "6 × 3 × 6 - 4",
-     "operators": "××-",
-     "correct_trace": [
-      "6 × 3 × 6 - 4",
-      "18 × 6 - 4",
-      "108 - 4",
-      "104"
-     ],
-     "misconceived_trace": [
-      "6 × 3 × 6 - 4",
-      "6 × 3 × 2",
-      "6 × 6",
-      "36"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 6 - 4 first",
-     "right_move": "do 3 × 6 first",
-     "wrong_pair": "6 - 4",
-     "right_pair": "3 × 6",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      3.5,
-      6.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "correct_answer": "104",
-     "misconceived_answer": "36",
-     "problem_index": 1
-    },
-    {
-     "expression": "9 + 5 - 1 × 2",
-     "operators": "+-×",
-     "correct_trace": [
-      "9 + 5 - 1 × 2",
-      "14 - 1 × 2",
-      "14 - 2",
-      "12"
-     ],
-     "misconceived_trace": [
-      "9 + 5 - 1 × 2",
-      "9 + 4 × 2",
-      "9 + 8",
-      "17"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 5 - 1 first",
-     "right_move": "do 1 × 2 first",
-     "wrong_pair": "5 - 1",
-     "right_pair": "1 × 2",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      3.5,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "correct_answer": "12",
-     "misconceived_answer": "17",
-     "problem_index": 2
-    },
-    {
-     "expression": "8 + 4 × 5 - 3",
-     "operators": "+×-",
-     "correct_trace": [
-      "8 + 4 × 5 - 3",
-      "8 + 20 - 3",
-      "28 - 3",
-      "25"
-     ],
-     "misconceived_trace": [
-      "8 + 4 × 5 - 3",
-      "8 + 4 × 2",
-      "8 + 8",
-      "16"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 5 - 3 first",
-     "right_move": "do 4 × 5 first",
-     "wrong_pair": "5 - 3",
-     "right_pair": "4 × 5",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      3.0,
-      5.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "correct_answer": "25",
-     "misconceived_answer": "16",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__4",
-   "misconception": "sub_before_mul",
-   "set_index": 4,
-   "problems": [
-    {
-     "expression": "7 + 12 - 9 × 2",
-     "operators": "+-×",
-     "correct_trace": [
-      "7 + 12 - 9 × 2",
-      "19 - 9 × 2",
-      "19 - 18",
-      "1"
-     ],
-     "misconceived_trace": [
-      "7 + 12 - 9 × 2",
-      "7 + 3 × 2",
-      "7 + 6",
-      "13"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 12 - 9 first",
-     "right_move": "do 9 × 2 first",
-     "wrong_pair": "12 - 9",
-     "right_pair": "9 × 2",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      3.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      3.0,
-      5.0,
-      6.5
-     ],
-     "correct_answer": "1",
-     "misconceived_answer": "13",
-     "problem_index": 1
-    },
-    {
-     "expression": "8 × 5 - 1 + 11",
-     "operators": "×-+",
-     "correct_trace": [
-      "8 × 5 - 1 + 11",
-      "40 - 1 + 11",
-      "39 + 11",
-      "50"
-     ],
-     "misconceived_trace": [
-      "8 × 5 - 1 + 11",
-      "8 × 4 + 11",
-      "32 + 11",
-      "43"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 5 - 1 first",
-     "right_move": "do 8 × 5 first",
-     "wrong_pair": "5 - 1",
-     "right_pair": "8 × 5",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      4.0,
-      6.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      6.0
-     ],
-     "correct_answer": "50",
-     "misconceived_answer": "43",
-     "problem_index": 2
-    },
-    {
-     "expression": "1 × 4 × 5 - 4",
-     "operators": "××-",
-     "correct_trace": [
-      "1 × 4 × 5 - 4",
-      "4 × 5 - 4",
-      "20 - 4",
-      "16"
-     ],
-     "misconceived_trace": [
-      "1 × 4 × 5 - 4",
-      "1 × 4 × 1",
-      "4 × 1",
-      "4"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 5 - 4 first",
-     "right_move": "do 4 × 5 first",
-     "wrong_pair": "5 - 4",
-     "right_pair": "4 × 5",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "16",
-     "misconceived_answer": "4",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__5",
-   "misconception": "sub_before_mul",
-   "set_index": 5,
-   "problems": [
-    {
-     "expression": "4 × 6 ÷ 3 - 1",
-     "operators": "×÷-",
-     "correct_trace": [
-      "4 × 6 ÷ 3 - 1",
-      "4 × 2 - 1",
-      "8 - 1",
-      "7"
-     ],
-     "misconceived_trace": [
-      "4 × 6 ÷ 3 - 1",
-      "4 × 2 - 1",
-      "4 × 1",
-      "4"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 4 × 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "4 × 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "7",
-     "misconceived_answer": "4",
      "problem_index": 1
     },
     {
@@ -5155,7 +4695,7 @@
      "misconceived_trace": [
       "8 - 2 × 6 ÷ 3",
       "6 × 6 ÷ 3",
-      "6 × 2",
+      "36 ÷ 3",
       "12"
      ],
      "error_step": 1,
@@ -5172,8 +4712,8 @@
      "misconceived_offsets": [
       0.0,
       2.0,
-      4.0,
-      5.5
+      3.5,
+      6.0
      ],
      "correct_answer": "4",
      "misconceived_answer": "12",
@@ -5182,9 +4722,9 @@
    ]
   },
   {
-   "set_id": "sub_before_mul__6",
+   "set_id": "sub_before_mul__2",
    "misconception": "sub_before_mul",
-   "set_index": 6,
+   "set_index": 2,
    "problems": [
     {
      "expression": "7 × 3 - 1 + 3",
@@ -5234,7 +4774,7 @@
      "misconceived_trace": [
       "9 × 3 × 4 - 3",
       "9 × 3 × 1",
-      "9 × 3",
+      "27 × 1",
       "27"
      ],
      "error_step": 1,
@@ -5251,8 +4791,8 @@
      "misconceived_offsets": [
       0.0,
       2.0,
-      4.0,
-      5.5
+      3.5,
+      6.0
      ],
      "correct_answer": "105",
      "misconceived_answer": "27",
@@ -5297,9 +4837,9 @@
    ]
   },
   {
-   "set_id": "sub_before_mul__7",
+   "set_id": "sub_before_mul__3",
    "misconception": "sub_before_mul",
-   "set_index": 7,
+   "set_index": 3,
    "problems": [
     {
      "expression": "6 × 4 - 2 × 2",
@@ -5412,46 +4952,10 @@
    ]
   },
   {
-   "set_id": "sub_before_mul__8",
+   "set_id": "sub_before_mul__4",
    "misconception": "sub_before_mul",
-   "set_index": 8,
+   "set_index": 4,
    "problems": [
-    {
-     "expression": "10 × 4 ÷ 2 - 1",
-     "operators": "×÷-",
-     "correct_trace": [
-      "10 × 4 ÷ 2 - 1",
-      "10 × 2 - 1",
-      "20 - 1",
-      "19"
-     ],
-     "misconceived_trace": [
-      "10 × 4 ÷ 2 - 1",
-      "10 × 2 - 1",
-      "10 × 1",
-      "10"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 10 × 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "10 × 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.5,
-      7.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.5
-     ],
-     "correct_answer": "19",
-     "misconceived_answer": "10",
-     "problem_index": 1
-    },
     {
      "expression": "10 × 4 × 3 - 2",
      "operators": "××-",
@@ -5463,15 +4967,15 @@
      ],
      "misconceived_trace": [
       "10 × 4 × 3 - 2",
-      "10 × 4 × 1",
+      "40 × 3 - 2",
       "40 × 1",
       "40"
      ],
-     "error_step": 1,
+     "error_step": 2,
      "wrong_move": "do 3 - 2 first",
-     "right_move": "do 4 × 3 first",
+     "right_move": "do 40 × 3 first",
      "wrong_pair": "3 - 2",
-     "right_pair": "4 × 3",
+     "right_pair": "40 × 3",
      "correct_offsets": [
       0.0,
       2.5,
@@ -5480,13 +4984,13 @@
      ],
      "misconceived_offsets": [
       0.0,
-      2.0,
+      2.5,
       4.5,
       7.0
      ],
      "correct_answer": "118",
      "misconceived_answer": "40",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "12 - 3 - 1 × 6",
@@ -5522,50 +5026,7 @@
      ],
      "correct_answer": "3",
      "misconceived_answer": "48",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__9",
-   "misconception": "sub_before_mul",
-   "set_index": 9,
-   "problems": [
-    {
-     "expression": "9 × 3 × 4 - 1",
-     "operators": "××-",
-     "correct_trace": [
-      "9 × 3 × 4 - 1",
-      "27 × 4 - 1",
-      "108 - 1",
-      "107"
-     ],
-     "misconceived_trace": [
-      "9 × 3 × 4 - 1",
-      "9 × 3 × 3",
-      "9 × 9",
-      "81"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 4 - 1 first",
-     "right_move": "do 3 × 4 first",
-     "wrong_pair": "4 - 1",
-     "right_pair": "3 × 4",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      3.5,
-      6.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "correct_answer": "107",
-     "misconceived_answer": "81",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "9 ÷ 3 - 1 × 2",
@@ -5601,7 +5062,50 @@
      ],
      "correct_answer": "1",
      "misconceived_answer": "4",
-     "problem_index": 2
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__5",
+   "misconception": "sub_before_mul",
+   "set_index": 5,
+   "problems": [
+    {
+     "expression": "8 ÷ 2 - 1 × 2",
+     "operators": "÷-×",
+     "correct_trace": [
+      "8 ÷ 2 - 1 × 2",
+      "4 - 1 × 2",
+      "4 - 2",
+      "2"
+     ],
+     "misconceived_trace": [
+      "8 ÷ 2 - 1 × 2",
+      "4 - 1 × 2",
+      "3 × 2",
+      "6"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 4 - 1 first",
+     "right_move": "do 1 × 2 first",
+     "wrong_pair": "4 - 1",
+     "right_pair": "1 × 2",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "correct_answer": "2",
+     "misconceived_answer": "6",
+     "problem_index": 1
     },
     {
      "expression": "12 ÷ 2 × 6 - 1",
@@ -5637,15 +5141,8 @@
      ],
      "correct_answer": "35",
      "misconceived_answer": "30",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__10",
-   "misconception": "sub_before_mul",
-   "set_index": 10,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "5 + 10 - 7 × 2",
      "operators": "+-×",
@@ -5680,44 +5177,15 @@
      ],
      "correct_answer": "1",
      "misconceived_answer": "11",
-     "problem_index": 1
-    },
-    {
-     "expression": "7 × 6 ÷ 3 - 1",
-     "operators": "×÷-",
-     "correct_trace": [
-      "7 × 6 ÷ 3 - 1",
-      "7 × 2 - 1",
-      "14 - 1",
-      "13"
-     ],
-     "misconceived_trace": [
-      "7 × 6 ÷ 3 - 1",
-      "7 × 2 - 1",
-      "7 × 1",
-      "7"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 7 × 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "7 × 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "13",
-     "misconceived_answer": "7",
-     "problem_index": 2
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__6",
+   "misconception": "sub_before_mul",
+   "set_index": 6,
+   "problems": [
     {
      "expression": "3 × 6 - 1 × 4",
      "operators": "×-×",
@@ -5730,7 +5198,7 @@
      "misconceived_trace": [
       "3 × 6 - 1 × 4",
       "3 × 5 × 4",
-      "3 × 20",
+      "15 × 4",
       "60"
      ],
      "error_step": 1,
@@ -5748,19 +5216,12 @@
       0.0,
       2.0,
       3.5,
-      5.0
+      6.0
      ],
      "correct_answer": "14",
      "misconceived_answer": "60",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__11",
-   "misconception": "sub_before_mul",
-   "set_index": 11,
-   "problems": [
+     "problem_index": 1
+    },
     {
      "expression": "7 + 4 - 2 × 3",
      "operators": "+-×",
@@ -5795,7 +5256,7 @@
      ],
      "correct_answer": "5",
      "misconceived_answer": "27",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "5 × 3 - 2 + 11",
@@ -5831,7 +5292,50 @@
      ],
      "correct_answer": "24",
      "misconceived_answer": "16",
-     "problem_index": 2
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__7",
+   "misconception": "sub_before_mul",
+   "set_index": 7,
+   "problems": [
+    {
+     "expression": "7 × 4 - 2 + 11",
+     "operators": "×-+",
+     "correct_trace": [
+      "7 × 4 - 2 + 11",
+      "28 - 2 + 11",
+      "26 + 11",
+      "37"
+     ],
+     "misconceived_trace": [
+      "7 × 4 - 2 + 11",
+      "7 × 2 + 11",
+      "14 + 11",
+      "25"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 4 - 2 first",
+     "right_move": "do 7 × 4 first",
+     "wrong_pair": "4 - 2",
+     "right_pair": "7 × 4",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      3.5,
+      6.0
+     ],
+     "correct_answer": "37",
+     "misconceived_answer": "25",
+     "problem_index": 1
     },
     {
      "expression": "8 ÷ 2 - 1 × 3",
@@ -5867,15 +5371,8 @@
      ],
      "correct_answer": "1",
      "misconceived_answer": "9",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__12",
-   "misconception": "sub_before_mul",
-   "set_index": 12,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "7 + 3 × 6 - 5",
      "operators": "+×-",
@@ -5910,6 +5407,49 @@
      ],
      "correct_answer": "20",
      "misconceived_answer": "10",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__8",
+   "misconception": "sub_before_mul",
+   "set_index": 8,
+   "problems": [
+    {
+     "expression": "9 + 2 × 6 - 4",
+     "operators": "+×-",
+     "correct_trace": [
+      "9 + 2 × 6 - 4",
+      "9 + 12 - 4",
+      "21 - 4",
+      "17"
+     ],
+     "misconceived_trace": [
+      "9 + 2 × 6 - 4",
+      "9 + 2 × 2",
+      "9 + 4",
+      "13"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 6 - 4 first",
+     "right_move": "do 2 × 6 first",
+     "wrong_pair": "6 - 4",
+     "right_pair": "2 × 6",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      3.0,
+      5.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      5.5
+     ],
+     "correct_answer": "17",
+     "misconceived_answer": "13",
      "problem_index": 1
     },
     {
@@ -5987,9 +5527,9 @@
    ]
   },
   {
-   "set_id": "sub_before_mul__13",
+   "set_id": "sub_before_mul__9",
    "misconception": "sub_before_mul",
-   "set_index": 13,
+   "set_index": 9,
    "problems": [
     {
      "expression": "10 + 8 × 4 - 2",
@@ -6028,42 +5568,6 @@
      "problem_index": 1
     },
     {
-     "expression": "7 × 6 ÷ 2 - 1",
-     "operators": "×÷-",
-     "correct_trace": [
-      "7 × 6 ÷ 2 - 1",
-      "7 × 3 - 1",
-      "21 - 1",
-      "20"
-     ],
-     "misconceived_trace": [
-      "7 × 6 ÷ 2 - 1",
-      "7 × 3 - 1",
-      "7 × 2",
-      "14"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 3 - 1 first",
-     "right_move": "do 7 × 3 first",
-     "wrong_pair": "3 - 1",
-     "right_pair": "7 × 3",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "correct_answer": "20",
-     "misconceived_answer": "14",
-     "problem_index": 2
-    },
-    {
      "expression": "5 + 7 - 1 × 3",
      "operators": "+-×",
      "correct_trace": [
@@ -6097,15 +5601,8 @@
      ],
      "correct_answer": "9",
      "misconceived_answer": "23",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__14",
-   "misconception": "sub_before_mul",
-   "set_index": 14,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "1 × 5 × 4 - 3",
      "operators": "××-",
@@ -6140,8 +5637,15 @@
      ],
      "correct_answer": "17",
      "misconceived_answer": "5",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__10",
+   "misconception": "sub_before_mul",
+   "set_index": 10,
+   "problems": [
     {
      "expression": "2 × 2 - 1 + 5",
      "operators": "×-+",
@@ -6176,7 +5680,7 @@
      ],
      "correct_answer": "8",
      "misconceived_answer": "7",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "4 × 6 - 4 ÷ 2",
@@ -6212,15 +5716,8 @@
      ],
      "correct_answer": "22",
      "misconceived_answer": "16",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__15",
-   "misconception": "sub_before_mul",
-   "set_index": 15,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "12 ÷ 3 × 2 - 1",
      "operators": "÷×-",
@@ -6255,8 +5752,15 @@
      ],
      "correct_answer": "7",
      "misconceived_answer": "4",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__11",
+   "misconception": "sub_before_mul",
+   "set_index": 11,
+   "problems": [
     {
      "expression": "4 × 5 - 4 + 5",
      "operators": "×-+",
@@ -6291,7 +5795,7 @@
      ],
      "correct_answer": "21",
      "misconceived_answer": "9",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "2 × 4 × 5 - 1",
@@ -6327,50 +5831,7 @@
      ],
      "correct_answer": "39",
      "misconceived_answer": "32",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__16",
-   "misconception": "sub_before_mul",
-   "set_index": 16,
-   "problems": [
-    {
-     "expression": "6 × 3 × 2 - 1",
-     "operators": "××-",
-     "correct_trace": [
-      "6 × 3 × 2 - 1",
-      "18 × 2 - 1",
-      "36 - 1",
-      "35"
-     ],
-     "misconceived_trace": [
-      "6 × 3 × 2 - 1",
-      "6 × 3 × 1",
-      "6 × 3",
-      "18"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 3 × 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "3 × 2",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      4.0,
-      6.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "correct_answer": "35",
-     "misconceived_answer": "18",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "11 - 4 ÷ 2 × 4",
@@ -6406,7 +5867,50 @@
      ],
      "correct_answer": "3",
      "misconceived_answer": "36",
-     "problem_index": 2
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__12",
+   "misconception": "sub_before_mul",
+   "set_index": 12,
+   "problems": [
+    {
+     "expression": "7 × 5 × 2 - 1",
+     "operators": "××-",
+     "correct_trace": [
+      "7 × 5 × 2 - 1",
+      "35 × 2 - 1",
+      "70 - 1",
+      "69"
+     ],
+     "misconceived_trace": [
+      "7 × 5 × 2 - 1",
+      "35 × 2 - 1",
+      "35 × 1",
+      "35"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 35 × 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "35 × 2",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      3.5,
+      6.0
+     ],
+     "correct_answer": "69",
+     "misconceived_answer": "35",
+     "problem_index": 1
     },
     {
      "expression": "12 ÷ 6 × 5 - 1",
@@ -6442,15 +5946,8 @@
      ],
      "correct_answer": "9",
      "misconceived_answer": "8",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__17",
-   "misconception": "sub_before_mul",
-   "set_index": 17,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "7 × 5 - 4 ÷ 2",
      "operators": "×-÷",
@@ -6485,8 +5982,15 @@
      ],
      "correct_answer": "33",
      "misconceived_answer": "21",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__13",
+   "misconception": "sub_before_mul",
+   "set_index": 13,
+   "problems": [
     {
      "expression": "8 - 1 × 2 + 1",
      "operators": "-×+",
@@ -6521,7 +6025,7 @@
      ],
      "correct_answer": "7",
      "misconceived_answer": "15",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "12 - 2 × 6 ÷ 3",
@@ -6535,7 +6039,7 @@
      "misconceived_trace": [
       "12 - 2 × 6 ÷ 3",
       "10 × 6 ÷ 3",
-      "10 × 2",
+      "60 ÷ 3",
       "20"
      ],
      "error_step": 1,
@@ -6552,20 +6056,13 @@
      "misconceived_offsets": [
       0.0,
       2.5,
-      4.5,
-      7.0
+      5.0,
+      7.5
      ],
      "correct_answer": "8",
      "misconceived_answer": "20",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__18",
-   "misconception": "sub_before_mul",
-   "set_index": 18,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "1 + 6 × 3 - 1",
      "operators": "+×-",
@@ -6600,8 +6097,15 @@
      ],
      "correct_answer": "18",
      "misconceived_answer": "13",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__14",
+   "misconception": "sub_before_mul",
+   "set_index": 14,
+   "problems": [
     {
      "expression": "7 - 6 ÷ 3 × 2",
      "operators": "-÷×",
@@ -6636,7 +6140,7 @@
      ],
      "correct_answer": "3",
      "misconceived_answer": "10",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "2 × 2 - 1 + 4",
@@ -6672,15 +6176,8 @@
      ],
      "correct_answer": "7",
      "misconceived_answer": "6",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__19",
-   "misconception": "sub_before_mul",
-   "set_index": 19,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "6 × 5 × 4 - 1",
      "operators": "××-",
@@ -6692,15 +6189,15 @@
      ],
      "misconceived_trace": [
       "6 × 5 × 4 - 1",
-      "6 × 5 × 3",
+      "30 × 4 - 1",
       "30 × 3",
       "90"
      ],
-     "error_step": 1,
+     "error_step": 2,
      "wrong_move": "do 4 - 1 first",
-     "right_move": "do 5 × 4 first",
+     "right_move": "do 30 × 4 first",
      "wrong_pair": "4 - 1",
-     "right_pair": "5 × 4",
+     "right_pair": "30 × 4",
      "correct_offsets": [
       0.0,
       1.5,
@@ -6709,14 +6206,21 @@
      ],
      "misconceived_offsets": [
       0.0,
-      2.0,
+      1.5,
       3.5,
       6.0
      ],
      "correct_answer": "119",
      "misconceived_answer": "90",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__15",
+   "misconception": "sub_before_mul",
+   "set_index": 15,
+   "problems": [
     {
      "expression": "9 + 4 - 3 × 3",
      "operators": "+-×",
@@ -6751,7 +6255,7 @@
      ],
      "correct_answer": "4",
      "misconceived_answer": "30",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "4 + 12 × 3 - 1",
@@ -6787,35 +6291,28 @@
      ],
      "correct_answer": "39",
      "misconceived_answer": "28",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_mul__20",
-   "misconception": "sub_before_mul",
-   "set_index": 20,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "3 - 1 × 6 ÷ 3",
      "operators": "-×÷",
      "correct_trace": [
       "3 - 1 × 6 ÷ 3",
-      "3 - 1 × 2",
+      "3 - 6 ÷ 3",
       "3 - 2",
       "1"
      ],
      "misconceived_trace": [
       "3 - 1 × 6 ÷ 3",
-      "3 - 1 × 2",
-      "2 × 2",
+      "2 × 6 ÷ 3",
+      "12 ÷ 3",
       "4"
      ],
-     "error_step": 2,
+     "error_step": 1,
      "wrong_move": "do 3 - 1 first",
-     "right_move": "do 1 × 2 first",
+     "right_move": "do 1 × 6 first",
      "wrong_pair": "3 - 1",
-     "right_pair": "1 × 2",
+     "right_pair": "1 × 6",
      "correct_offsets": [
       0.0,
       2.0,
@@ -6825,13 +6322,20 @@
      "misconceived_offsets": [
       0.0,
       2.0,
-      4.0,
-      6.0
+      3.5,
+      6.5
      ],
      "correct_answer": "1",
      "misconceived_answer": "4",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__16",
+   "misconception": "sub_before_mul",
+   "set_index": 16,
+   "problems": [
     {
      "expression": "10 + 4 - 1 × 6",
      "operators": "+-×",
@@ -6866,28 +6370,143 @@
      ],
      "correct_answer": "8",
      "misconceived_answer": "28",
+     "problem_index": 1
+    },
+    {
+     "expression": "4 - 1 × 3 + 9",
+     "operators": "-×+",
+     "correct_trace": [
+      "4 - 1 × 3 + 9",
+      "4 - 3 + 9",
+      "1 + 9",
+      "10"
+     ],
+     "misconceived_trace": [
+      "4 - 1 × 3 + 9",
+      "3 × 3 + 9",
+      "9 + 9",
+      "18"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 4 - 1 first",
+     "right_move": "do 1 × 3 first",
+     "wrong_pair": "4 - 1",
+     "right_pair": "1 × 3",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      5.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      5.5
+     ],
+     "correct_answer": "10",
+     "misconceived_answer": "18",
      "problem_index": 2
     },
     {
-     "expression": "4 × 6 ÷ 2 - 1",
-     "operators": "×÷-",
+     "expression": "12 × 2 × 2 - 1",
+     "operators": "××-",
      "correct_trace": [
-      "4 × 6 ÷ 2 - 1",
-      "4 × 3 - 1",
-      "12 - 1",
-      "11"
+      "12 × 2 × 2 - 1",
+      "24 × 2 - 1",
+      "48 - 1",
+      "47"
      ],
      "misconceived_trace": [
-      "4 × 6 ÷ 2 - 1",
-      "4 × 3 - 1",
-      "4 × 2",
-      "8"
+      "12 × 2 × 2 - 1",
+      "12 × 2 × 1",
+      "24 × 1",
+      "24"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 2 × 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "2 × 2",
+     "correct_offsets": [
+      0.0,
+      2.5,
+      5.0,
+      7.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.5,
+      7.0
+     ],
+     "correct_answer": "47",
+     "misconceived_answer": "24",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__17",
+   "misconception": "sub_before_mul",
+   "set_index": 17,
+   "problems": [
+    {
+     "expression": "3 - 1 × 4 ÷ 2",
+     "operators": "-×÷",
+     "correct_trace": [
+      "3 - 1 × 4 ÷ 2",
+      "3 - 4 ÷ 2",
+      "3 - 2",
+      "1"
+     ],
+     "misconceived_trace": [
+      "3 - 1 × 4 ÷ 2",
+      "2 × 4 ÷ 2",
+      "8 ÷ 2",
+      "4"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 3 - 1 first",
+     "right_move": "do 1 × 4 first",
+     "wrong_pair": "3 - 1",
+     "right_pair": "1 × 4",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "correct_answer": "1",
+     "misconceived_answer": "4",
+     "problem_index": 1
+    },
+    {
+     "expression": "2 × 4 × 6 - 2",
+     "operators": "××-",
+     "correct_trace": [
+      "2 × 4 × 6 - 2",
+      "8 × 6 - 2",
+      "48 - 2",
+      "46"
+     ],
+     "misconceived_trace": [
+      "2 × 4 × 6 - 2",
+      "8 × 6 - 2",
+      "8 × 4",
+      "32"
      ],
      "error_step": 2,
-     "wrong_move": "do 3 - 1 first",
-     "right_move": "do 4 × 3 first",
-     "wrong_pair": "3 - 1",
-     "right_pair": "4 × 3",
+     "wrong_move": "do 6 - 2 first",
+     "right_move": "do 8 × 6 first",
+     "wrong_pair": "6 - 2",
+     "right_pair": "8 × 6",
      "correct_offsets": [
       0.0,
       2.0,
@@ -6898,10 +6517,391 @@
       0.0,
       2.0,
       4.0,
+      5.5
+     ],
+     "correct_answer": "46",
+     "misconceived_answer": "32",
+     "problem_index": 2
+    },
+    {
+     "expression": "7 - 1 × 5 + 12",
+     "operators": "-×+",
+     "correct_trace": [
+      "7 - 1 × 5 + 12",
+      "7 - 5 + 12",
+      "2 + 12",
+      "14"
+     ],
+     "misconceived_trace": [
+      "7 - 1 × 5 + 12",
+      "6 × 5 + 12",
+      "30 + 12",
+      "42"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 7 - 1 first",
+     "right_move": "do 1 × 5 first",
+     "wrong_pair": "7 - 1",
+     "right_pair": "1 × 5",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      5.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      3.5,
       6.0
      ],
-     "correct_answer": "11",
-     "misconceived_answer": "8",
+     "correct_answer": "14",
+     "misconceived_answer": "42",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__18",
+   "misconception": "sub_before_mul",
+   "set_index": 18,
+   "problems": [
+    {
+     "expression": "8 - 2 - 1 × 5",
+     "operators": "--×",
+     "correct_trace": [
+      "8 - 2 - 1 × 5",
+      "6 - 1 × 5",
+      "6 - 5",
+      "1"
+     ],
+     "misconceived_trace": [
+      "8 - 2 - 1 × 5",
+      "6 - 1 × 5",
+      "5 × 5",
+      "25"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 6 - 1 first",
+     "right_move": "do 1 × 5 first",
+     "wrong_pair": "6 - 1",
+     "right_pair": "1 × 5",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      5.5
+     ],
+     "correct_answer": "1",
+     "misconceived_answer": "25",
+     "problem_index": 1
+    },
+    {
+     "expression": "12 - 5 × 4 ÷ 2",
+     "operators": "-×÷",
+     "correct_trace": [
+      "12 - 5 × 4 ÷ 2",
+      "12 - 20 ÷ 2",
+      "12 - 10",
+      "2"
+     ],
+     "misconceived_trace": [
+      "12 - 5 × 4 ÷ 2",
+      "7 × 4 ÷ 2",
+      "28 ÷ 2",
+      "14"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 12 - 5 first",
+     "right_move": "do 5 × 4 first",
+     "wrong_pair": "12 - 5",
+     "right_pair": "5 × 4",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      7.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      3.0,
+      4.5,
+      7.0
+     ],
+     "correct_answer": "2",
+     "misconceived_answer": "14",
+     "problem_index": 2
+    },
+    {
+     "expression": "9 ÷ 3 × 2 - 1",
+     "operators": "÷×-",
+     "correct_trace": [
+      "9 ÷ 3 × 2 - 1",
+      "3 × 2 - 1",
+      "6 - 1",
+      "5"
+     ],
+     "misconceived_trace": [
+      "9 ÷ 3 × 2 - 1",
+      "3 × 2 - 1",
+      "3 × 1",
+      "3"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 3 × 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "3 × 2",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "correct_answer": "5",
+     "misconceived_answer": "3",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__19",
+   "misconception": "sub_before_mul",
+   "set_index": 19,
+   "problems": [
+    {
+     "expression": "4 × 6 × 2 - 1",
+     "operators": "××-",
+     "correct_trace": [
+      "4 × 6 × 2 - 1",
+      "24 × 2 - 1",
+      "48 - 1",
+      "47"
+     ],
+     "misconceived_trace": [
+      "4 × 6 × 2 - 1",
+      "24 × 2 - 1",
+      "24 × 1",
+      "24"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 24 × 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "24 × 2",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      3.5,
+      6.0
+     ],
+     "correct_answer": "47",
+     "misconceived_answer": "24",
+     "problem_index": 1
+    },
+    {
+     "expression": "9 - 4 × 6 ÷ 3",
+     "operators": "-×÷",
+     "correct_trace": [
+      "9 - 4 × 6 ÷ 3",
+      "9 - 24 ÷ 3",
+      "9 - 8",
+      "1"
+     ],
+     "misconceived_trace": [
+      "9 - 4 × 6 ÷ 3",
+      "5 × 6 ÷ 3",
+      "30 ÷ 3",
+      "10"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 9 - 4 first",
+     "right_move": "do 4 × 6 first",
+     "wrong_pair": "9 - 4",
+     "right_pair": "4 × 6",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.5,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      3.5,
+      6.0
+     ],
+     "correct_answer": "1",
+     "misconceived_answer": "10",
+     "problem_index": 2
+    },
+    {
+     "expression": "10 ÷ 2 - 1 × 4",
+     "operators": "÷-×",
+     "correct_trace": [
+      "10 ÷ 2 - 1 × 4",
+      "5 - 1 × 4",
+      "5 - 4",
+      "1"
+     ],
+     "misconceived_trace": [
+      "10 ÷ 2 - 1 × 4",
+      "5 - 1 × 4",
+      "4 × 4",
+      "16"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 5 - 1 first",
+     "right_move": "do 1 × 4 first",
+     "wrong_pair": "5 - 1",
+     "right_pair": "1 × 4",
+     "correct_offsets": [
+      0.0,
+      3.0,
+      5.0,
+      7.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      3.0,
+      5.0,
+      6.5
+     ],
+     "correct_answer": "1",
+     "misconceived_answer": "16",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_mul__20",
+   "misconception": "sub_before_mul",
+   "set_index": 20,
+   "problems": [
+    {
+     "expression": "2 + 10 × 5 - 4",
+     "operators": "+×-",
+     "correct_trace": [
+      "2 + 10 × 5 - 4",
+      "2 + 50 - 4",
+      "52 - 4",
+      "48"
+     ],
+     "misconceived_trace": [
+      "2 + 10 × 5 - 4",
+      "2 + 10 × 1",
+      "2 + 10",
+      "12"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 5 - 4 first",
+     "right_move": "do 10 × 5 first",
+     "wrong_pair": "5 - 4",
+     "right_pair": "10 × 5",
+     "correct_offsets": [
+      0.0,
+      2.5,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.5,
+      6.0
+     ],
+     "correct_answer": "48",
+     "misconceived_answer": "12",
+     "problem_index": 1
+    },
+    {
+     "expression": "9 × 2 - 1 + 5",
+     "operators": "×-+",
+     "correct_trace": [
+      "9 × 2 - 1 + 5",
+      "18 - 1 + 5",
+      "17 + 5",
+      "22"
+     ],
+     "misconceived_trace": [
+      "9 × 2 - 1 + 5",
+      "9 × 1 + 5",
+      "9 + 5",
+      "14"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 9 × 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "9 × 2",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      5.5
+     ],
+     "correct_answer": "22",
+     "misconceived_answer": "14",
+     "problem_index": 2
+    },
+    {
+     "expression": "5 × 3 - 1 × 6",
+     "operators": "×-×",
+     "correct_trace": [
+      "5 × 3 - 1 × 6",
+      "15 - 1 × 6",
+      "15 - 6",
+      "9"
+     ],
+     "misconceived_trace": [
+      "5 × 3 - 1 × 6",
+      "5 × 2 × 6",
+      "10 × 6",
+      "60"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 3 - 1 first",
+     "right_move": "do 1 × 6 first",
+     "wrong_pair": "3 - 1",
+     "right_pair": "1 × 6",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      3.5,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      3.5,
+      6.0
+     ],
+     "correct_answer": "9",
+     "misconceived_answer": "60",
      "problem_index": 3
     }
    ]
@@ -6912,39 +6912,39 @@
    "set_index": 1,
    "problems": [
     {
-     "expression": "12 - 4 ÷ 2 + 12",
-     "operators": "-÷+",
+     "expression": "4 × 6 ÷ 2 - 1",
+     "operators": "×÷-",
      "correct_trace": [
-      "12 - 4 ÷ 2 + 12",
-      "12 - 2 + 12",
-      "10 + 12",
-      "22"
+      "4 × 6 ÷ 2 - 1",
+      "24 ÷ 2 - 1",
+      "12 - 1",
+      "11"
      ],
      "misconceived_trace": [
-      "12 - 4 ÷ 2 + 12",
-      "8 ÷ 2 + 12",
-      "4 + 12",
-      "16"
+      "4 × 6 ÷ 2 - 1",
+      "24 ÷ 2 - 1",
+      "24 ÷ 1",
+      "24"
      ],
-     "error_step": 1,
-     "wrong_move": "do 12 - 4 first",
-     "right_move": "do 4 ÷ 2 first",
-     "wrong_pair": "12 - 4",
-     "right_pair": "4 ÷ 2",
+     "error_step": 2,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 24 ÷ 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "24 ÷ 2",
      "correct_offsets": [
       0.0,
-      2.0,
-      4.5,
-      7.0
+      1.5,
+      4.0,
+      6.5
      ],
      "misconceived_offsets": [
       0.0,
-      3.0,
-      5.0,
-      6.5
+      1.5,
+      3.5,
+      6.0
      ],
-     "correct_answer": "22",
-     "misconceived_answer": "16",
+     "correct_answer": "11",
+     "misconceived_answer": "24",
      "problem_index": 1
     },
     {
@@ -6984,315 +6984,6 @@
      "problem_index": 2
     },
     {
-     "expression": "9 + 5 - 4 ÷ 2",
-     "operators": "+-÷",
-     "correct_trace": [
-      "9 + 5 - 4 ÷ 2",
-      "14 - 4 ÷ 2",
-      "14 - 2",
-      "12"
-     ],
-     "misconceived_trace": [
-      "9 + 5 - 4 ÷ 2",
-      "14 - 4 ÷ 2",
-      "10 ÷ 2",
-      "5"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 14 - 4 first",
-     "right_move": "do 4 ÷ 2 first",
-     "wrong_pair": "14 - 4",
-     "right_pair": "4 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      3.5,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      1.5,
-      4.0,
-      7.0
-     ],
-     "correct_answer": "12",
-     "misconceived_answer": "5",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_div__2",
-   "misconception": "sub_before_div",
-   "set_index": 2,
-   "problems": [
-    {
-     "expression": "4 + 6 ÷ 2 - 1",
-     "operators": "+÷-",
-     "correct_trace": [
-      "4 + 6 ÷ 2 - 1",
-      "4 + 3 - 1",
-      "7 - 1",
-      "6"
-     ],
-     "misconceived_trace": [
-      "4 + 6 ÷ 2 - 1",
-      "4 + 6 ÷ 1",
-      "4 + 6",
-      "10"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 6 ÷ 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "6 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "correct_answer": "6",
-     "misconceived_answer": "10",
-     "problem_index": 1
-    },
-    {
-     "expression": "7 × 4 ÷ 2 - 1",
-     "operators": "×÷-",
-     "correct_trace": [
-      "7 × 4 ÷ 2 - 1",
-      "28 ÷ 2 - 1",
-      "14 - 1",
-      "13"
-     ],
-     "misconceived_trace": [
-      "7 × 4 ÷ 2 - 1",
-      "7 × 4 ÷ 1",
-      "7 × 4",
-      "28"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 4 ÷ 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "4 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      4.0,
-      6.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "correct_answer": "13",
-     "misconceived_answer": "28",
-     "problem_index": 2
-    },
-    {
-     "expression": "8 - 1 × 6 ÷ 2",
-     "operators": "-×÷",
-     "correct_trace": [
-      "8 - 1 × 6 ÷ 2",
-      "8 - 6 ÷ 2",
-      "8 - 3",
-      "5"
-     ],
-     "misconceived_trace": [
-      "8 - 1 × 6 ÷ 2",
-      "8 - 6 ÷ 2",
-      "2 ÷ 2",
-      "1"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 8 - 6 first",
-     "right_move": "do 6 ÷ 2 first",
-     "wrong_pair": "8 - 6",
-     "right_pair": "6 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "5",
-     "misconceived_answer": "1",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_div__3",
-   "misconception": "sub_before_div",
-   "set_index": 3,
-   "problems": [
-    {
-     "expression": "1 × 4 ÷ 2 - 1",
-     "operators": "×÷-",
-     "correct_trace": [
-      "1 × 4 ÷ 2 - 1",
-      "4 ÷ 2 - 1",
-      "2 - 1",
-      "1"
-     ],
-     "misconceived_trace": [
-      "1 × 4 ÷ 2 - 1",
-      "4 ÷ 2 - 1",
-      "4 ÷ 1",
-      "4"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 4 ÷ 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "4 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "1",
-     "misconceived_answer": "4",
-     "problem_index": 1
-    },
-    {
-     "expression": "11 + 6 ÷ 2 - 1",
-     "operators": "+÷-",
-     "correct_trace": [
-      "11 + 6 ÷ 2 - 1",
-      "11 + 3 - 1",
-      "14 - 1",
-      "13"
-     ],
-     "misconceived_trace": [
-      "11 + 6 ÷ 2 - 1",
-      "11 + 6 ÷ 1",
-      "11 + 6",
-      "17"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 6 ÷ 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "6 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.5,
-      7.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.5
-     ],
-     "correct_answer": "13",
-     "misconceived_answer": "17",
-     "problem_index": 2
-    },
-    {
-     "expression": "4 ÷ 2 - 1 + 2",
-     "operators": "÷-+",
-     "correct_trace": [
-      "4 ÷ 2 - 1 + 2",
-      "2 - 1 + 2",
-      "1 + 2",
-      "3"
-     ],
-     "misconceived_trace": [
-      "4 ÷ 2 - 1 + 2",
-      "4 ÷ 1 + 2",
-      "4 + 2",
-      "6"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 4 ÷ 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "4 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "3",
-     "misconceived_answer": "6",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_div__4",
-   "misconception": "sub_before_div",
-   "set_index": 4,
-   "problems": [
-    {
-     "expression": "12 × 6 ÷ 2 - 1",
-     "operators": "×÷-",
-     "correct_trace": [
-      "12 × 6 ÷ 2 - 1",
-      "72 ÷ 2 - 1",
-      "36 - 1",
-      "35"
-     ],
-     "misconceived_trace": [
-      "12 × 6 ÷ 2 - 1",
-      "12 × 6 ÷ 1",
-      "12 × 6",
-      "72"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 6 ÷ 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "6 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.5,
-      5.0,
-      7.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.5
-     ],
-     "correct_answer": "35",
-     "misconceived_answer": "72",
-     "problem_index": 1
-    },
-    {
      "expression": "12 - 4 ÷ 2 + 5",
      "operators": "-÷+",
      "correct_trace": [
@@ -7326,7 +7017,50 @@
      ],
      "correct_answer": "15",
      "misconceived_answer": "9",
-     "problem_index": 2
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_div__2",
+   "misconception": "sub_before_div",
+   "set_index": 2,
+   "problems": [
+    {
+     "expression": "10 - 6 ÷ 2 + 7",
+     "operators": "-÷+",
+     "correct_trace": [
+      "10 - 6 ÷ 2 + 7",
+      "10 - 3 + 7",
+      "7 + 7",
+      "14"
+     ],
+     "misconceived_trace": [
+      "10 - 6 ÷ 2 + 7",
+      "4 ÷ 2 + 7",
+      "2 + 7",
+      "9"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 10 - 6 first",
+     "right_move": "do 6 ÷ 2 first",
+     "wrong_pair": "10 - 6",
+     "right_pair": "6 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      5.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      3.0,
+      5.0,
+      7.0
+     ],
+     "correct_answer": "14",
+     "misconceived_answer": "9",
+     "problem_index": 1
     },
     {
      "expression": "3 + 5 - 4 ÷ 2",
@@ -7362,15 +7096,8 @@
      ],
      "correct_answer": "6",
      "misconceived_answer": "2",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_div__5",
-   "misconception": "sub_before_div",
-   "set_index": 5,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "7 + 12 ÷ 3 - 1",
      "operators": "+÷-",
@@ -7405,8 +7132,15 @@
      ],
      "correct_answer": "10",
      "misconceived_answer": "13",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_div__3",
+   "misconception": "sub_before_div",
+   "set_index": 3,
+   "problems": [
     {
      "expression": "11 × 6 ÷ 3 - 2",
      "operators": "×÷-",
@@ -7441,6 +7175,42 @@
      ],
      "correct_answer": "20",
      "misconceived_answer": "66",
+     "problem_index": 1
+    },
+    {
+     "expression": "12 + 10 ÷ 2 - 1",
+     "operators": "+÷-",
+     "correct_trace": [
+      "12 + 10 ÷ 2 - 1",
+      "12 + 5 - 1",
+      "17 - 1",
+      "16"
+     ],
+     "misconceived_trace": [
+      "12 + 10 ÷ 2 - 1",
+      "12 + 10 ÷ 1",
+      "12 + 10",
+      "22"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 10 ÷ 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "10 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      3.0,
+      5.5,
+      8.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.5,
+      7.0
+     ],
+     "correct_answer": "16",
+     "misconceived_answer": "22",
      "problem_index": 2
     },
     {
@@ -7482,9 +7252,9 @@
    ]
   },
   {
-   "set_id": "sub_before_div__6",
+   "set_id": "sub_before_div__4",
    "misconception": "sub_before_div",
-   "set_index": 6,
+   "set_index": 4,
    "problems": [
     {
      "expression": "11 × 4 ÷ 2 - 1",
@@ -7597,9 +7367,9 @@
    ]
   },
   {
-   "set_id": "sub_before_div__7",
+   "set_id": "sub_before_div__5",
    "misconception": "sub_before_div",
-   "set_index": 7,
+   "set_index": 5,
    "problems": [
     {
      "expression": "8 × 5 - 4 ÷ 2",
@@ -7674,6 +7444,85 @@
      "problem_index": 2
     },
     {
+     "expression": "7 × 4 ÷ 2 - 1",
+     "operators": "×÷-",
+     "correct_trace": [
+      "7 × 4 ÷ 2 - 1",
+      "28 ÷ 2 - 1",
+      "14 - 1",
+      "13"
+     ],
+     "misconceived_trace": [
+      "7 × 4 ÷ 2 - 1",
+      "28 ÷ 2 - 1",
+      "28 ÷ 1",
+      "28"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 28 ÷ 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "28 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      3.5,
+      6.0
+     ],
+     "correct_answer": "13",
+     "misconceived_answer": "28",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_div__6",
+   "misconception": "sub_before_div",
+   "set_index": 6,
+   "problems": [
+    {
+     "expression": "5 + 11 - 4 ÷ 2",
+     "operators": "+-÷",
+     "correct_trace": [
+      "5 + 11 - 4 ÷ 2",
+      "16 - 4 ÷ 2",
+      "16 - 2",
+      "14"
+     ],
+     "misconceived_trace": [
+      "5 + 11 - 4 ÷ 2",
+      "16 - 4 ÷ 2",
+      "12 ÷ 2",
+      "6"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 16 - 4 first",
+     "right_move": "do 4 ÷ 2 first",
+     "wrong_pair": "16 - 4",
+     "right_pair": "4 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      3.5,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      7.0
+     ],
+     "correct_answer": "14",
+     "misconceived_answer": "6",
+     "problem_index": 1
+    },
+    {
      "expression": "2 + 8 ÷ 2 - 1",
      "operators": "+÷-",
      "correct_trace": [
@@ -7707,50 +7556,7 @@
      ],
      "correct_answer": "5",
      "misconceived_answer": "10",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_div__8",
-   "misconception": "sub_before_div",
-   "set_index": 8,
-   "problems": [
-    {
-     "expression": "10 + 6 ÷ 2 - 1",
-     "operators": "+÷-",
-     "correct_trace": [
-      "10 + 6 ÷ 2 - 1",
-      "10 + 3 - 1",
-      "13 - 1",
-      "12"
-     ],
-     "misconceived_trace": [
-      "10 + 6 ÷ 2 - 1",
-      "10 + 6 ÷ 1",
-      "10 + 6",
-      "16"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 6 ÷ 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "6 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.5,
-      7.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.5
-     ],
-     "correct_answer": "12",
-     "misconceived_answer": "16",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "5 × 6 ÷ 2 - 1",
@@ -7786,8 +7592,15 @@
      ],
      "correct_answer": "14",
      "misconceived_answer": "30",
-     "problem_index": 2
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_div__7",
+   "misconception": "sub_before_div",
+   "set_index": 7,
+   "problems": [
     {
      "expression": "8 - 6 ÷ 2 + 9",
      "operators": "-÷+",
@@ -7822,15 +7635,8 @@
      ],
      "correct_answer": "14",
      "misconceived_answer": "10",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_div__9",
-   "misconception": "sub_before_div",
-   "set_index": 9,
-   "problems": [
+     "problem_index": 1
+    },
     {
      "expression": "9 + 10 ÷ 2 - 1",
      "operators": "+÷-",
@@ -7865,7 +7671,7 @@
      ],
      "correct_answer": "13",
      "misconceived_answer": "19",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "2 + 8 - 6 ÷ 2",
@@ -7901,7 +7707,50 @@
      ],
      "correct_answer": "7",
      "misconceived_answer": "3",
-     "problem_index": 2
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_div__8",
+   "misconception": "sub_before_div",
+   "set_index": 8,
+   "problems": [
+    {
+     "expression": "7 + 8 ÷ 4 - 3",
+     "operators": "+÷-",
+     "correct_trace": [
+      "7 + 8 ÷ 4 - 3",
+      "7 + 2 - 3",
+      "9 - 3",
+      "6"
+     ],
+     "misconceived_trace": [
+      "7 + 8 ÷ 4 - 3",
+      "7 + 8 ÷ 1",
+      "7 + 8",
+      "15"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 4 - 3 first",
+     "right_move": "do 8 ÷ 4 first",
+     "wrong_pair": "4 - 3",
+     "right_pair": "8 ÷ 4",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      5.5
+     ],
+     "correct_answer": "6",
+     "misconceived_answer": "15",
+     "problem_index": 1
     },
     {
      "expression": "6 × 6 ÷ 3 - 1",
@@ -7915,7 +7764,7 @@
      "misconceived_trace": [
       "6 × 6 ÷ 3 - 1",
       "6 × 6 ÷ 2",
-      "6 × 3",
+      "36 ÷ 2",
       "18"
      ],
      "error_step": 1,
@@ -7932,20 +7781,13 @@
      "misconceived_offsets": [
       0.0,
       2.0,
-      4.0,
-      5.5
+      3.5,
+      6.0
      ],
      "correct_answer": "11",
      "misconceived_answer": "18",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_div__10",
-   "misconception": "sub_before_div",
-   "set_index": 10,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "9 - 6 ÷ 3 + 2",
      "operators": "-÷+",
@@ -7980,8 +7822,15 @@
      ],
      "correct_answer": "9",
      "misconceived_answer": "3",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_div__9",
+   "misconception": "sub_before_div",
+   "set_index": 9,
+   "problems": [
     {
      "expression": "12 × 4 ÷ 2 - 1",
      "operators": "×÷-",
@@ -8016,7 +7865,7 @@
      ],
      "correct_answer": "23",
      "misconceived_answer": "48",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "12 - 6 - 4 ÷ 2",
@@ -8052,85 +7901,6 @@
      ],
      "correct_answer": "4",
      "misconceived_answer": "1",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "sub_before_div__11",
-   "misconception": "sub_before_div",
-   "set_index": 11,
-   "problems": [
-    {
-     "expression": "8 × 6 ÷ 3 - 1",
-     "operators": "×÷-",
-     "correct_trace": [
-      "8 × 6 ÷ 3 - 1",
-      "48 ÷ 3 - 1",
-      "16 - 1",
-      "15"
-     ],
-     "misconceived_trace": [
-      "8 × 6 ÷ 3 - 1",
-      "8 × 6 ÷ 2",
-      "48 ÷ 2",
-      "24"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 3 - 1 first",
-     "right_move": "do 6 ÷ 3 first",
-     "wrong_pair": "3 - 1",
-     "right_pair": "6 ÷ 3",
-     "correct_offsets": [
-      0.0,
-      1.5,
-      4.0,
-      6.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      3.5,
-      6.0
-     ],
-     "correct_answer": "15",
-     "misconceived_answer": "24",
-     "problem_index": 1
-    },
-    {
-     "expression": "8 + 10 ÷ 5 - 3",
-     "operators": "+÷-",
-     "correct_trace": [
-      "8 + 10 ÷ 5 - 3",
-      "8 + 2 - 3",
-      "10 - 3",
-      "7"
-     ],
-     "misconceived_trace": [
-      "8 + 10 ÷ 5 - 3",
-      "8 + 10 ÷ 2",
-      "8 + 5",
-      "13"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 5 - 3 first",
-     "right_move": "do 10 ÷ 5 first",
-     "wrong_pair": "5 - 3",
-     "right_pair": "10 ÷ 5",
-     "correct_offsets": [
-      0.0,
-      3.0,
-      4.5,
-      7.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      5.0,
-      6.5
-     ],
-     "correct_answer": "7",
-     "misconceived_answer": "13",
      "problem_index": 2
     },
     {
@@ -8172,9 +7942,9 @@
    ]
   },
   {
-   "set_id": "sub_before_div__12",
+   "set_id": "sub_before_div__10",
    "misconception": "sub_before_div",
-   "set_index": 12,
+   "set_index": 10,
    "problems": [
     {
      "expression": "1 + 10 ÷ 2 - 1",
@@ -8287,9 +8057,9 @@
    ]
   },
   {
-   "set_id": "sub_before_div__13",
+   "set_id": "sub_before_div__11",
    "misconception": "sub_before_div",
-   "set_index": 13,
+   "set_index": 11,
    "problems": [
     {
      "expression": "11 × 6 ÷ 2 - 1",
@@ -8402,9 +8172,9 @@
    ]
   },
   {
-   "set_id": "sub_before_div__14",
+   "set_id": "sub_before_div__12",
    "misconception": "sub_before_div",
-   "set_index": 14,
+   "set_index": 12,
    "problems": [
     {
      "expression": "5 + 4 ÷ 2 - 1",
@@ -8454,7 +8224,7 @@
      "misconceived_trace": [
       "3 × 6 ÷ 3 - 2",
       "3 × 6 ÷ 1",
-      "3 × 6",
+      "18 ÷ 1",
       "18"
      ],
      "error_step": 1,
@@ -8471,8 +8241,8 @@
      "misconceived_offsets": [
       0.0,
       2.0,
-      4.0,
-      5.5
+      3.5,
+      6.0
      ],
      "correct_answer": "4",
      "misconceived_answer": "18",
@@ -8517,9 +8287,9 @@
    ]
   },
   {
-   "set_id": "sub_before_div__15",
+   "set_id": "sub_before_div__13",
    "misconception": "sub_before_div",
-   "set_index": 15,
+   "set_index": 13,
    "problems": [
     {
      "expression": "7 × 6 ÷ 3 - 2",
@@ -8532,15 +8302,15 @@
      ],
      "misconceived_trace": [
       "7 × 6 ÷ 3 - 2",
-      "7 × 6 ÷ 1",
+      "42 ÷ 3 - 2",
       "42 ÷ 1",
       "42"
      ],
-     "error_step": 1,
+     "error_step": 2,
      "wrong_move": "do 3 - 2 first",
-     "right_move": "do 6 ÷ 3 first",
+     "right_move": "do 42 ÷ 3 first",
      "wrong_pair": "3 - 2",
-     "right_pair": "6 ÷ 3",
+     "right_pair": "42 ÷ 3",
      "correct_offsets": [
       0.0,
       1.5,
@@ -8549,7 +8319,7 @@
      ],
      "misconceived_offsets": [
       0.0,
-      2.0,
+      1.5,
       3.5,
       6.0
      ],
@@ -8632,9 +8402,9 @@
    ]
   },
   {
-   "set_id": "sub_before_div__16",
+   "set_id": "sub_before_div__14",
    "misconception": "sub_before_div",
-   "set_index": 16,
+   "set_index": 14,
    "problems": [
     {
      "expression": "6 ÷ 2 - 1 + 10",
@@ -8747,9 +8517,9 @@
    ]
   },
   {
-   "set_id": "sub_before_div__17",
+   "set_id": "sub_before_div__15",
    "misconception": "sub_before_div",
-   "set_index": 17,
+   "set_index": 15,
    "problems": [
     {
      "expression": "8 ÷ 2 - 1 + 4",
@@ -8862,9 +8632,9 @@
    ]
   },
   {
-   "set_id": "sub_before_div__18",
+   "set_id": "sub_before_div__16",
    "misconception": "sub_before_div",
-   "set_index": 18,
+   "set_index": 16,
    "problems": [
     {
      "expression": "6 - 4 ÷ 2 + 5",
@@ -8977,9 +8747,9 @@
    ]
   },
   {
-   "set_id": "sub_before_div__19",
+   "set_id": "sub_before_div__17",
    "misconception": "sub_before_div",
-   "set_index": 19,
+   "set_index": 17,
    "problems": [
     {
      "expression": "8 ÷ 2 - 1 + 10",
@@ -9092,9 +8862,9 @@
    ]
   },
   {
-   "set_id": "sub_before_div__20",
+   "set_id": "sub_before_div__18",
    "misconception": "sub_before_div",
-   "set_index": 20,
+   "set_index": 18,
    "problems": [
     {
      "expression": "11 + 11 - 4 ÷ 2",
@@ -9169,6 +8939,121 @@
      "problem_index": 2
     },
     {
+     "expression": "1 × 4 ÷ 2 - 1",
+     "operators": "×÷-",
+     "correct_trace": [
+      "1 × 4 ÷ 2 - 1",
+      "4 ÷ 2 - 1",
+      "2 - 1",
+      "1"
+     ],
+     "misconceived_trace": [
+      "1 × 4 ÷ 2 - 1",
+      "4 ÷ 2 - 1",
+      "4 ÷ 1",
+      "4"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 4 ÷ 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "4 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "correct_answer": "1",
+     "misconceived_answer": "4",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "sub_before_div__19",
+   "misconception": "sub_before_div",
+   "set_index": 19,
+   "problems": [
+    {
+     "expression": "4 ÷ 2 - 1 + 5",
+     "operators": "÷-+",
+     "correct_trace": [
+      "4 ÷ 2 - 1 + 5",
+      "2 - 1 + 5",
+      "1 + 5",
+      "6"
+     ],
+     "misconceived_trace": [
+      "4 ÷ 2 - 1 + 5",
+      "4 ÷ 1 + 5",
+      "4 + 5",
+      "9"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 4 ÷ 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "4 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "correct_answer": "6",
+     "misconceived_answer": "9",
+     "problem_index": 1
+    },
+    {
+     "expression": "7 + 10 ÷ 5 - 3",
+     "operators": "+÷-",
+     "correct_trace": [
+      "7 + 10 ÷ 5 - 3",
+      "7 + 2 - 3",
+      "9 - 3",
+      "6"
+     ],
+     "misconceived_trace": [
+      "7 + 10 ÷ 5 - 3",
+      "7 + 10 ÷ 2",
+      "7 + 5",
+      "12"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 5 - 3 first",
+     "right_move": "do 10 ÷ 5 first",
+     "wrong_pair": "5 - 3",
+     "right_pair": "10 ÷ 5",
+     "correct_offsets": [
+      0.0,
+      3.0,
+      5.0,
+      7.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      5.0,
+      6.5
+     ],
+     "correct_answer": "6",
+     "misconceived_answer": "12",
+     "problem_index": 2
+    },
+    {
      "expression": "6 - 1 × 4 ÷ 2",
      "operators": "-×÷",
      "correct_trace": [
@@ -9207,30 +9092,145 @@
    ]
   },
   {
+   "set_id": "sub_before_div__20",
+   "misconception": "sub_before_div",
+   "set_index": 20,
+   "problems": [
+    {
+     "expression": "12 - 2 × 4 ÷ 2",
+     "operators": "-×÷",
+     "correct_trace": [
+      "12 - 2 × 4 ÷ 2",
+      "12 - 8 ÷ 2",
+      "12 - 4",
+      "8"
+     ],
+     "misconceived_trace": [
+      "12 - 2 × 4 ÷ 2",
+      "12 - 8 ÷ 2",
+      "4 ÷ 2",
+      "2"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 12 - 8 first",
+     "right_move": "do 8 ÷ 2 first",
+     "wrong_pair": "12 - 8",
+     "right_pair": "8 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      7.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      5.0,
+      7.0
+     ],
+     "correct_answer": "8",
+     "misconceived_answer": "2",
+     "problem_index": 1
+    },
+    {
+     "expression": "12 + 4 ÷ 2 - 1",
+     "operators": "+÷-",
+     "correct_trace": [
+      "12 + 4 ÷ 2 - 1",
+      "12 + 2 - 1",
+      "14 - 1",
+      "13"
+     ],
+     "misconceived_trace": [
+      "12 + 4 ÷ 2 - 1",
+      "12 + 4 ÷ 1",
+      "12 + 4",
+      "16"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 4 ÷ 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "4 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.5,
+      7.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.5
+     ],
+     "correct_answer": "13",
+     "misconceived_answer": "16",
+     "problem_index": 2
+    },
+    {
+     "expression": "9 × 4 ÷ 2 - 1",
+     "operators": "×÷-",
+     "correct_trace": [
+      "9 × 4 ÷ 2 - 1",
+      "36 ÷ 2 - 1",
+      "18 - 1",
+      "17"
+     ],
+     "misconceived_trace": [
+      "9 × 4 ÷ 2 - 1",
+      "36 ÷ 2 - 1",
+      "36 ÷ 1",
+      "36"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 2 - 1 first",
+     "right_move": "do 36 ÷ 2 first",
+     "wrong_pair": "2 - 1",
+     "right_pair": "36 ÷ 2",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      1.5,
+      3.5,
+      6.0
+     ],
+     "correct_answer": "17",
+     "misconceived_answer": "36",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
    "set_id": "same_priority_rtl__1",
    "misconception": "same_priority_rtl",
    "set_index": 1,
    "problems": [
     {
-     "expression": "7 - 3 - 1 × 2",
-     "operators": "--×",
+     "expression": "8 - 1 × 3 - 2",
+     "operators": "-×-",
      "correct_trace": [
-      "7 - 3 - 1 × 2",
-      "7 - 3 - 2",
-      "4 - 2",
-      "2"
+      "8 - 1 × 3 - 2",
+      "8 - 3 - 2",
+      "5 - 2",
+      "3"
      ],
      "misconceived_trace": [
-      "7 - 3 - 1 × 2",
-      "7 - 3 - 2",
-      "7 - 1",
-      "6"
+      "8 - 1 × 3 - 2",
+      "8 - 3 - 2",
+      "8 - 1",
+      "7"
      ],
      "error_step": 2,
      "wrong_move": "do 3 - 2 first",
-     "right_move": "do 7 - 3 first",
+     "right_move": "do 8 - 3 first",
      "wrong_pair": "3 - 2",
-     "right_pair": "7 - 3",
+     "right_pair": "8 - 3",
      "correct_offsets": [
       0.0,
       2.0,
@@ -9243,8 +9243,8 @@
       4.0,
       6.0
      ],
-     "correct_answer": "2",
-     "misconceived_answer": "6",
+     "correct_answer": "3",
+     "misconceived_answer": "7",
      "problem_index": 1
     },
     {
@@ -9442,42 +9442,6 @@
    "set_index": 3,
    "problems": [
     {
-     "expression": "4 ÷ 2 × 4 ÷ 2",
-     "operators": "÷×÷",
-     "correct_trace": [
-      "4 ÷ 2 × 4 ÷ 2",
-      "4 ÷ 2 × 2",
-      "2 × 2",
-      "4"
-     ],
-     "misconceived_trace": [
-      "4 ÷ 2 × 4 ÷ 2",
-      "4 ÷ 2 × 2",
-      "4 ÷ 4",
-      "1"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 × 2 first",
-     "right_move": "do 4 ÷ 2 first",
-     "wrong_pair": "2 × 2",
-     "right_pair": "4 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "4",
-     "misconceived_answer": "1",
-     "problem_index": 1
-    },
-    {
      "expression": "11 × 4 - 3 - 1",
      "operators": "×--",
      "correct_trace": [
@@ -9511,7 +9475,7 @@
      ],
      "correct_answer": "40",
      "misconceived_answer": "42",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "12 - 7 - 1 × 4",
@@ -9547,15 +9511,8 @@
      ],
      "correct_answer": "1",
      "misconceived_answer": "9",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__4",
-   "misconception": "same_priority_rtl",
-   "set_index": 4,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "9 - 4 + 8 ÷ 4",
      "operators": "-+÷",
@@ -9590,8 +9547,15 @@
      ],
      "correct_answer": "7",
      "misconceived_answer": "3",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__4",
+   "misconception": "same_priority_rtl",
+   "set_index": 4,
+   "problems": [
     {
      "expression": "12 + 8 ÷ 2 × 2",
      "operators": "+÷×",
@@ -9626,7 +9590,7 @@
      ],
      "correct_answer": "20",
      "misconceived_answer": "14",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "5 × 6 - 3 - 1",
@@ -9662,165 +9626,7 @@
      ],
      "correct_answer": "26",
      "misconceived_answer": "28",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__5",
-   "misconception": "same_priority_rtl",
-   "set_index": 5,
-   "problems": [
-    {
-     "expression": "5 + 12 ÷ 2 × 2",
-     "operators": "+÷×",
-     "correct_trace": [
-      "5 + 12 ÷ 2 × 2",
-      "5 + 6 × 2",
-      "5 + 12",
-      "17"
-     ],
-     "misconceived_trace": [
-      "5 + 12 ÷ 2 × 2",
-      "5 + 12 ÷ 4",
-      "5 + 3",
-      "8"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 2 × 2 first",
-     "right_move": "do 12 ÷ 2 first",
-     "wrong_pair": "2 × 2",
-     "right_pair": "12 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      3.0,
-      4.5,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      5.0,
-      7.0
-     ],
-     "correct_answer": "17",
-     "misconceived_answer": "8",
-     "problem_index": 1
-    },
-    {
-     "expression": "11 - 2 + 12 ÷ 4",
-     "operators": "-+÷",
-     "correct_trace": [
-      "11 - 2 + 12 ÷ 4",
-      "11 - 2 + 3",
-      "9 + 3",
-      "12"
-     ],
-     "misconceived_trace": [
-      "11 - 2 + 12 ÷ 4",
-      "11 - 2 + 3",
-      "11 - 5",
-      "6"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 + 3 first",
-     "right_move": "do 11 - 2 first",
-     "wrong_pair": "2 + 3",
-     "right_pair": "11 - 2",
-     "correct_offsets": [
-      0.0,
-      3.0,
-      6.0,
-      7.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      3.0,
-      5.0,
-      8.0
-     ],
-     "correct_answer": "12",
-     "misconceived_answer": "6",
      "problem_index": 2
-    },
-    {
-     "expression": "8 ÷ 2 × 4 ÷ 2",
-     "operators": "÷×÷",
-     "correct_trace": [
-      "8 ÷ 2 × 4 ÷ 2",
-      "8 ÷ 2 × 2",
-      "4 × 2",
-      "8"
-     ],
-     "misconceived_trace": [
-      "8 ÷ 2 × 4 ÷ 2",
-      "8 ÷ 2 × 2",
-      "8 ÷ 4",
-      "2"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 × 2 first",
-     "right_move": "do 8 ÷ 2 first",
-     "wrong_pair": "2 × 2",
-     "right_pair": "8 ÷ 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "8",
-     "misconceived_answer": "2",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__6",
-   "misconception": "same_priority_rtl",
-   "set_index": 6,
-   "problems": [
-    {
-     "expression": "8 ÷ 4 ÷ 2 + 9",
-     "operators": "÷÷+",
-     "correct_trace": [
-      "8 ÷ 4 ÷ 2 + 9",
-      "2 ÷ 2 + 9",
-      "1 + 9",
-      "10"
-     ],
-     "misconceived_trace": [
-      "8 ÷ 4 ÷ 2 + 9",
-      "8 ÷ 2 + 9",
-      "4 + 9",
-      "13"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 4 ÷ 2 first",
-     "right_move": "do 8 ÷ 4 first",
-     "wrong_pair": "4 ÷ 2",
-     "right_pair": "8 ÷ 4",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      5.5
-     ],
-     "correct_answer": "10",
-     "misconceived_answer": "13",
-     "problem_index": 1
     },
     {
      "expression": "6 × 6 ÷ 3 × 3",
@@ -9856,8 +9662,15 @@
      ],
      "correct_answer": "36",
      "misconceived_answer": "4",
-     "problem_index": 2
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__5",
+   "misconception": "same_priority_rtl",
+   "set_index": 5,
+   "problems": [
     {
      "expression": "10 × 3 - 2 - 1",
      "operators": "×--",
@@ -9892,15 +9705,8 @@
      ],
      "correct_answer": "27",
      "misconceived_answer": "29",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__7",
-   "misconception": "same_priority_rtl",
-   "set_index": 7,
-   "problems": [
+     "problem_index": 1
+    },
     {
      "expression": "6 × 6 - 1 + 12",
      "operators": "×-+",
@@ -9935,7 +9741,7 @@
      ],
      "correct_answer": "47",
      "misconceived_answer": "23",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "9 - 8 ÷ 4 ÷ 2",
@@ -9971,8 +9777,15 @@
      ],
      "correct_answer": "8",
      "misconceived_answer": "5",
-     "problem_index": 2
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__6",
+   "misconception": "same_priority_rtl",
+   "set_index": 6,
+   "problems": [
     {
      "expression": "11 - 6 - 4 ÷ 2",
      "operators": "--÷",
@@ -10007,15 +9820,8 @@
      ],
      "correct_answer": "3",
      "misconceived_answer": "7",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__8",
-   "misconception": "same_priority_rtl",
-   "set_index": 8,
-   "problems": [
+     "problem_index": 1
+    },
     {
      "expression": "12 - 4 + 4 ÷ 2",
      "operators": "-+÷",
@@ -10050,7 +9856,7 @@
      ],
      "correct_answer": "10",
      "misconceived_answer": "6",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "8 + 12 ÷ 6 ÷ 2",
@@ -10086,8 +9892,15 @@
      ],
      "correct_answer": "9",
      "misconceived_answer": "12",
-     "problem_index": 2
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__7",
+   "misconception": "same_priority_rtl",
+   "set_index": 7,
+   "problems": [
     {
      "expression": "10 × 6 ÷ 2 × 5",
      "operators": "×÷×",
@@ -10122,15 +9935,8 @@
      ],
      "correct_answer": "150",
      "misconceived_answer": "6",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__9",
-   "misconception": "same_priority_rtl",
-   "set_index": 9,
-   "problems": [
+     "problem_index": 1
+    },
     {
      "expression": "1 + 8 ÷ 4 ÷ 2",
      "operators": "+÷÷",
@@ -10165,7 +9971,7 @@
      ],
      "correct_answer": "2",
      "misconceived_answer": "5",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "8 × 3 - 2 - 1",
@@ -10201,8 +10007,15 @@
      ],
      "correct_answer": "21",
      "misconceived_answer": "23",
-     "problem_index": 2
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__8",
+   "misconception": "same_priority_rtl",
+   "set_index": 8,
+   "problems": [
     {
      "expression": "4 - 1 × 2 - 1",
      "operators": "-×-",
@@ -10237,15 +10050,8 @@
      ],
      "correct_answer": "1",
      "misconceived_answer": "3",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__10",
-   "misconception": "same_priority_rtl",
-   "set_index": 10,
-   "problems": [
+     "problem_index": 1
+    },
     {
      "expression": "12 - 8 - 6 ÷ 3",
      "operators": "--÷",
@@ -10280,7 +10086,7 @@
      ],
      "correct_answer": "2",
      "misconceived_answer": "6",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "10 - 1 + 8 ÷ 2",
@@ -10316,8 +10122,15 @@
      ],
      "correct_answer": "13",
      "misconceived_answer": "5",
-     "problem_index": 2
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__9",
+   "misconception": "same_priority_rtl",
+   "set_index": 9,
+   "problems": [
     {
      "expression": "9 × 5 - 1 + 2",
      "operators": "×-+",
@@ -10352,15 +10165,8 @@
      ],
      "correct_answer": "46",
      "misconceived_answer": "42",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__11",
-   "misconception": "same_priority_rtl",
-   "set_index": 11,
-   "problems": [
+     "problem_index": 1
+    },
     {
      "expression": "10 - 8 ÷ 2 × 2",
      "operators": "-÷×",
@@ -10395,7 +10201,7 @@
      ],
      "correct_answer": "2",
      "misconceived_answer": "8",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "10 ÷ 2 - 1 + 1",
@@ -10431,8 +10237,15 @@
      ],
      "correct_answer": "5",
      "misconceived_answer": "3",
-     "problem_index": 2
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__10",
+   "misconception": "same_priority_rtl",
+   "set_index": 10,
+   "problems": [
     {
      "expression": "8 - 3 + 4 ÷ 2",
      "operators": "-+÷",
@@ -10467,15 +10280,8 @@
      ],
      "correct_answer": "7",
      "misconceived_answer": "3",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__12",
-   "misconception": "same_priority_rtl",
-   "set_index": 12,
-   "problems": [
+     "problem_index": 1
+    },
     {
      "expression": "2 × 6 ÷ 3 × 2",
      "operators": "×÷×",
@@ -10510,7 +10316,7 @@
      ],
      "correct_answer": "8",
      "misconceived_answer": "2",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "7 + 8 ÷ 4 ÷ 2",
@@ -10546,50 +10352,14 @@
      ],
      "correct_answer": "8",
      "misconceived_answer": "11",
-     "problem_index": 2
-    },
-    {
-     "expression": "9 ÷ 3 × 6 ÷ 2",
-     "operators": "÷×÷",
-     "correct_trace": [
-      "9 ÷ 3 × 6 ÷ 2",
-      "9 ÷ 3 × 3",
-      "3 × 3",
-      "9"
-     ],
-     "misconceived_trace": [
-      "9 ÷ 3 × 6 ÷ 2",
-      "9 ÷ 3 × 3",
-      "9 ÷ 9",
-      "1"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 3 × 3 first",
-     "right_move": "do 9 ÷ 3 first",
-     "wrong_pair": "3 × 3",
-     "right_pair": "9 ÷ 3",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "9",
-     "misconceived_answer": "1",
      "problem_index": 3
     }
    ]
   },
   {
-   "set_id": "same_priority_rtl__13",
+   "set_id": "same_priority_rtl__11",
    "misconception": "same_priority_rtl",
-   "set_index": 13,
+   "set_index": 11,
    "problems": [
     {
      "expression": "10 - 9 ÷ 3 + 5",
@@ -10702,9 +10472,9 @@
    ]
   },
   {
-   "set_id": "same_priority_rtl__14",
+   "set_id": "same_priority_rtl__12",
    "misconception": "same_priority_rtl",
-   "set_index": 14,
+   "set_index": 12,
    "problems": [
     {
      "expression": "12 ÷ 2 × 2 + 3",
@@ -10817,9 +10587,9 @@
    ]
   },
   {
-   "set_id": "same_priority_rtl__15",
+   "set_id": "same_priority_rtl__13",
    "misconception": "same_priority_rtl",
-   "set_index": 15,
+   "set_index": 13,
    "problems": [
     {
      "expression": "5 × 6 - 2 - 1",
@@ -10894,25 +10664,25 @@
      "problem_index": 2
     },
     {
-     "expression": "4 ÷ 2 × 6 ÷ 3",
-     "operators": "÷×÷",
+     "expression": "5 - 1 × 2 + 2",
+     "operators": "-×+",
      "correct_trace": [
-      "4 ÷ 2 × 6 ÷ 3",
-      "4 ÷ 2 × 2",
-      "2 × 2",
-      "4"
+      "5 - 1 × 2 + 2",
+      "5 - 2 + 2",
+      "3 + 2",
+      "5"
      ],
      "misconceived_trace": [
-      "4 ÷ 2 × 6 ÷ 3",
-      "4 ÷ 2 × 2",
-      "4 ÷ 4",
+      "5 - 1 × 2 + 2",
+      "5 - 2 + 2",
+      "5 - 4",
       "1"
      ],
      "error_step": 2,
-     "wrong_move": "do 2 × 2 first",
-     "right_move": "do 4 ÷ 2 first",
-     "wrong_pair": "2 × 2",
-     "right_pair": "4 ÷ 2",
+     "wrong_move": "do 2 + 2 first",
+     "right_move": "do 5 - 2 first",
+     "wrong_pair": "2 + 2",
+     "right_pair": "5 - 2",
      "correct_offsets": [
       0.0,
       2.0,
@@ -10925,53 +10695,17 @@
       4.0,
       6.0
      ],
-     "correct_answer": "4",
+     "correct_answer": "5",
      "misconceived_answer": "1",
      "problem_index": 3
     }
    ]
   },
   {
-   "set_id": "same_priority_rtl__16",
+   "set_id": "same_priority_rtl__14",
    "misconception": "same_priority_rtl",
-   "set_index": 16,
+   "set_index": 14,
    "problems": [
-    {
-     "expression": "2 × 3 - 2 - 1",
-     "operators": "×--",
-     "correct_trace": [
-      "2 × 3 - 2 - 1",
-      "6 - 2 - 1",
-      "4 - 1",
-      "3"
-     ],
-     "misconceived_trace": [
-      "2 × 3 - 2 - 1",
-      "6 - 2 - 1",
-      "6 - 1",
-      "5"
-     ],
-     "error_step": 2,
-     "wrong_move": "do 2 - 1 first",
-     "right_move": "do 6 - 2 first",
-     "wrong_pair": "2 - 1",
-     "right_pair": "6 - 2",
-     "correct_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.0,
-      6.0
-     ],
-     "correct_answer": "3",
-     "misconceived_answer": "5",
-     "problem_index": 1
-    },
     {
      "expression": "8 - 3 × 2 - 1",
      "operators": "-×-",
@@ -11006,7 +10740,7 @@
      ],
      "correct_answer": "1",
      "misconceived_answer": "3",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "10 + 8 ÷ 4 ÷ 2",
@@ -11042,15 +10776,8 @@
      ],
      "correct_answer": "11",
      "misconceived_answer": "14",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__17",
-   "misconception": "same_priority_rtl",
-   "set_index": 17,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "5 - 4 ÷ 2 × 2",
      "operators": "-÷×",
@@ -11085,43 +10812,50 @@
      ],
      "correct_answer": "1",
      "misconceived_answer": "4",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__15",
+   "misconception": "same_priority_rtl",
+   "set_index": 15,
+   "problems": [
     {
-     "expression": "10 - 8 ÷ 2 - 1",
-     "operators": "-÷-",
+     "expression": "8 - 4 ÷ 2 × 2",
+     "operators": "-÷×",
      "correct_trace": [
-      "10 - 8 ÷ 2 - 1",
-      "10 - 4 - 1",
-      "6 - 1",
-      "5"
+      "8 - 4 ÷ 2 × 2",
+      "8 - 2 × 2",
+      "8 - 4",
+      "4"
      ],
      "misconceived_trace": [
-      "10 - 8 ÷ 2 - 1",
-      "10 - 4 - 1",
-      "10 - 3",
+      "8 - 4 ÷ 2 × 2",
+      "8 - 4 ÷ 4",
+      "8 - 1",
       "7"
      ],
-     "error_step": 2,
-     "wrong_move": "do 4 - 1 first",
-     "right_move": "do 10 - 4 first",
-     "wrong_pair": "4 - 1",
-     "right_pair": "10 - 4",
+     "error_step": 1,
+     "wrong_move": "do 2 × 2 first",
+     "right_move": "do 4 ÷ 2 first",
+     "wrong_pair": "2 × 2",
+     "right_pair": "4 ÷ 2",
      "correct_offsets": [
       0.0,
       2.0,
-      5.0,
-      7.0
+      4.0,
+      6.0
      ],
      "misconceived_offsets": [
       0.0,
       2.0,
       4.0,
-      7.0
+      6.0
      ],
-     "correct_answer": "5",
+     "correct_answer": "4",
      "misconceived_answer": "7",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "11 + 8 ÷ 4 ÷ 2",
@@ -11157,15 +10891,8 @@
      ],
      "correct_answer": "12",
      "misconceived_answer": "15",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__18",
-   "misconception": "same_priority_rtl",
-   "set_index": 18,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "1 + 10 ÷ 2 × 5",
      "operators": "+÷×",
@@ -11200,8 +10927,15 @@
      ],
      "correct_answer": "26",
      "misconceived_answer": "2",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__16",
+   "misconception": "same_priority_rtl",
+   "set_index": 16,
+   "problems": [
     {
      "expression": "12 - 9 + 4 ÷ 2",
      "operators": "-+÷",
@@ -11236,7 +10970,7 @@
      ],
      "correct_answer": "5",
      "misconceived_answer": "1",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "10 - 8 ÷ 4 ÷ 2",
@@ -11272,15 +11006,8 @@
      ],
      "correct_answer": "9",
      "misconceived_answer": "6",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__19",
-   "misconception": "same_priority_rtl",
-   "set_index": 19,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "9 ÷ 3 × 3 + 6",
      "operators": "÷×+",
@@ -11315,8 +11042,15 @@
      ],
      "correct_answer": "15",
      "misconceived_answer": "7",
-     "problem_index": 1
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__17",
+   "misconception": "same_priority_rtl",
+   "set_index": 17,
+   "problems": [
     {
      "expression": "7 - 1 + 9 ÷ 3",
      "operators": "-+÷",
@@ -11351,7 +11085,7 @@
      ],
      "correct_answer": "9",
      "misconceived_answer": "3",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "8 × 6 - 3 + 8",
@@ -11387,50 +11121,7 @@
      ],
      "correct_answer": "53",
      "misconceived_answer": "37",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "same_priority_rtl__20",
-   "misconception": "same_priority_rtl",
-   "set_index": 20,
-   "problems": [
-    {
-     "expression": "10 × 6 - 1 + 10",
-     "operators": "×-+",
-     "correct_trace": [
-      "10 × 6 - 1 + 10",
-      "60 - 1 + 10",
-      "59 + 10",
-      "69"
-     ],
-     "misconceived_trace": [
-      "10 × 6 - 1 + 10",
-      "10 × 6 - 11",
-      "60 - 11",
-      "49"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 1 + 10 first",
-     "right_move": "do 6 - 1 first",
-     "wrong_pair": "1 + 10",
-     "right_pair": "6 - 1",
-     "correct_offsets": [
-      0.0,
-      2.5,
-      5.0,
-      7.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      1.5,
-      4.0,
-      6.5
-     ],
-     "correct_answer": "69",
-     "misconceived_answer": "49",
-     "problem_index": 1
+     "problem_index": 2
     },
     {
      "expression": "12 - 6 - 1 × 2",
@@ -11466,8 +11157,15 @@
      ],
      "correct_answer": "4",
      "misconceived_answer": "8",
-     "problem_index": 2
-    },
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__18",
+   "misconception": "same_priority_rtl",
+   "set_index": 18,
+   "problems": [
     {
      "expression": "9 - 1 × 2 + 6",
      "operators": "-×+",
@@ -11502,6 +11200,308 @@
      ],
      "correct_answer": "13",
      "misconceived_answer": "1",
+     "problem_index": 1
+    },
+    {
+     "expression": "6 × 4 - 1 + 1",
+     "operators": "×-+",
+     "correct_trace": [
+      "6 × 4 - 1 + 1",
+      "24 - 1 + 1",
+      "23 + 1",
+      "24"
+     ],
+     "misconceived_trace": [
+      "6 × 4 - 1 + 1",
+      "6 × 4 - 2",
+      "24 - 2",
+      "22"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 1 + 1 first",
+     "right_move": "do 4 - 1 first",
+     "wrong_pair": "1 + 1",
+     "right_pair": "4 - 1",
+     "correct_offsets": [
+      0.0,
+      1.5,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      3.5,
+      6.0
+     ],
+     "correct_answer": "24",
+     "misconceived_answer": "22",
+     "problem_index": 2
+    },
+    {
+     "expression": "6 + 8 ÷ 4 ÷ 2",
+     "operators": "+÷÷",
+     "correct_trace": [
+      "6 + 8 ÷ 4 ÷ 2",
+      "6 + 2 ÷ 2",
+      "6 + 1",
+      "7"
+     ],
+     "misconceived_trace": [
+      "6 + 8 ÷ 4 ÷ 2",
+      "6 + 8 ÷ 2",
+      "6 + 4",
+      "10"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 4 ÷ 2 first",
+     "right_move": "do 8 ÷ 4 first",
+     "wrong_pair": "4 ÷ 2",
+     "right_pair": "8 ÷ 4",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      5.5
+     ],
+     "correct_answer": "7",
+     "misconceived_answer": "10",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__19",
+   "misconception": "same_priority_rtl",
+   "set_index": 19,
+   "problems": [
+    {
+     "expression": "7 - 3 + 9 ÷ 3",
+     "operators": "-+÷",
+     "correct_trace": [
+      "7 - 3 + 9 ÷ 3",
+      "7 - 3 + 3",
+      "4 + 3",
+      "7"
+     ],
+     "misconceived_trace": [
+      "7 - 3 + 9 ÷ 3",
+      "7 - 3 + 3",
+      "7 - 6",
+      "1"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 3 + 3 first",
+     "right_move": "do 7 - 3 first",
+     "wrong_pair": "3 + 3",
+     "right_pair": "7 - 3",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "correct_answer": "7",
+     "misconceived_answer": "1",
+     "problem_index": 1
+    },
+    {
+     "expression": "12 + 8 ÷ 4 ÷ 2",
+     "operators": "+÷÷",
+     "correct_trace": [
+      "12 + 8 ÷ 4 ÷ 2",
+      "12 + 2 ÷ 2",
+      "12 + 1",
+      "13"
+     ],
+     "misconceived_trace": [
+      "12 + 8 ÷ 4 ÷ 2",
+      "12 + 8 ÷ 2",
+      "12 + 4",
+      "16"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 4 ÷ 2 first",
+     "right_move": "do 8 ÷ 4 first",
+     "wrong_pair": "4 ÷ 2",
+     "right_pair": "8 ÷ 4",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.5
+     ],
+     "correct_answer": "13",
+     "misconceived_answer": "16",
+     "problem_index": 2
+    },
+    {
+     "expression": "11 - 10 ÷ 2 - 1",
+     "operators": "-÷-",
+     "correct_trace": [
+      "11 - 10 ÷ 2 - 1",
+      "11 - 5 - 1",
+      "6 - 1",
+      "5"
+     ],
+     "misconceived_trace": [
+      "11 - 10 ÷ 2 - 1",
+      "11 - 5 - 1",
+      "11 - 4",
+      "7"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 5 - 1 first",
+     "right_move": "do 11 - 5 first",
+     "wrong_pair": "5 - 1",
+     "right_pair": "11 - 5",
+     "correct_offsets": [
+      0.0,
+      3.0,
+      6.0,
+      8.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      3.0,
+      5.0,
+      8.0
+     ],
+     "correct_answer": "5",
+     "misconceived_answer": "7",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "same_priority_rtl__20",
+   "misconception": "same_priority_rtl",
+   "set_index": 20,
+   "problems": [
+    {
+     "expression": "3 × 3 - 1 + 3",
+     "operators": "×-+",
+     "correct_trace": [
+      "3 × 3 - 1 + 3",
+      "9 - 1 + 3",
+      "8 + 3",
+      "11"
+     ],
+     "misconceived_trace": [
+      "3 × 3 - 1 + 3",
+      "9 - 1 + 3",
+      "9 - 4",
+      "5"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 1 + 3 first",
+     "right_move": "do 9 - 1 first",
+     "wrong_pair": "1 + 3",
+     "right_pair": "9 - 1",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      5.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "correct_answer": "11",
+     "misconceived_answer": "5",
+     "problem_index": 1
+    },
+    {
+     "expression": "12 ÷ 4 - 1 + 1",
+     "operators": "÷-+",
+     "correct_trace": [
+      "12 ÷ 4 - 1 + 1",
+      "3 - 1 + 1",
+      "2 + 1",
+      "3"
+     ],
+     "misconceived_trace": [
+      "12 ÷ 4 - 1 + 1",
+      "3 - 1 + 1",
+      "3 - 2",
+      "1"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 1 + 1 first",
+     "right_move": "do 3 - 1 first",
+     "wrong_pair": "1 + 1",
+     "right_pair": "3 - 1",
+     "correct_offsets": [
+      0.0,
+      3.0,
+      5.0,
+      7.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      3.0,
+      5.0,
+      7.0
+     ],
+     "correct_answer": "3",
+     "misconceived_answer": "1",
+     "problem_index": 2
+    },
+    {
+     "expression": "9 - 8 ÷ 2 - 1",
+     "operators": "-÷-",
+     "correct_trace": [
+      "9 - 8 ÷ 2 - 1",
+      "9 - 4 - 1",
+      "5 - 1",
+      "4"
+     ],
+     "misconceived_trace": [
+      "9 - 8 ÷ 2 - 1",
+      "9 - 4 - 1",
+      "9 - 3",
+      "6"
+     ],
+     "error_step": 2,
+     "wrong_move": "do 4 - 1 first",
+     "right_move": "do 9 - 4 first",
+     "wrong_pair": "4 - 1",
+     "right_pair": "9 - 4",
+     "correct_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.0,
+      4.0,
+      6.0
+     ],
+     "correct_answer": "4",
+     "misconceived_answer": "6",
      "problem_index": 3
     }
    ]
@@ -11511,42 +11511,6 @@
    "misconception": "outside_bracket_first",
    "set_index": 1,
    "problems": [
-    {
-     "expression": "3 + 6 × (2 + 8)",
-     "operators": "+×+",
-     "correct_trace": [
-      "3 + 6 × (2 + 8)",
-      "3 + 6 × 10",
-      "3 + 60",
-      "63"
-     ],
-     "misconceived_trace": [
-      "3 + 6 × (2 + 8)",
-      "9 × (2 + 8)",
-      "9 × 10",
-      "90"
-     ],
-     "error_step": 1,
-     "wrong_move": "do 3 + 6 first",
-     "right_move": "work out the bracket (2 + 8) first",
-     "wrong_pair": "3 + 6",
-     "right_pair": "2 + 8",
-     "correct_offsets": [
-      0.0,
-      2.5,
-      4.0,
-      5.5
-     ],
-     "misconceived_offsets": [
-      0.0,
-      2.0,
-      4.5,
-      6.0
-     ],
-     "correct_answer": "63",
-     "misconceived_answer": "90",
-     "problem_index": 1
-    },
     {
      "expression": "4 + 10 × (5 - 3)",
      "operators": "+×-",
@@ -11581,7 +11545,7 @@
      ],
      "correct_answer": "24",
      "misconceived_answer": "28",
-     "problem_index": 2
+     "problem_index": 1
     },
     {
      "expression": "4 + 8 ÷ (4 ÷ 2)",
@@ -11617,15 +11581,8 @@
      ],
      "correct_answer": "8",
      "misconceived_answer": "6",
-     "problem_index": 3
-    }
-   ]
-  },
-  {
-   "set_id": "outside_bracket_first__2",
-   "misconception": "outside_bracket_first",
-   "set_index": 2,
-   "problems": [
+     "problem_index": 2
+    },
     {
      "expression": "5 + 8 × (2 + 12)",
      "operators": "+×+",
@@ -11660,6 +11617,49 @@
      ],
      "correct_answer": "117",
      "misconceived_answer": "182",
+     "problem_index": 3
+    }
+   ]
+  },
+  {
+   "set_id": "outside_bracket_first__2",
+   "misconception": "outside_bracket_first",
+   "set_index": 2,
+   "problems": [
+    {
+     "expression": "12 + 11 × (5 + 12)",
+     "operators": "+×+",
+     "correct_trace": [
+      "12 + 11 × (5 + 12)",
+      "12 + 11 × 17",
+      "12 + 187",
+      "199"
+     ],
+     "misconceived_trace": [
+      "12 + 11 × (5 + 12)",
+      "23 × (5 + 12)",
+      "23 × 17",
+      "391"
+     ],
+     "error_step": 1,
+     "wrong_move": "do 12 + 11 first",
+     "right_move": "work out the bracket (5 + 12) first",
+     "wrong_pair": "12 + 11",
+     "right_pair": "5 + 12",
+     "correct_offsets": [
+      0.0,
+      2.5,
+      4.5,
+      6.5
+     ],
+     "misconceived_offsets": [
+      0.0,
+      2.5,
+      5.0,
+      7.0
+     ],
+     "correct_answer": "199",
+     "misconceived_answer": "391",
      "problem_index": 1
     },
     {

@@ -23,6 +23,10 @@
 // Marking (user decision 2026-10-05): once open, a card shows Right / Wrong
 // buttons under the work. `marks` (problem -> 'right' | 'wrong') comes from the
 // parent; a click emits 'mark' with { problem, mark }. No feedback is shown.
+//
+// Practice (PracticeView.vue) also uses this with a single problem, plus
+// `marksLocked` (the mark is final) and `highlightErrors` (feedback: the error
+// step turns pale yellow). Trials never set these.
 import { mathText } from '@/user/utils/mathText'
 
 defineProps({
@@ -30,6 +34,8 @@ defineProps({
   revealed: { type: Array, required: true },
   canReveal: { type: Boolean, default: true },
   marks: { type: Object, default: () => ({}) },
+  marksLocked: { type: Boolean, default: false },
+  highlightErrors: { type: Boolean, default: false },
 })
 const emit = defineEmits(['reveal', 'mark'])
 
@@ -45,7 +51,10 @@ function cells(line) {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+  <div
+    class="grid gap-3"
+    :class="problems.length === 1 ? 'grid-cols-1 max-w-xs mx-auto' : 'grid-cols-1 sm:grid-cols-3'"
+  >
     <div
       v-for="p in problems"
       :key="p.problem_index"
@@ -59,8 +68,11 @@ function cells(line) {
         <div
           v-for="(line, i) in p.lines"
           :key="i"
-          class="flex items-center leading-6"
-          :class="{ invisible: i > 0 && !revealed.includes(p.problem_index) }"
+          class="flex items-center leading-6 rounded px-1 -mx-1"
+          :class="{
+            invisible: i > 0 && !revealed.includes(p.problem_index),
+            'error-step': highlightErrors && p.is_error && i === p.error_step,
+          }"
         >
           <span class="w-11 shrink-0 font-sans text-[10px] text-muted-foreground">
             {{ i > 0 ? `Step ${i}` : '' }}
@@ -81,9 +93,14 @@ function cells(line) {
           :key="m.value"
           type="button"
           :id="`mark-${p.problem_index}-${m.value}`"
-          class="rounded-md border px-3 py-0.5 text-sm transition-colors cursor-pointer"
-          :class="marks[p.problem_index] === m.value ? m.on : 'border-border hover:bg-muted/60'"
-          @click="emit('mark', { problem: p.problem_index, mark: m.value })"
+          class="rounded-md border px-3 py-0.5 text-sm transition-colors"
+          :class="[
+            marks[p.problem_index] === m.value ? m.on : 'border-border',
+            marksLocked ? 'cursor-default' : 'cursor-pointer',
+            !marksLocked && marks[p.problem_index] !== m.value ? 'hover:bg-muted/60' : '',
+          ]"
+          :aria-disabled="marksLocked"
+          @click="!marksLocked && emit('mark', { problem: p.problem_index, mark: m.value })"
         >
           {{ m.label }}
         </button>
@@ -112,3 +129,9 @@ function cells(line) {
     </div>
   </div>
 </template>
+
+<style scoped>
+.error-step {
+  background-color: #fef3c7; /* pale yellow; the app runs in light mode only */
+}
+</style>

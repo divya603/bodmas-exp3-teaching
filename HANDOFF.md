@@ -114,9 +114,30 @@ Prompt: **"Which advice would best help this student get future problems right?"
 this "future problems" wording over "fix their error"). Then Next. **No confidence slider** (dropped by
 the user 2026-10-05) and **no manipulation check** (dropped 2026-10-02).
 
-**Other screens.** Consent, instructions (traces + order-of-operations rules), trials with 2 embedded
-attention checks, then the end survey (free text "How did you decide...?", demographics, math
-comfort, teaching/tutoring experience). **No practice trials for now** (the user will add them later).
+**Other screens.** Consent, instructions (traces + order-of-operations rules), quiz, **practice**,
+trials (2 embedded attention checks still to design), then the end survey (free text "How did you
+decide...?", demographics, math comfort, teaching/tutoring experience).
+
+**Practice (user decision 2026-10-05; the user may add more items).** It sits after the quiz, so
+failing the quiz (which returns to the instructions) does not repeat practice. An intro screen ("Now
+you will look at a few examples, to see the kinds of mistakes students make...") is followed by **one
+problem per item**, shown like a trial card. The participant opens the work and marks it right or
+wrong. The mark then locks, the error step is highlighted, and feedback says "Correct!" or "Not
+quite." with the mistake explained **either way**. There is no advice choice in practice. Items, in
+order: `outside_bracket_first` (`6 + 2 × (3 + 1)`, Sam) then `same_priority_rtl` (`12 - 5 + 2 × 2`,
+Lily). Both contain the mistake, so the correct mark is "wrong". They are built by
+`base-task/practice_exp3.py` -> `src/user/data/practice_exp3.json` using `stimuli_exp3.make_problem`
+(same rules as the pool), are not pool problems, and use names not in the trial list. View:
+`src/user/components/advice_choice/PracticeView.vue`. Logged per item: `mark`, `mark_correct`,
+`reveal_ms`, `mark_rt_ms`.
+
+**Left-to-right fix (2026-10-05; the pool deployed before it had the problem).** The model treats
+`a + b − c` and `a × b ÷ c` as order-free (same answer), so it accepted steps like `7 × 6 ÷ 3 − 1 ->
+7 × 2 − 1` as correct. Someone told "left to right" would mark those wrong. 30 correct traces and 47
+non-error steps of misconceived traces had one, and in `same_priority_rtl` sets that made a wrong
+problem look like it had two mistakes. `base-task/rtl_look.py` detects such steps
+(`python3 rtl_look.py` audits the pool). The builder now excludes them from the correct trace and
+from every non-error step, and the verifier checks it. The pool was rebuilt with 0 remaining.
 
 **Logging.** One row per trial: participant_id, trial_index, misconception_id, error_type,
 slip_position, policy_option, instance_option, left_option, right_option, choice, choice_scope,

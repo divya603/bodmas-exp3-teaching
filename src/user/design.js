@@ -29,6 +29,7 @@ import WindowSizerView from '@/builtins/windowSizer/WindowSizerView.vue'
 // 2. Import user View components
 import InstructionsView from '@/user/components/trace_judgment/InstructionsView.vue'
 import AdviceChoiceView from '@/user/components/advice_choice/AdviceChoiceView.vue'
+import PracticeView from '@/user/components/advice_choice/PracticeView.vue'
 import StrategyQuestionView from '@/user/components/trace_judgment/StrategyQuestionView.vue'
 import TaskFeedbackSurveyView from '@/user/components/TaskFeedbackSurveyView.vue'
 
@@ -187,8 +188,13 @@ timeline.pushSeqView({
   },
 })
 
-// practice trials: none for now (design v2, user decision 2026-10-02; to be
-// added later). The old belief-judgment PracticeView.vue is unused.
+// practice (design v2, user decision 2026-10-05): an intro, then one problem
+// at a time to mark right or wrong, with feedback explaining the mistake.
+// After the quiz, so failing the quiz (back to instructions) does not repeat it.
+timeline.pushSeqView({
+  name: 'practice',
+  component: PracticeView,
+})
 
 // main experiment
 // note: by default, the path will be set to the name of the view

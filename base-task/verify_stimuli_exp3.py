@@ -15,6 +15,7 @@ Per problem:
                only this misconception
   unique       the error step cannot be made by the expert or by any other
                single misconception; its surface reads as this misconception
+  left-to-right  no step except the error looks right-to-left (rtl_look.py)
   diagnostic   misconceived answer != correct answer
   same prefix  both traces agree on every line before the error step
   aligned      each step's result is centred under the operator that made it,
@@ -40,6 +41,7 @@ from generator_constrained import validate_trace, error_steps
 from lookalike import visible_rules
 from advice_content import error_window
 from stimuli_exp3 import bracket_ok
+from rtl_look import rtl_looking_steps
 
 IDS = list(MISCONCEPTION_FLIPS.keys())
 NUM = re.compile(r'\d+')
@@ -117,6 +119,8 @@ def verify_problem(p, m, where):
             check(nxt not in one_step(prev, [r]), f'{where}: error step also producible by {r}')
     check(m in visible_rules(prev, nxt), f'{where}: error step does not visibly read as {m}')
 
+    check(rtl_looking_steps(cor) == [], f'{where}: correct trace has a step that looks right-to-left')
+    check(rtl_looking_steps(mis, skip=(k,)) == [], f'{where}: non-error step looks right-to-left')
     check(mis[-1] != cor[-1], f'{where}: not diagnostic ({mis[-1]} == {cor[-1]})')
     check(mis[:k] == cor[:k], f'{where}: traces differ before the error step')
     check(p['correct_answer'] == cor[-1] and p['misconceived_answer'] == mis[-1], f'{where}: stored answers stale')

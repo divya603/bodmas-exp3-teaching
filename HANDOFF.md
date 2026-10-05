@@ -769,7 +769,15 @@ npm run upload_config                      # push deploy secrets from env/*.loca
 2. **Build v2 in the §0 build order.** Done: pool, advice file (draft wording), sampler. Next: the
    trial screen and trace renderer (steps 2 and 4), then the full flow. The user will iterate a lot
    on the frontend.
-3. **Practice intro reworded (no "kinds of mistakes")** live (push `9b03cbd`, deploy run
+3. **Neutral advice question + third practice item (correct work) are live** (pushes `7b090be`,
+   `13eff8a`; deploy run 37371458422, verified 2026-10-05: the live bundle has "Which advice would you
+   give", "The advice you would give the student" and "This work is right", and no "get future
+   problems right" or "next problems they solve"). The first two attempts were cancelled with 0 steps
+   during a GitHub Actions major outage (no runner assigned, cancelled after 15 min, which triggered
+   the lab Slack failure alerts). The third attempt, re-run after githubstatus.com showed Actions
+   operational, succeeded. **If a deploy is cancelled with 0 steps, check githubstatus.com before
+   debugging.**
+   Earlier: **practice intro reworded (no "kinds of mistakes")** live (push `9b03cbd`, deploy run
    37335115638, verified 2026-10-05).
    Earlier: **"Now the real task" screen live; "12 students" and "not told if marks are correct" lines
    removed** (push `376d693`, deploy run 37333148009, verified 2026-10-05 in the live bundle).

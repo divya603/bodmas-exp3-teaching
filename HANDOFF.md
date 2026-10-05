@@ -738,7 +738,10 @@ npm run upload_config                      # push deploy secrets from env/*.loca
 2. **Build v2 in the §0 build order.** Done: pool, advice file (draft wording), sampler. Next: the
    trial screen and trace renderer (steps 2 and 4), then the full flow. The user will iterate a lot
    on the frontend.
-3. **Open-and-mark trial screen is live** (pushes `c668035`, `6c606cb`, `49c4d01`; deploy run
+3. **New instructions and quiz are live** (pushes `cddbeea`, `fc919be`; deploy run 37324908890,
+   verified 2026-10-05: the live bundle has the new wording and quiz, and no "you are a teacher" or old
+   YES/NO quiz text). There are no practice trials (removed from the timeline 2026-10-02).
+   Earlier: **open-and-mark trial screen went live** (pushes `c668035`, `6c606cb`, `49c4d01`; deploy run
    37318209467, verified 2026-10-05: the live bundle has the marking text and logging, and no longer
    has the slider or countdown text). The user is reviewing it.
    Earlier: **hover highlight + aligned steps + new layout went live** (push `d806553`, deploy run

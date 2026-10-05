@@ -4,9 +4,13 @@
 // sides randomized by the sampler), a click to choose, then a 0-100 confidence
 // slider and Next. The choice can be changed until Next. No manipulation check
 // (dropped by the user 2026-10-02), no correctness, no performance bonus.
-// Hovering a problem card highlights its error step (ERROR_HIGHLIGHT below);
-// hover time per card is logged.
-import { ref, computed, watch } from 'vue'
+//
+// Progressive reveal (user decision 2026-10-05, replacing the hover
+// highlight): the 3 problems start closed (expression only). The participant
+// opens any one; REVEAL_DELAY_MS later the next can be opened, in any order.
+// OPTIONS_DELAY_MS after the third is opened, the advice options (visible but
+// dimmed from the start) become clickable. No error highlighting.
+import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import useViewAPI from '@/core/composables/useViewAPI'
 import { Button } from '@/uikit/components/ui/button'
 import { ConstrainedTaskWindow } from '@/uikit/layouts'
@@ -20,9 +24,8 @@ import { mathText } from '@/user/utils/mathText'
 const api = useViewAPI()
 const mouse = useMouseTracking()
 
-// error-step highlighting: 'none' | 'hover' | 'always' (see StudentWork.vue).
-// 'hover' is the nudge: participants judge advice, not hunt for the error.
-const ERROR_HIGHLIGHT = 'hover'
+const REVEAL_DELAY_MS = 3000 // after opening a problem, before the next can be opened
+const OPTIONS_DELAY_MS = 3000 // after the last problem is opened, before the options unlock
 
 // sample once, persist the seed so a reload mid-experiment keeps the same list
 if (!api.persist.isDefined('trialSeed')) api.persist.trialSeed = randomSeed()
@@ -40,28 +43,66 @@ const confidenceTouched = ref(false)
 let firstChoiceMs = null
 let choiceMs = null
 let nChoiceChanges = 0
-let hoverMs = [0, 0, 0] // total hover time per problem card
-let hoverStart = {} // problem -> elapsed ms when the pointer entered
 
-function onHover({ problem, entering }) {
-  const t = api.elapsedTime()
-  if (entering) hoverStart[problem] = t
-  else if (hoverStart[problem] !== undefined) {
-    hoverMs[problem - 1] += t - hoverStart[problem]
-    delete hoverStart[problem]
+// ── progressive reveal ──────────────────────────────────────────────
+const revealed = ref([]) // problem indices, in the order opened
+const canReveal = ref(true)
+const optionsUnlocked = ref(false)
+const countdown = ref(0) // seconds left on the current wait
+let revealMs = [] // elapsed ms of each opening, same order as `revealed`
+let optionsUnlockedMs = null
+
+// A wait is judged against the clock, not a timer firing on time: browsers
+// delay timers in background tabs, so `settle()` also runs on every click.
+let waitUntil = null // performance.now() deadline of the current wait
+let onWaitDone = null
+let tickTimer = null
+
+function clearWait() {
+  clearInterval(tickTimer)
+  tickTimer = waitUntil = onWaitDone = null
+  countdown.value = 0
+}
+
+// finish the current wait if its time is up
+function settle() {
+  if (waitUntil === null) return
+  const left = waitUntil - performance.now()
+  if (left > 0) {
+    countdown.value = Math.ceil(left / 1000)
+    return
+  }
+  const done = onWaitDone
+  clearWait()
+  done()
+}
+
+// wait `ms`, showing a seconds countdown, then run `done`
+function wait(ms, done) {
+  clearWait()
+  waitUntil = performance.now() + ms
+  onWaitDone = done
+  settle()
+  tickTimer = setInterval(settle, 200)
+}
+
+function onReveal(problem) {
+  settle()
+  if (!canReveal.value || revealed.value.includes(problem)) return
+  revealed.value = [...revealed.value, problem]
+  revealMs.push(api.elapsedTime())
+  canReveal.value = false
+  if (revealed.value.length < api.stepData.problems.length) {
+    wait(REVEAL_DELAY_MS, () => (canReveal.value = true))
+  } else {
+    wait(OPTIONS_DELAY_MS, () => {
+      optionsUnlocked.value = true
+      optionsUnlockedMs = api.elapsedTime()
+    })
   }
 }
 
-// close any open hover at submit, then summarize
-function hoverSummary() {
-  for (const p of Object.keys(hoverStart)) onHover({ problem: Number(p), entering: false })
-  const errorProblems = api.stepData.problems.filter((p) => p.is_error).map((p) => p.problem_index)
-  return {
-    hover_ms_by_problem: hoverMs.map(Math.round),
-    hovered_any: hoverMs.some((ms) => ms > 0),
-    hovered_error_problem: errorProblems.some((p) => hoverMs[p - 1] > 0),
-  }
-}
+onBeforeUnmount(clearWait)
 
 function resetTrial() {
   chosenSide.value = null
@@ -70,8 +111,12 @@ function resetTrial() {
   firstChoiceMs = null
   choiceMs = null
   nChoiceChanges = 0
-  hoverMs = [0, 0, 0]
-  hoverStart = {}
+  clearWait()
+  revealed.value = []
+  canReveal.value = true
+  optionsUnlocked.value = false
+  revealMs = []
+  optionsUnlockedMs = null
   api.startTimer()
   mouse.reset()
 }
@@ -81,6 +126,8 @@ if (!isSummary.value) resetTrial()
 mouse.start()
 
 function choose(side) {
+  settle()
+  if (!optionsUnlocked.value) return
   const t = api.elapsedTime()
   if (firstChoiceMs === null) firstChoiceMs = t
   else if (side !== chosenSide.value) nChoiceChanges++
@@ -104,7 +151,7 @@ function record(side, conf, rt) {
     choose_policy: opt.scope === 'policy',
     confidence: conf,
     ...rt,
-    highlight_errors: ERROR_HIGHLIGHT,
+    highlight_errors: false,
     counterbalance_id: api.persist.trialSeed,
   })
 }
@@ -112,11 +159,14 @@ function record(side, conf, rt) {
 function submit() {
   if (!canSubmit.value) return
   record(chosenSide.value, Number(confidence.value), {
-    rt_ms: choiceMs, // time to the final choice click
+    rt_ms: choiceMs, // trial start -> final choice click (includes the forced waits)
+    choice_rt_from_unlock_ms: choiceMs - optionsUnlockedMs, // options unlocked -> final choice
     first_choice_rt_ms: firstChoiceMs,
     submit_rt_ms: api.elapsedTime(),
     n_choice_changes: nChoiceChanges,
-    ...hoverSummary(),
+    reveal_order: revealed.value.slice(), // e.g. [2, 1, 3]
+    reveal_ms: revealMs.map(Math.round), // when each of those was opened
+    options_unlocked_ms: Math.round(optionsUnlockedMs),
   })
   api.stepData.mouse = mouse.getPoints()
   api.recordStep()
@@ -129,12 +179,13 @@ function autofill() {
       const rt = api.faker.rnorm(9000, 2000)
       record(api.faker.rchoice(['left', 'right']), Math.round(api.faker.rnorm(70, 15)), {
         rt_ms: rt,
+        choice_rt_from_unlock_ms: rt - 12000,
         first_choice_rt_ms: rt,
         submit_rt_ms: rt + 2500,
         n_choice_changes: 0,
-        hover_ms_by_problem: [0, 0, 0],
-        hovered_any: false,
-        hovered_error_problem: false,
+        reveal_order: [1, 2, 3],
+        reveal_ms: [2000, 6000, 10000],
+        options_unlocked_ms: 13000,
       })
     }
     api.recordStep()
@@ -164,13 +215,22 @@ function finish() {
 
       <StudentWork
         :problems="api.stepData.problems"
-        :highlight="ERROR_HIGHLIGHT"
+        :revealed="revealed"
+        :canReveal="canReveal"
+        :countdown="countdown"
         class="mb-5"
-        @hover="onHover"
+        @reveal="onReveal"
       />
 
-      <p class="font-semibold mb-3">
+      <p class="font-semibold mb-1">
         Which advice would best help {{ api.stepData.student_name }} get future problems right?
+      </p>
+      <p class="text-sm text-muted-foreground mb-3 h-5">
+        <template v-if="optionsUnlocked">Click the advice you choose.</template>
+        <template v-else-if="revealed.length < api.stepData.problems.length">
+          Open all three problems to choose.
+        </template>
+        <template v-else>You can choose in {{ countdown }}s.</template>
       </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
         <button
@@ -178,12 +238,15 @@ function finish() {
           :key="opt.code"
           type="button"
           :id="i === 0 ? 'option-left' : 'option-right'"
-          class="text-left rounded-lg border-2 px-4 py-3 transition-colors cursor-pointer"
+          class="text-left rounded-lg border-2 px-4 py-3 transition-colors"
           :class="
-            chosenSide === (i === 0 ? 'left' : 'right')
-              ? 'border-primary bg-primary/10'
-              : 'border-border hover:border-primary/50 hover:bg-muted/40'
+            !optionsUnlocked
+              ? 'border-border opacity-50 cursor-not-allowed'
+              : chosenSide === (i === 0 ? 'left' : 'right')
+                ? 'border-primary bg-primary/10 cursor-pointer'
+                : 'border-border hover:border-primary/50 hover:bg-muted/40 cursor-pointer'
           "
+          :aria-disabled="!optionsUnlocked"
           @click="choose(i === 0 ? 'left' : 'right')"
         >
           {{ mathText(opt.text) }}

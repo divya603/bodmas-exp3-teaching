@@ -3,46 +3,31 @@
 // `problems` come from sampleTrialsExp3: `lines[0]` is the expression,
 // `lines[1..]` the steps, and `offsets[i]` how far line i is shifted (in
 // character widths) so each step's new number sits under the operator that
-// produced it (base-task/stimuli_exp3.py line_offsets, user request
-// 2026-10-02). Every character gets its own 1ch cell, so the alignment holds
-// even if the font draws ×, ÷ or − at a different width.
+// produced it (base-task/stimuli_exp3.py line_offsets). Every character gets
+// its own 1ch cell, so the alignment holds even if the font draws ×, ÷ or −
+// at a different width.
 //
 // Layout: "PROBLEM n" header; then small "Step k" labels in a fixed left
 // column, and the expression and steps together as one block of math, all the
 // same size, expression not bold.
 //
-// Error highlighting (user decision 2026-10-02), `highlight`:
-//   'none'    never
-//   'hover'   while the pointer is over a problem card, that card's error step
-//             (the line labelled "Step k", the one holding the wrong result,
-//             same numbering as the flag/correction advice) turns pale yellow;
-//             a correctly solved card shows nothing
-//   'always'  every error step is highlighted
-// Emits 'hover' with { problem, entering } so the view can log nudge use.
-import { ref } from 'vue'
+// Progressive reveal (user decision 2026-10-05, replacing the hover
+// highlight): each card starts showing only its expression and a "Show work"
+// button. The parent decides which cards are open (`revealed`) and whether a
+// card may be opened right now (`canReveal`, with `countdown` seconds left
+// otherwise), and gets 'reveal' with the problem index on a click. Hidden
+// steps keep their space, so the card does not change height when opened.
+// Locked buttons are aria-disabled, not disabled, so a click still reaches the
+// parent, which checks the wait against the clock (timers can fire late).
 import { mathText } from '@/user/utils/mathText'
 
-const props = defineProps({
+defineProps({
   problems: { type: Array, required: true },
-  highlight: { type: String, default: 'hover' },
+  revealed: { type: Array, required: true },
+  canReveal: { type: Boolean, default: true },
+  countdown: { type: Number, default: 0 },
 })
-const emit = defineEmits(['hover'])
-
-const hovered = ref(null)
-
-function enter(p) {
-  hovered.value = p
-  emit('hover', { problem: p, entering: true })
-}
-function leave(p) {
-  if (hovered.value === p) hovered.value = null
-  emit('hover', { problem: p, entering: false })
-}
-
-function isLit(p, step) {
-  if (props.highlight === 'none' || !p.is_error || step !== p.error_step) return false
-  return props.highlight === 'always' || hovered.value === p.problem_index
-}
+const emit = defineEmits(['reveal'])
 
 // one display character per cell; spaces become non-breaking so cells keep width
 function cells(line) {
@@ -55,10 +40,8 @@ function cells(line) {
     <div
       v-for="p in problems"
       :key="p.problem_index"
-      class="border border-border rounded-lg px-3 py-2 bg-muted/30"
+      class="relative border border-border rounded-lg px-3 py-2 bg-muted/30"
       :data-problem="p.problem_index"
-      @mouseenter="enter(p.problem_index)"
-      @mouseleave="leave(p.problem_index)"
     >
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
         Problem {{ p.problem_index }}
@@ -67,8 +50,8 @@ function cells(line) {
         <div
           v-for="(line, i) in p.lines"
           :key="i"
-          class="flex items-center rounded px-1 -mx-1 leading-6 transition-colors"
-          :class="{ 'error-step': i > 0 && isLit(p, i) }"
+          class="flex items-center leading-6"
+          :class="{ invisible: i > 0 && !revealed.includes(p.problem_index) }"
         >
           <span class="w-11 shrink-0 font-sans text-[10px] text-muted-foreground">
             {{ i > 0 ? `Step ${i}` : '' }}
@@ -79,12 +62,27 @@ function cells(line) {
           </span>
         </div>
       </div>
+
+      <!-- covers the step rows (not the header or expression) until opened -->
+      <div
+        v-if="!revealed.includes(p.problem_index)"
+        class="absolute inset-x-3 bottom-2 top-[4.25rem] flex items-center justify-center"
+      >
+        <button
+          type="button"
+          :id="`reveal-${p.problem_index}`"
+          class="rounded-md border px-3 py-1.5 text-sm transition-colors"
+          :class="
+            canReveal
+              ? 'border-primary text-primary hover:bg-primary/10 cursor-pointer'
+              : 'border-border text-muted-foreground cursor-not-allowed'
+          "
+          :aria-disabled="!canReveal"
+          @click="emit('reveal', p.problem_index)"
+        >
+          {{ canReveal ? 'Show work' : `Available in ${countdown}s` }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.error-step {
-  background-color: #fef3c7; /* pale yellow; the app runs in light mode only */
-}
-</style>

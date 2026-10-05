@@ -66,13 +66,15 @@ example); instance option form (flag / correction); misconception (the 6 below).
   or 2, since step 3 has just one operation left.
 - **Slip position** (which problem is wrong): each participant's 6 slip trials use positions 1, 1,
   2, 2, 3, 3, shuffled.
-- **Error highlighting on hover (user decision 2026-10-02, replacing "no highlighting").** Hovering a
-  problem card turns that card's error step pale yellow. A correct card shows nothing. This is a
-  nudge: the task is judging advice, not finding the error. The highlighted line is **"Step k"**, the
-  line holding the wrong result, which uses the same numbering as the flag/correction advice. The
-  mode switch is `ERROR_HIGHLIGHT` in `AdviceChoiceView.vue` (`none` / `hover` / `always`), logged as
-  `highlight_errors`. Hover does not exist on touch devices, so run desktop-only. The instructions
-  must mention the hover. Steps are numbered on screen (step 1 to 3 under each problem).
+- **No error highlighting. Progressive reveal instead (user decision 2026-10-05; this replaces the
+  2026-10-02 hover highlight, which was removed).** This keeps people from being overwhelmed by
+  numbers. Each problem card starts with only its expression and a "Show work" button. The
+  participant opens any one. 3 s later (`REVEAL_DELAY_MS`) another can be opened, in any order, then
+  the last. 3 s after the third opens (`OPTIONS_DELAY_MS`), the advice options unlock. The options
+  are **visible but dimmed from the start**, so people read the work knowing what they will judge.
+  Waits are checked against the clock on every click (`settle()`), not only when a timer fires,
+  because browsers delay timers in background tabs. Locked buttons are `aria-disabled` rather than
+  `disabled` so the click still reaches that check. Steps are numbered on screen (step 1 to 3 under each problem).
 
 **Advice (4 per misconception, all correct math; every trial shows 2; wording in
 `src/user/data/advice_exp3.json`, DRAFT, not yet approved by the user).** One option is policy-scoped
@@ -139,7 +141,7 @@ participant) + (1 | misconception)`. Exclusion: failed attention checks.
    problems).**
 2. **Trace renderer: DONE 2026-10-02.** `src/user/components/advice_choice/StudentWork.vue`: 3
    problem cards side by side (stacked on narrow screens), the expression, then "Step 1: = ..." lines.
-   It has a `highlight` prop and emits `hover` events (see Stimuli above).
+   Props `revealed` / `canReveal` / `countdown`; emits `reveal` (see Stimuli above).
    **Layout (user request 2026-10-02):** "PROBLEM n" bold on top; small "Step k" labels in a fixed
    left column, then "="; the expression and the steps form one block of math, all the same size,
    and the expression is not bold. **Each step's new number is centred under the operator that
@@ -164,8 +166,9 @@ participant) + (1 | misconception)`. Exclusion: failed attention checks.
    There is no correctness, no performance bonus and no read lock. Recorded per trial: everything the
    sampler gives, plus `choice`, `choice_side`, `choice_scope`, `choice_form`, `choose_policy`,
    `confidence`, `rt_ms` (time to the final choice click), `first_choice_rt_ms`, `submit_rt_ms`,
-   `n_choice_changes`, `hover_ms_by_problem` ([ms, ms, ms]), `hovered_any`, `hovered_error_problem`,
-   `highlight_errors` (`'hover'`), `counterbalance_id` (the persisted sampler seed
+   `n_choice_changes`, `reveal_order` (e.g. [2, 3, 1]), `reveal_ms` (when each was opened),
+   `options_unlocked_ms`, `choice_rt_from_unlock_ms` (the clean choice RT; `rt_ms` includes the forced
+   waits), `highlight_errors` (false), `counterbalance_id` (the persisted sampler seed
    `trialSeed`) and the `mouse` path. Checked in the dev server: the screen renders, choice/slider/Next
    work, the state resets between trials, and every field lands in the store.
    **Still stale on the site:** instructions, quiz and strategy text (old YES/NO wording), the payrate

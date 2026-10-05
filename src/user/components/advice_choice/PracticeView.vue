@@ -106,7 +106,6 @@ api.setAutofill(autofill)
         <li>Open each problem, check the work, and mark it <strong>right</strong> or <strong>wrong</strong>.</li>
         <li>Then choose the advice you think will best help the student do better on the next problems.</li>
       </ol>
-      <p class="text-lg mb-4">You will not be told if your marks are correct.</p>
       <div class="flex justify-end mt-6">
         <Button id="start-task" @click="next()">
           Start

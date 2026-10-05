@@ -48,5 +48,30 @@
   },
   "correct_mark": "wrong",
   "explanation": "In step 2, the student did 5 + 4 first. But − and + have the same priority, so you work left to right: 12 − 5 comes first. The right answer is 11."
+ },
+ {
+  "id": "practice3",
+  "misconception": null,
+  "student_name": "Ben",
+  "problem": {
+   "problem_index": 1,
+   "expression": "4 + 3 × 5 + 2",
+   "lines": [
+    "4 + 3 × 5 + 2",
+    "4 + 15 + 2",
+    "19 + 2",
+    "21"
+   ],
+   "offsets": [
+    0.0,
+    1.5,
+    3.0,
+    5.5
+   ],
+   "is_error": false,
+   "error_step": null
+  },
+  "correct_mark": "right",
+  "explanation": "In step 1, the student did 3 × 5 first, because × comes before +. Then they did the additions left to right. The answer 21 is right."
  }
 ]

@@ -2,15 +2,17 @@
 practice_exp3.py
 
 The Experiment 3 practice items (user decision 2026-10-05): one problem per
-item, shown like a trial card. The participant opens the work and marks it
-right or wrong, then gets told whether the mark is correct, with the mistake
-explained either way. The two tricky misconceptions, in this order:
-outside_bracket_first, then same_priority_rtl. Both items contain the mistake,
-so the correct mark is "wrong".
+item, shown like a trial card with the work already visible. The participant
+marks it right or wrong, then gets told whether the mark is correct, with an
+explanation either way. Items, in order: the two tricky misconceptions,
+outside_bracket_first then same_priority_rtl (correct mark "wrong"), then one
+correctly solved problem with × before + (correct mark "right"; user
+2026-10-05).
 
-Each problem is built by stimuli_exp3.make_problem (so it passes every pool
+Each wrong item is built by stimuli_exp3.make_problem (so it passes every pool
 rule: positive whole numbers, exactly one error step, nothing else reading as
-right-to-left, aligned offsets) and must not be a pool problem.
+right-to-left, aligned offsets). Each right item must have exactly one clean
+correct trace. No item may be a pool problem.
 
 Run: python3 practice_exp3.py   (writes ../src/user/data/practice_exp3.json)
 """
@@ -19,6 +21,9 @@ import json
 import random
 
 import stimuli_exp3 as S
+from parser import build_dag
+from traces import generate_traces
+from generator_constrained import validate_trace, error_steps
 from rtl_look import rtl_looking_steps
 
 # (misconception, expression, student name, explanation template). Names are
@@ -31,6 +36,13 @@ ITEMS = [
     ('same_priority_rtl', '12 - 5 + 2 × 2', 'Lily',
      'In step {step}, the student did {wrong} first. But − and + have the same priority, so '
      'you work left to right: {left} comes first. The right answer is {answer}.'),
+]
+
+# Correctly solved items: (expression, student name, explanation).
+CORRECT_ITEMS = [
+    ('4 + 3 × 5 + 2', 'Ben',
+     'In step 1, the student did 3 × 5 first, because × comes before +. Then they did the '
+     'additions left to right. The answer {answer} is right.'),
 ]
 
 
@@ -65,6 +77,28 @@ def build():
             },
             'correct_mark':  'wrong',
             'explanation':   explanation,
+        })
+    for expr, name, template in CORRECT_ITEMS:
+        assert expr not in pool, f'{expr} is a pool problem'
+        traces = [t for t in generate_traces(build_dag(expr), [])
+                  if len(t) == S.N_OPS + 1 and validate_trace(t) and not rtl_looking_steps(t)]
+        assert len(traces) == 1, f'{expr}: {len(traces)} clean correct traces'
+        t = traces[0]
+        assert error_steps(t) == []
+        out.append({
+            'id':            f'practice{len(out) + 1}',
+            'misconception': None,
+            'student_name':  name,
+            'problem': {
+                'problem_index': 1,
+                'expression':    expr,
+                'lines':         t,
+                'offsets':       S.line_offsets(t),
+                'is_error':      False,
+                'error_step':    None,
+            },
+            'correct_mark':  'right',
+            'explanation':   template.format(answer=t[-1]),
         })
     return out
 

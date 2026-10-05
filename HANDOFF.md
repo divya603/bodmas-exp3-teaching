@@ -126,8 +126,10 @@ user's request, since every item is marked right/wrong) is followed by **one
 problem per item**, shown like a trial card. The work is **already visible** (no Show work step; that
 is for the real trials only, user 2026-10-05). The participant marks it right or wrong. The mark then locks, the error step is highlighted, and feedback says "Correct!" or "Not
 quite." with the mistake explained **either way**. There is no advice choice in practice. Items, in
-order: `outside_bracket_first` (`6 + 2 × (3 + 1)`, Sam) then `same_priority_rtl` (`12 - 5 + 2 × 2`,
-Lily). Both contain the mistake, so the correct mark is "wrong". They are built by
+order: `outside_bracket_first` (`6 + 2 × (3 + 1)`, Sam), then `same_priority_rtl` (`12 - 5 + 2 × 2`,
+Lily), both with the mistake (correct mark "wrong"), then a **correctly solved** problem with × before
++ (`4 + 3 × 5 + 2`, Ben; correct mark "right"; added 2026-10-05 at the user's request). The feedback
+heading follows the item: "This work has a mistake." or "This work is right." They are built by
 `base-task/practice_exp3.py` -> `src/user/data/practice_exp3.json` using `stimuli_exp3.make_problem`
 (same rules as the pool), are not pool problems, and use names not in the trial list. View:
 `src/user/components/advice_choice/PracticeView.vue`. After the last item, a **"Now the real task"**

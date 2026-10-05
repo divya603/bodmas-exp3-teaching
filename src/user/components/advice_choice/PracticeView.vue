@@ -3,9 +3,9 @@
 // items in data/practice_exp3.json (built by base-task/practice_exp3.py): one
 // problem each, shown like a trial card but with the work already visible (no
 // Show work step: that is for the real trials only, user 2026-10-05). The
-// participant marks it right or wrong; the mark then locks, the error step is highlighted,
-// and feedback says whether the mark was correct and explains the mistake
-// (explained either way). No advice choice in practice. Not scored. A final
+// participant marks it right or wrong; the mark then locks, the error step (if
+// any) is highlighted, and feedback says whether the mark was correct and
+// explains why, either way. Items with correct_mark 'right' are correctly solved. No advice choice in practice. Not scored. A final
 // "ready" screen introduces the real task; its Start button begins the trials.
 import { ref, computed, watch } from 'vue'
 import useViewAPI from '@/core/composables/useViewAPI'
@@ -46,6 +46,9 @@ function onMark({ problem, mark }) {
 }
 
 const correct = computed(() => api.stepData.mark_correct)
+const verdict = computed(() =>
+  api.stepData.correct_mark === 'wrong' ? 'This work has a mistake.' : 'This work is right.'
+)
 
 function next() {
   if (!isIntro.value && !isReady.value) api.recordStep()
@@ -139,7 +142,7 @@ api.setAutofill(autofill)
         :class="correct ? 'border-green-600 bg-green-50' : 'border-red-600 bg-red-50'"
       >
         <p class="font-semibold mb-1" :class="correct ? 'text-green-800' : 'text-red-800'">
-          {{ correct ? 'Correct! This work has a mistake.' : 'Not quite. This work has a mistake.' }}
+          {{ correct ? 'Correct!' : 'Not quite.' }} {{ verdict }}
         </p>
         <p class="text-sm">{{ api.stepData.explanation }}</p>
       </div>

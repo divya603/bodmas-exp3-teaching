@@ -183,10 +183,11 @@ participant) + (1 | misconception)`. Exclusion: failed attention checks.
    `trialSeed`) and the `mouse` path. Checked in the dev server: the screen renders, choice/slider/Next
    work, the state resets between trials, and every field lands in the store.
    **Instructions and quiz rewritten 2026-10-05** (`trace_judgment/InstructionsView.vue`,
-   `components/quizQuestions.js`), drafted from the user's wording. The participant is a teacher: check
+   `components/quizQuestions.js`), drafted from the user's wording ("you are a teacher" removed at the user's request). Check
    the student's work on three problems, mark each right or wrong, then choose the advice that best
    helps the student learn and do better on the next problems. There is a short order-of-operations
-   reminder (brackets; × ÷ left to right; + − left to right; same priority), and "12 students". No
+   reminder (brackets; × ÷ left to right; + − left to right; "× and ÷ have the same priority. − and
+   + have the same priority."), and "12 students". No
    bonus, no practice. Quiz: what to do before choosing (check and mark), which advice to choose
    (helps on the next problems), and what to do first in 2 + 3 × 4.
    **Still stale on the site:** the strategy question text, the payrate text (mentions a bonus), and

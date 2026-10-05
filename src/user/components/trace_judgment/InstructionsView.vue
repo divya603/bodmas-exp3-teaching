@@ -13,7 +13,8 @@ function finish() {
 
 <!--
   Experiment 3 design v2 instructions (HANDOFF §0), drafted 2026-10-05 from the
-  user's wording: the participant is a teacher who checks a student's work on
+  user's wording (the word "teacher" removed at the user's request): the
+  participant checks a student's work on
   three problems, marks each right or wrong, then picks the advice that helps
   the student learn and do better on the next problems. No bonus, no practice.
   The numbers mirror the task code: 12 students = the trial count in
@@ -33,8 +34,8 @@ function finish() {
       </h1>
 
       <p class="text-left text-lg mb-4">
-        In this study, you are a <strong>teacher</strong>. You will see what a student did on
-        <strong>three math problems</strong>, with their work written out step by step.
+        In this study, you will see what a student did on <strong>three math problems</strong>, with their work
+        written out step by step.
       </p>
 
       <p class="text-left text-lg mb-2"><strong>Your job, for each student:</strong></p>
@@ -53,7 +54,7 @@ function finish() {
         <li>Then + and −, working left to right.</li>
       </ol>
       <p class="text-left text-lg mb-4">
-        × and ÷ have the same priority, and so do + and −.
+        × and ÷ have the same priority. − and + have the same priority.
       </p>
 
       <p class="text-left text-lg mb-4">You will help <strong>12 students</strong>, one at a time.</p>

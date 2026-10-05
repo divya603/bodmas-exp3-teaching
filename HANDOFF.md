@@ -759,7 +759,10 @@ npm run upload_config                      # push deploy secrets from env/*.loca
 2. **Build v2 in the §0 build order.** Done: pool, advice file (draft wording), sampler. Next: the
    trial screen and trace renderer (steps 2 and 4), then the full flow. The user will iterate a lot
    on the frontend.
-3. **New instructions and quiz are live** (pushes `cddbeea`, `fc919be`; deploy run 37324908890,
+3. **Practice + left-to-right pool fix are live** (pushes `66a4d59`, `191c7e5`; deploy run
+   37331435224, verified 2026-10-05: the live bundle has the practice screens, and an old flagged
+   problem, `7 × 6 ÷ 3 - 1`, is no longer in the served pool).
+   Earlier: **new instructions and quiz went live** (pushes `cddbeea`, `fc919be`; deploy run 37324908890,
    verified 2026-10-05: the live bundle has the new wording and quiz, and no "you are a teacher" or old
    YES/NO quiz text). There are no practice trials (removed from the timeline 2026-10-02).
    Earlier: **open-and-mark trial screen went live** (pushes `c668035`, `6c606cb`, `49c4d01`; deploy run

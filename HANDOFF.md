@@ -73,6 +73,15 @@ example); instance option form (flag / correction); misconception (the 6 below).
   the last. 3 s after the third opens (`OPTIONS_DELAY_MS`), the advice options unlock. The options
   are **visible but dimmed from the start**, so people read the work knowing what they will judge.
   Locked buttons and options just look greyed out. **No countdown text** (user, 2026-10-05).
+- **Marking, like a teacher (user decision 2026-10-05).** The top line reads "Here is {name}'s work
+  on three problems. Open each one, check the work, and mark it right or wrong." Once a card is
+  open it shows **Right / Wrong** buttons. **Marking is the gate:** the next problem unlocks once
+  the open one is marked, and the options unlock once all three are marked. The extra waits
+  `REVEAL_DELAY_MS` / `OPTIONS_DELAY_MS` are now **0** (they were 3000; marking already makes
+  people look). Marks can be changed until Next, and there is **no feedback** on them. The marks
+  stand in for the dropped manipulation check (3 marked wrong = seen as systematic, 1 = slip) and
+  show when someone missed the error the flag/correction points at. **Caveat to discuss:** counting
+  errors right before advising makes systematic-vs-slip salient, which likely strengthens H1.
   Waits are checked against the clock on every click (`settle()`), not only when a timer fires,
   because browsers delay timers in background tabs. Locked buttons are `aria-disabled` rather than
   `disabled` so the click still reaches that check. Steps are numbered on screen (step 1 to 3 under each problem).
@@ -167,8 +176,10 @@ participant) + (1 | misconception)`. Exclusion: failed attention checks.
    sampler gives, plus `choice`, `choice_side`, `choice_scope`, `choice_form`, `choose_policy`,
    `rt_ms` (time to the final choice click), `first_choice_rt_ms`, `submit_rt_ms`,
    `n_choice_changes`, `reveal_order` (e.g. [2, 3, 1]), `reveal_ms` (when each was opened),
-   `options_unlocked_ms`, `choice_rt_from_unlock_ms` (the clean choice RT; `rt_ms` includes the forced
-   waits), `highlight_errors` (false), `counterbalance_id` (the persisted sampler seed
+   `options_unlocked_ms`, `choice_rt_from_unlock_ms` (the clean choice RT; `rt_ms` includes the
+   opening and marking), `marks` (final, by problem 1..3), `marks_correct`, `n_marked_wrong`,
+   `all_marks_correct`, `target_marked_wrong` (whether the problem the flag/correction names was
+   marked wrong), `mark_events` (every mark click, with time), `highlight_errors` (false), `counterbalance_id` (the persisted sampler seed
    `trialSeed`) and the `mouse` path. Checked in the dev server: the screen renders, choice/slider/Next
    work, the state resets between trials, and every field lands in the store.
    **Still stale on the site:** instructions, quiz and strategy text (old YES/NO wording), the payrate

@@ -6,11 +6,13 @@
 // 2026-10-05). No manipulation check
 // (dropped by the user 2026-10-02), no correctness, no performance bonus.
 //
-// Progressive reveal (user decision 2026-10-05, replacing the hover
+// Open, mark, then advise (user decisions 2026-10-05, replacing the hover
 // highlight): the 3 problems start closed (expression only). The participant
-// opens any one; REVEAL_DELAY_MS later the next can be opened, in any order.
-// OPTIONS_DELAY_MS after the third is opened, the advice options (visible but
-// dimmed from the start) become clickable. Locked controls just stay greyed
+// opens any one and marks it Right or Wrong, like a teacher checking work.
+// Once it is marked (+ REVEAL_DELAY_MS), the next can be opened, in any
+// order. Once all three are marked (+ OPTIONS_DELAY_MS), the advice options
+// (visible but dimmed from the start) become clickable. Marks can be changed
+// until Next; no feedback is given on them. Locked controls just stay greyed
 // out, with no countdown shown (user, 2026-10-05). No error highlighting.
 import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import useViewAPI from '@/core/composables/useViewAPI'
@@ -26,8 +28,10 @@ import { mathText } from '@/user/utils/mathText'
 const api = useViewAPI()
 const mouse = useMouseTracking()
 
-const REVEAL_DELAY_MS = 3000 // after opening a problem, before the next can be opened
-const OPTIONS_DELAY_MS = 3000 // after the last problem is opened, before the options unlock
+// Extra waits on top of the marking gate. 0 since marking already makes people
+// look at each problem (they were 3000 before marking was added).
+const REVEAL_DELAY_MS = 0 // after marking the open problem, before the next can be opened
+const OPTIONS_DELAY_MS = 0 // after marking the last problem, before the options unlock
 
 // sample once, persist the seed so a reload mid-experiment keeps the same list
 if (!api.persist.isDefined('trialSeed')) api.persist.trialSeed = randomSeed()
@@ -50,6 +54,9 @@ const canReveal = ref(true)
 const optionsUnlocked = ref(false)
 let revealMs = [] // elapsed ms of each opening, same order as `revealed`
 let optionsUnlockedMs = null
+const marks = ref({}) // problem index -> 'right' | 'wrong'
+let markEvents = [] // every mark click: { problem, mark, ms }
+let gatedFor = 0 // how many opened problems have already released the gate
 
 // A wait is judged against the clock, not a timer firing on time: browsers
 // delay timers in background tabs, so `settle()` also runs on every click.
@@ -86,13 +93,41 @@ function onReveal(problem) {
   revealed.value = [...revealed.value, problem]
   revealMs.push(api.elapsedTime())
   canReveal.value = false
-  if (revealed.value.length < api.stepData.problems.length) {
+}
+
+// Marking every opened problem releases the gate once per opening: the next
+// problem (or, after the third, the options). Re-marking never re-triggers it.
+function onMark({ problem, mark }) {
+  settle()
+  if (!revealed.value.includes(problem)) return
+  marks.value = { ...marks.value, [problem]: mark }
+  markEvents.push({ problem, mark, ms: Math.round(api.elapsedTime()) })
+  const n = revealed.value.length
+  if (gatedFor === n || !revealed.value.every((p) => marks.value[p])) return
+  gatedFor = n
+  if (n < api.stepData.problems.length) {
     wait(REVEAL_DELAY_MS, () => (canReveal.value = true))
   } else {
     wait(OPTIONS_DELAY_MS, () => {
       optionsUnlocked.value = true
       optionsUnlockedMs = api.elapsedTime()
     })
+  }
+}
+
+// final marks, scored against the work actually shown
+function markSummary() {
+  const probs = api.stepData.problems
+  const final = probs.map((p) => marks.value[p.problem_index] ?? null)
+  const correct = probs.map((p, i) => final[i] === (p.is_error ? 'wrong' : 'right'))
+  return {
+    marks: final, // e.g. ['right', 'wrong', 'right'], by problem 1..3
+    marks_correct: correct,
+    n_marked_wrong: final.filter((m) => m === 'wrong').length,
+    all_marks_correct: correct.every(Boolean),
+    // did they mark wrong the problem the flag/correction points at?
+    target_marked_wrong: final[api.stepData.target.problem - 1] === 'wrong',
+    mark_events: markEvents.slice(),
   }
 }
 
@@ -109,6 +144,9 @@ function resetTrial() {
   optionsUnlocked.value = false
   revealMs = []
   optionsUnlockedMs = null
+  marks.value = {}
+  markEvents = []
+  gatedFor = 0
   api.startTimer()
   mouse.reset()
 }
@@ -154,6 +192,7 @@ function submit() {
     reveal_order: revealed.value.slice(), // e.g. [2, 1, 3]
     reveal_ms: revealMs.map(Math.round), // when each of those was opened
     options_unlocked_ms: Math.round(optionsUnlockedMs),
+    ...markSummary(),
   })
   api.stepData.mouse = mouse.getPoints()
   api.recordStep()
@@ -173,6 +212,12 @@ function autofill() {
         reveal_order: [1, 2, 3],
         reveal_ms: [2000, 6000, 10000],
         options_unlocked_ms: 13000,
+        marks: api.stepData.problems.map((p) => (p.is_error ? 'wrong' : 'right')),
+        marks_correct: [true, true, true],
+        n_marked_wrong: api.stepData.problems.filter((p) => p.is_error).length,
+        all_marks_correct: true,
+        target_marked_wrong: true,
+        mark_events: [],
       })
     }
     api.recordStep()
@@ -195,24 +240,29 @@ function finish() {
     :height="api.config.windowsizerRequest.height"
   >
     <div v-if="!isSummary" class="text-left w-full h-full overflow-y-auto px-2">
-      <div class="flex justify-between items-baseline mb-2">
-        <p class="text-muted-foreground">Here is {{ api.stepData.student_name }}'s work on three problems:</p>
-        <span class="text-xs text-muted-foreground">{{ api.stepIndex + 1 }} of {{ trialList.length }}</span>
+      <div class="flex justify-between items-baseline gap-4 mb-2">
+        <p class="text-muted-foreground">
+          Here is {{ api.stepData.student_name }}'s work on three problems. Open each one, check the work, and
+          mark it right or wrong.
+        </p>
+        <span class="text-xs text-muted-foreground whitespace-nowrap shrink-0">{{ api.stepIndex + 1 }} of {{ trialList.length }}</span>
       </div>
 
       <StudentWork
         :problems="api.stepData.problems"
         :revealed="revealed"
         :canReveal="canReveal"
+        :marks="marks"
         class="mb-5"
         @reveal="onReveal"
+        @mark="onMark"
       />
 
       <p class="font-semibold mb-1">
         Which advice would best help {{ api.stepData.student_name }} get future problems right?
       </p>
       <p class="text-sm text-muted-foreground mb-3 h-5">
-        <template v-if="revealed.length < api.stepData.problems.length">Open all three problems to choose.</template>
+        <template v-if="!optionsUnlocked">Mark all three problems to choose.</template>
       </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
         <button

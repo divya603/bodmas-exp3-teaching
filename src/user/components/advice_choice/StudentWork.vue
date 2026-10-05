@@ -19,14 +19,24 @@
 // steps keep their space, so the card does not change height when opened.
 // Locked buttons are aria-disabled, not disabled, so a click still reaches the
 // parent, which checks the wait against the clock (timers can fire late).
+//
+// Marking (user decision 2026-10-05): once open, a card shows Right / Wrong
+// buttons under the work. `marks` (problem -> 'right' | 'wrong') comes from the
+// parent; a click emits 'mark' with { problem, mark }. No feedback is shown.
 import { mathText } from '@/user/utils/mathText'
 
 defineProps({
   problems: { type: Array, required: true },
   revealed: { type: Array, required: true },
   canReveal: { type: Boolean, default: true },
+  marks: { type: Object, default: () => ({}) },
 })
-const emit = defineEmits(['reveal'])
+const emit = defineEmits(['reveal', 'mark'])
+
+const MARKS = [
+  { value: 'right', label: 'Right', on: 'border-green-600 bg-green-50 text-green-800' },
+  { value: 'wrong', label: 'Wrong', on: 'border-red-600 bg-red-50 text-red-800' },
+]
 
 // one display character per cell; spaces become non-breaking so cells keep width
 function cells(line) {
@@ -60,6 +70,23 @@ function cells(line) {
             <span v-for="(c, j) in cells(line)" :key="j" class="inline-block w-[1ch] text-center">{{ c }}</span>
           </span>
         </div>
+      </div>
+
+      <div
+        class="flex justify-center gap-2 mt-2"
+        :class="{ invisible: !revealed.includes(p.problem_index) }"
+      >
+        <button
+          v-for="m in MARKS"
+          :key="m.value"
+          type="button"
+          :id="`mark-${p.problem_index}-${m.value}`"
+          class="rounded-md border px-3 py-0.5 text-sm transition-colors cursor-pointer"
+          :class="marks[p.problem_index] === m.value ? m.on : 'border-border hover:bg-muted/60'"
+          @click="emit('mark', { problem: p.problem_index, mark: m.value })"
+        >
+          {{ m.label }}
+        </button>
       </div>
 
       <!-- covers the step rows (not the header or expression) until opened -->

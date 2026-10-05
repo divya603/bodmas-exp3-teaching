@@ -12,21 +12,13 @@ function finish() {
 </script>
 
 <!--
-  Text approved by the user 2026-09-13, revised at the user's request 2026-09-14
-  (participants are told one step is skipped; the bonus is stated in one line; the
-  "Disagree when their mistake is a different one..." sentence removed), and again
-  2026-09-16 (the "correct order of operations" paragraph removed; the 6-point scale
-  replaced by YES / NO with the D / F keys; "Your Job" and the practice paragraph
-  reworded by the user, the "What happens next" label dropped) — and reworded again
-  2026-09-16 for the advice task (Experiment 3): full work is shown (no line
-  skipped), and the judgment is whether advice given to the student is helpful,
-  not whether a statement describes the student's belief. Practice items still
-  reflect the old belief-judgment task (2026-09-16: left for later at the user's
-  request), so the practice paragraph below is not yet accurate.
-  The numbers here mirror the task code: $2 = MAX_BONUS and 3 seconds =
-  UNLOCK_DELAY_MS in TraceJudgmentView.vue, 24 problems = the form size in
-  utils/sampleFormAdvice.js, 3 practice questions = data/practice_items.json. Change
-  them together.
+  Experiment 3 design v2 instructions (HANDOFF §0), drafted 2026-10-05 from the
+  user's wording: the participant is a teacher who checks a student's work on
+  three problems, marks each right or wrong, then picks the advice that helps
+  the student learn and do better on the next problems. No bonus, no practice.
+  The numbers mirror the task code: 12 students = the trial count in
+  utils/sampleTrialsExp3.js. Change them together. (Earlier YES/NO wording for
+  the 2026-09-16 design is in git history.)
 -->
 <template>
   <ConstrainedTaskWindow
@@ -41,26 +33,30 @@ function finish() {
       </h1>
 
       <p class="text-left text-lg mb-4">
-        In this study you will see a math problem, the step-by-step work a student wrote while solving it, and some
-        advice the student was given.
+        In this study, you are a <strong>teacher</strong>. You will see what a student did on
+        <strong>three math problems</strong>, with their work written out step by step.
       </p>
 
+      <p class="text-left text-lg mb-2"><strong>Your job, for each student:</strong></p>
+      <ol class="text-left text-lg mb-4 list-decimal pl-6 space-y-1">
+        <li>Open each problem and <strong>check their work</strong>. Mark it <strong>right</strong> or <strong>wrong</strong>.</li>
+        <li>
+          Then <strong>choose the advice</strong> you think will best help the student learn, so they do better on
+          the next problems they solve.
+        </li>
+      </ol>
+
+      <p class="text-left text-lg mb-2"><strong>Order of operations</strong> (to check the work):</p>
+      <ol class="text-left text-lg mb-4 list-decimal pl-6 space-y-1">
+        <li>Work out what is inside brackets first.</li>
+        <li>Then × and ÷, working left to right.</li>
+        <li>Then + and −, working left to right.</li>
+      </ol>
       <p class="text-left text-lg mb-4">
-        <strong>Every student in this study makes exactly one mistake</strong>, at one step of their work.
+        × and ÷ have the same priority, and so do + and −.
       </p>
 
-      <p class="text-left text-lg mb-4">
-        <strong>Your Job.</strong> Decide whether the advice would help the student fix their mistake. Answer
-        <strong>YES</strong> if it would and <strong>NO</strong> if it would not.
-      </p>
-
-      <p class="text-left text-lg mb-4"><strong>Bonus.</strong> You can earn a bonus of up to $2.</p>
-
-      <p class="text-left text-lg mb-4">
-        You'll start with <strong>3 practice questions</strong>. After each one, we highlight and explain the right
-        answer. Practice trials do not count towards your bonus. Then you'll judge <strong>24 problems</strong>. On
-        each one, the answer buttons unlock after 3 seconds, so take time to read the work.
-      </p>
+      <p class="text-left text-lg mb-4">You will help <strong>12 students</strong>, one at a time.</p>
 
       <hr class="border-gray-300 my-4" />
 

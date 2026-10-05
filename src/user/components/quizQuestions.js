@@ -1,42 +1,42 @@
 // Comprehension quiz shown after the instructions (design.js). All questions
 // must be answered correctly; otherwise the participant returns to the
-// instructions. Question 3 checks the reason to answer NO: advice about a
-// different mistake than the one the student actually made. (Experiment 1's
-// question 4, on a problem with no brackets and a brackets statement, was
-// removed on 2026-09-14 at the user's request. Since 2026-09-16 the task
-// answer is YES / NO, not a rating; reworded 2026-09-16 for the advice task,
-// Experiment 3.)
+// instructions. Rewritten 2026-10-05 for the Experiment 3 design v2 task
+// (check the work, mark right/wrong, choose advice that helps the student
+// learn); the earlier YES/NO questions are in git history.
 export const QUIZ_QUESTIONS = [
   {
     id: 'pg1',
     questions: [
       {
         id: 'q1',
-        question: 'What should your answer be based on?',
+        question: 'What do you do before choosing advice?',
         multiSelect: false,
         answers: [
-          "How well the advice would fix the student's mistake",
-          'Whether the final answer is correct',
-          'How many steps the student used',
-          'How long the problem is',
+          "Check each problem and mark it right or wrong",
+          'Solve a new problem yourself',
+          "Guess the student's final answer",
+          'Nothing, you choose straight away',
         ],
-        correctAnswer: ["How well the advice would fix the student's mistake"],
+        correctAnswer: ["Check each problem and mark it right or wrong"],
       },
       {
         id: 'q2',
-        question: 'How many mistakes does each student make?',
+        question: 'Which advice should you choose?',
         multiSelect: false,
-        answers: ['Exactly one', 'None', 'Two', 'It varies'],
-        correctAnswer: ['Exactly one'],
+        answers: [
+          'The advice that will best help the student do better on the next problems',
+          'The shorter advice',
+          'The advice that appears on the left',
+          'The advice with the most numbers in it',
+        ],
+        correctAnswer: ['The advice that will best help the student do better on the next problems'],
       },
       {
         id: 'q3',
-        question:
-          "A student's mistake is doing subtraction before multiplication. The advice tells them to do division " +
-          'before addition. Should you answer YES or NO?',
+        question: 'In 2 + 3 × 4, which should be done first?',
         multiSelect: false,
-        answers: ['YES', 'NO'],
-        correctAnswer: ['NO'],
+        answers: ['3 × 4', '2 + 3', 'Either one'],
+        correctAnswer: ['3 × 4'],
       },
     ],
   },

@@ -182,8 +182,15 @@ participant) + (1 | misconception)`. Exclusion: failed attention checks.
    marked wrong), `mark_events` (every mark click, with time), `highlight_errors` (false), `counterbalance_id` (the persisted sampler seed
    `trialSeed`) and the `mouse` path. Checked in the dev server: the screen renders, choice/slider/Next
    work, the state resets between trials, and every field lands in the store.
-   **Still stale on the site:** instructions, quiz and strategy text (old YES/NO wording), the payrate
-   text (mentions a bonus), and `estimated_time`.
+   **Instructions and quiz rewritten 2026-10-05** (`trace_judgment/InstructionsView.vue`,
+   `components/quizQuestions.js`), drafted from the user's wording. The participant is a teacher: check
+   the student's work on three problems, mark each right or wrong, then choose the advice that best
+   helps the student learn and do better on the next problems. There is a short order-of-operations
+   reminder (brackets; × ÷ left to right; + − left to right; same priority), and "12 students". No
+   bonus, no practice. Quiz: what to do before choosing (check and mark), which advice to choose
+   (helps on the next problems), and what to do first in 2 + 3 × 4.
+   **Still stale on the site:** the strategy question text, the payrate text (mentions a bonus), and
+   `estimated_time`.
 5. **Sampler: DONE 2026-10-02.** `src/user/utils/sampleTrialsExp3.js` (`sampleTrialsExp3(pool,
    advice, seed, config)`, seeded mulberry32 like the old sampler; persist the seed). Each trial gives
    misconception, set, error type, slip position, policy/instance option, left/right, the options

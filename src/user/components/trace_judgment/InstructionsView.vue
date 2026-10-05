@@ -15,8 +15,10 @@ function finish() {
   Experiment 3 design v2 instructions (HANDOFF §0), drafted 2026-10-05 from the
   user's wording (the word "teacher" removed at the user's request): the
   participant checks a student's work on
-  three problems, marks each right or wrong, then picks the advice that helps
-  the student learn and do better on the next problems. No bonus. Practice
+  three problems, marks each right or wrong, then picks the advice they would
+  give the student. The advice question states no goal (user decision
+  2026-10-05; "help them do better on the next problems" favoured policy
+  advice). No bonus. Practice
   follows the quiz (PracticeView.vue). The trial count ("12 students") is stated
   on the practice "ready" screen, not here (removed here at the user's request
   2026-10-05). Earlier YES/NO wording for the 2026-09-16 design is in git history.
@@ -41,10 +43,7 @@ function finish() {
       <p class="text-left text-lg mb-2"><strong>Your job, for each student:</strong></p>
       <ol class="text-left text-lg mb-4 list-decimal pl-6 space-y-1">
         <li>Open each problem and <strong>check their work</strong>. Mark it <strong>right</strong> or <strong>wrong</strong>.</li>
-        <li>
-          Then <strong>choose the advice</strong> you think will best help the student learn, so they do better on
-          the next problems they solve.
-        </li>
+        <li>Then <strong>choose the advice</strong> you would give the student.</li>
       </ol>
 
       <p class="text-left text-lg mb-2"><strong>Order of operations</strong> (to check the work):</p>

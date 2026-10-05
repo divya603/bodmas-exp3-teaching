@@ -110,8 +110,12 @@ holds in expectation only (no Smile counter). 24 trials would be the smallest co
 pairing × error type exactly; the user chose 12.
 
 **Trial.** The trace for 3 problems, then the 2 advice options, chosen **by mouse click** (no keys).
-Prompt: **"Which advice would best help this student get future problems right?"** (the user chose
-this "future problems" wording over "fix their error"). Then Next. **No confidence slider** (dropped by
+Prompt: **"Which advice would you give {name}?"** (user decision 2026-10-05). It replaces
+"Which advice would best help {name} get future problems right?", which the user judged to favour
+policy advice on every trial. "Fix their error" would favour instance advice the same way. A neutral
+question keeps either scope from winning by default, which matters because an overall lean only
+hurts H1 if it pushes people to one scope on nearly every trial. The instructions, quiz q2 and the
+practice "ready" screen were reworded to match ("choose the advice you would give the student"). Then Next. **No confidence slider** (dropped by
 the user 2026-10-05) and **no manipulation check** (dropped 2026-10-02).
 
 **Other screens.** Consent, instructions (traces + order-of-operations rules), quiz, **practice**,

@@ -104,7 +104,7 @@ api.setAutofill(autofill)
       <p class="text-lg mb-2">For each student:</p>
       <ol class="text-lg mb-4 list-decimal pl-6 space-y-1">
         <li>Open each problem, check the work, and mark it <strong>right</strong> or <strong>wrong</strong>.</li>
-        <li>Then choose the advice you think will best help the student do better on the next problems.</li>
+        <li>Then choose the advice you would give the student.</li>
       </ol>
       <div class="flex justify-end mt-6">
         <Button id="start-task" @click="next()">

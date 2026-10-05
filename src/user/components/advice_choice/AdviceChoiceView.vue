@@ -259,7 +259,7 @@ function finish() {
       />
 
       <p class="font-semibold mb-1">
-        Which advice would best help {{ api.stepData.student_name }} get future problems right?
+        Which advice would you give {{ api.stepData.student_name }}?
       </p>
       <p class="text-sm text-muted-foreground mb-3 h-5">
         <template v-if="!optionsUnlocked">Mark all three problems to choose.</template>

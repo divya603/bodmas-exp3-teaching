@@ -57,8 +57,6 @@ function finish() {
         × and ÷ have the same priority. − and + have the same priority.
       </p>
 
-      <p class="text-left text-lg mb-4">You will help <strong>12 students</strong>, one at a time.</p>
-
       <hr class="border-gray-300 my-4" />
 
       <div class="flex justify-end">

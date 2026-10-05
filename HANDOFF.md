@@ -209,7 +209,8 @@ participant) + (1 | misconception)`. Exclusion: failed attention checks.
    the student's work on three problems, mark each right or wrong, then choose the advice that best
    helps the student learn and do better on the next problems. There is a short order-of-operations
    reminder (brackets; × ÷ left to right; + − left to right; "× and ÷ have the same priority. − and
-   + have the same priority."), and "12 students". No
+   + have the same priority."). The "12 students" line was removed 2026-10-05 (user); the count is
+   on the practice "ready" screen. No
    bonus, no practice. Quiz: what to do before choosing (check and mark), which advice to choose
    (helps on the next problems), and what to do first in 2 + 3 × 4.
    **Still stale on the site:** the strategy question text, the payrate text (mentions a bonus), and

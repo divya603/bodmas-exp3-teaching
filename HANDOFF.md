@@ -121,15 +121,15 @@ decide...?", demographics, math comfort, teaching/tutoring experience).
 **Practice (user decision 2026-10-05; the user may add more items).** It sits after the quiz, so
 failing the quiz (which returns to the instructions) does not repeat practice. An intro screen ("Now
 you will look at a few examples, to see the kinds of mistakes students make...") is followed by **one
-problem per item**, shown like a trial card. The participant opens the work and marks it right or
-wrong. The mark then locks, the error step is highlighted, and feedback says "Correct!" or "Not
+problem per item**, shown like a trial card. The work is **already visible** (no Show work step; that
+is for the real trials only, user 2026-10-05). The participant marks it right or wrong. The mark then locks, the error step is highlighted, and feedback says "Correct!" or "Not
 quite." with the mistake explained **either way**. There is no advice choice in practice. Items, in
 order: `outside_bracket_first` (`6 + 2 × (3 + 1)`, Sam) then `same_priority_rtl` (`12 - 5 + 2 × 2`,
 Lily). Both contain the mistake, so the correct mark is "wrong". They are built by
 `base-task/practice_exp3.py` -> `src/user/data/practice_exp3.json` using `stimuli_exp3.make_problem`
 (same rules as the pool), are not pool problems, and use names not in the trial list. View:
 `src/user/components/advice_choice/PracticeView.vue`. Logged per item: `mark`, `mark_correct`,
-`reveal_ms`, `mark_rt_ms`.
+`mark_rt_ms`.
 
 **Left-to-right fix (2026-10-05; the pool deployed before it had the problem).** The model treats
 `a + b − c` and `a × b ÷ c` as order-free (same answer), so it accepted steps like `7 × 6 ÷ 3 − 1 ->

@@ -102,6 +102,9 @@ onMounted(() => {
             <p class="text-lg mb-4">
               Please click the button below to begin the process of payment. This will notify Prolific you have successfully completed the task. We really appreciate your time.
             </p>
+            <p class="text-sm text-muted-foreground mb-8 border border-border rounded-md p-3 bg-muted/40">
+              Please allow <strong class="text-foreground">1–5 business days</strong> for your bonus to be distributed through Prolific. You do not need to do anything further.
+            </p>
           </template>
           <template #left>
             <div class="text-left text-muted-foreground">
@@ -373,6 +376,9 @@ onMounted(() => {
             </h1>
             <p class="text-lg mb-4">
               Please click the button below to begin the process of payment. This will notify Prolific you have successfully completed the task. We really appreciate your time.
+            </p>
+            <p class="text-sm text-muted-foreground mb-8 border border-border rounded-md p-3 bg-muted/40">
+              Please allow <strong class="text-foreground">1–5 business days</strong> for your bonus to be distributed through Prolific. You do not need to do anything further.
             </p>
           </template>
           <template #left>

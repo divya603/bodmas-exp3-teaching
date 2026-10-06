@@ -686,10 +686,14 @@ it locally (after `npm run setup_project`); `npm run build` must succeed before 
   2026-10-06; replaced the old YES/NO question). Saved as `pageData_strategy`.
 - **`src/builtins/thanks/ThanksView.vue`** Prolific completion code **`C1J5TWJJ`** (this study's, set
   2026-10-06; replaced an old study's `CNIEB9GV` in both the `prolific` and `web` blocks).
-  The "allow 1–5 business days for your bonus" note was removed from both blocks (no bonus in v2).
-- **`design.js`** `payrate` "$15USD/hour prorated for estimated completion time" (bonus phrase removed:
-  Experiment 3 v2 has no bonus) and `estimated_time` "15-20 minutes" (matches the Prolific study
-  description), both shown on the welcome page (`StudyPreviewText.vue`). Confirm both with the PI.
+  The "allow 1–5 business days for your bonus" note is kept in both blocks (there is a bonus, below).
+- **Pay and bonus (user, 2026-10-06).** Prolific pays **$16/hour**. The welcome page shows **no hourly
+  rate**, only "You can earn a bonus of up to $2 based on your performance" (`payrate` in `design.js`,
+  now a sentence) and "15-20 minutes" (`estimated_time`, matching the Prolific description). The
+  welcome paragraph in `src/builtins/advertisement/StudyPreviewText.vue` was rewritten for this study
+  (it was Smile's generic "shapes and pictures ... video game" text). **What "performance" means is
+  NOT yet decided** (marks are the only thing with right answers; advice has none). Bonus is computed
+  offline from the data; no bonus code is in the app.
 - **`public/consent-form.pdf`** NYU IRB form (IRB-FY2026-11440, PI Mark Ho);
   **`public/debrief.pdf`** the lab's generic debrief. Confirm with the PI that the protocol covers
   Experiment 3.
@@ -713,7 +717,8 @@ https://www.codec-lab.org/divya603/bodmas-exp3-teaching/main/?PROLIFIC_PID={{%PR
       and quiz built, deployed, and the LIVE bundle verified to contain them.
 - [x] Deploy secrets uploaded and a real deploy confirmed (§1, 2026-09-16, run 35116302964).
 - [x] Prolific completion code replaced (`C1J5TWJJ`, 2026-10-06).
-- [ ] `estimated_time` (15-20 minutes) and pay text checked with the PI; time re-checked after pilots.
+- [ ] `estimated_time` (15-20 minutes) and pay/bonus text checked with the PI; time re-checked after pilots.
+- [ ] Bonus rule decided ("performance" = ?) and the bonus script written.
 - [ ] Consent and debrief checked with the PI for Experiment 3.
 - [ ] Prolific URL tested end to end with a fake PID (a `prolific_id` must appear in
       `npm run getrecruitment`, type `testing`).

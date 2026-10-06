@@ -35,12 +35,11 @@ const props = defineProps({
 
       <!-- Study description with compensation and time details -->
       <p class="text-lg text-left mb-4">
-        We are offering a paid research study looking at how people learn and make decisions. In this study you will
-        look at various shapes and pictures and make decisions similar to a video game. You may earn points for making
-        good decisions that will convert to money that we will pay you at the end of the study ({{ payrate }}). The
-        study should take about {{ estimated_time }} of your time. You'll be asked to digitally sign a constent form and
-        (optionally) provide some non-identifiable demographic information during the study. Your data will be kept
-        anonymous.
+        We are offering a paid research study looking at how people check math work and give advice. In this study
+        you will look at a student's step-by-step work on short arithmetic problems, mark each problem right or wrong,
+        and choose the advice you would give the student. {{ payrate }}. The study should take about
+        {{ estimated_time }} of your time. You'll be asked to digitally sign a consent form and (optionally) provide
+        some non-identifiable demographic information during the study. Your data will be kept anonymous.
       </p>
 
       <!-- Visual separator -->
@@ -48,8 +47,8 @@ const props = defineProps({
 
       <!-- Study summary -->
       <p>
-        <b>Summary:</b> This study is like a game, is mentally challenging, requires concentration, can only be played
-        once, and requires a desktop browser.
+        <b>Summary:</b> This study requires concentration, can only be done once, and requires a desktop browser
+        with a mouse.
       </p>
     </template>
 

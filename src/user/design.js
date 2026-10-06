@@ -58,8 +58,9 @@ api.setRuntimeConfig('maxWrites', 1000)
 api.setRuntimeConfig('minWriteInterval', 2000)
 api.setRuntimeConfig('autoSave', true)
 
-// shown on the welcome page as a sentence; no hourly rate shown (user, 2026-10-06; Prolific pays $16/hour)
-api.setRuntimeConfig('payrate', 'You can earn a bonus of up to $2 based on your performance')
+// shown on the welcome page as a sentence (user, 2026-10-06): $16/hour + the up-to-$2 bonus line,
+// never the bonus rule
+api.setRuntimeConfig('payrate', 'The pay is $16USD/hour, prorated for the estimated completion time. You can earn a bonus of up to $2')
 api.setRuntimeConfig('estimated_time', '15-20 minutes') // matches the Prolific study description (2026-10-06)
 
 // Consent PDF

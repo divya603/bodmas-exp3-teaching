@@ -56,6 +56,8 @@ function finish() {
         × and ÷ have the same priority. − and + have the same priority.
       </p>
 
+      <p class="text-left text-lg mb-4"><strong>Bonus.</strong> You can earn a bonus of up to $2.</p>
+
       <hr class="border-gray-300 my-4" />
 
       <div class="flex justify-end">

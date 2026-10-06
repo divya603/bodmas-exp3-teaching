@@ -687,12 +687,16 @@ it locally (after `npm run setup_project`); `npm run build` must succeed before 
 - **`src/builtins/thanks/ThanksView.vue`** Prolific completion code **`C1J5TWJJ`** (this study's, set
   2026-10-06; replaced an old study's `CNIEB9GV` in both the `prolific` and `web` blocks).
   The "allow 1–5 business days for your bonus" note is kept in both blocks (there is a bonus, below).
-- **Pay and bonus (user, 2026-10-06).** Prolific pays **$16/hour**. The welcome page shows **no hourly
-  rate**, only "You can earn a bonus of up to $2 based on your performance" (`payrate` in `design.js`,
-  now a sentence) and "15-20 minutes" (`estimated_time`, matching the Prolific description). The
+- **Pay and bonus (user, 2026-10-06).** Prolific pays **$16/hour**. The welcome page says "The pay is
+  $16USD/hour, prorated for the estimated completion time. You can earn a bonus of up to $2."
+  (`payrate` in `design.js`, a sentence) and "15-20 minutes" (`estimated_time`, matching the Prolific
+  description). The instructions end with Experiment 2's line, "**Bonus.** You can earn a bonus of
+  up to $2." **The bonus rule is never shown to participants.** The
   welcome paragraph in `src/builtins/advertisement/StudyPreviewText.vue` was rewritten for this study
-  (it was Smile's generic "shapes and pictures ... video game" text). **What "performance" means is
-  NOT yet decided** (marks are the only thing with right answers; advice has none). Bonus is computed
+  (it was Smile's generic "shapes and pictures ... video game" text). **Bonus rule: not yet confirmed
+  by the user.** The proposed default is Experiment 2's chance-corrected rule applied to the 36
+  right/wrong marks: `max(0, (accuracy - 0.5) / 0.5) x $2`, rounded to cents (advice has no right
+  answer, so it is not scored). Bonus is computed
   offline from the data; no bonus code is in the app.
 - **`public/consent-form.pdf`** NYU IRB form (IRB-FY2026-11440, PI Mark Ho);
   **`public/debrief.pdf`** the lab's generic debrief. Confirm with the PI that the protocol covers

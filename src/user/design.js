@@ -58,8 +58,8 @@ api.setRuntimeConfig('maxWrites', 1000)
 api.setRuntimeConfig('minWriteInterval', 2000)
 api.setRuntimeConfig('autoSave', true)
 
-api.setRuntimeConfig('payrate', '$15USD/hour prorated for estimated completition time + performance related bonus')
-api.setRuntimeConfig('estimated_time', '30-40 minutes')
+api.setRuntimeConfig('payrate', '$15USD/hour prorated for estimated completion time') // no bonus in Experiment 3 v2
+api.setRuntimeConfig('estimated_time', '15-20 minutes') // matches the Prolific study description (2026-10-06)
 
 // Consent PDF
 api.setRuntimeConfig('consentPdfUrl', `${import.meta.env.BASE_URL}consent-form.pdf`)

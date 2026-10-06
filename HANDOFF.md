@@ -684,8 +684,11 @@ it locally (after `npm run setup_project`); `npm run build` must succeed before 
 - **`StrategyQuestionView.vue`** asks "How did you decide which advice to choose? If you used
   different strategies for different students, please describe all of them." (design v2 wording,
   2026-10-06; replaced the old YES/NO question). Saved as `pageData_strategy`.
-- **`src/builtins/thanks/ThanksView.vue`** Prolific completion code **`CNIEB9GV`** (an old study's).
-  Replace it in both the `prolific` and `web` blocks for this study's Prolific code before launch.
+- **`src/builtins/thanks/ThanksView.vue`** Prolific completion code **`C1J5TWJJ`** (this study's, set
+  2026-10-06; replaced an old study's `CNIEB9GV` in both the `prolific` and `web` blocks).
+- **`design.js`** `payrate` "$15USD/hour prorated for estimated completion time" (bonus phrase removed:
+  Experiment 3 v2 has no bonus) and `estimated_time` "15-20 minutes" (matches the Prolific study
+  description), both shown on the welcome page (`StudyPreviewText.vue`). Confirm both with the PI.
 - **`public/consent-form.pdf`** NYU IRB form (IRB-FY2026-11440, PI Mark Ho);
   **`public/debrief.pdf`** the lab's generic debrief. Confirm with the PI that the protocol covers
   Experiment 3.
@@ -708,7 +711,8 @@ https://www.codec-lab.org/divya603/bodmas-exp3-teaching/main/?PROLIFIC_PID={{%PR
 - [ ] Experiment 3 design decided (§0) and its trial screen, sampler, practice items, instructions
       and quiz built, deployed, and the LIVE bundle verified to contain them.
 - [x] Deploy secrets uploaded and a real deploy confirmed (§1, 2026-09-16, run 35116302964).
-- [ ] Prolific completion code replaced; `estimated_time` in `design.js` checked with the PI.
+- [x] Prolific completion code replaced (`C1J5TWJJ`, 2026-10-06).
+- [ ] `estimated_time` (15-20 minutes) and pay text checked with the PI; time re-checked after pilots.
 - [ ] Consent and debrief checked with the PI for Experiment 3.
 - [ ] Prolific URL tested end to end with a fake PID (a `prolific_id` must appear in
       `npm run getrecruitment`, type `testing`).

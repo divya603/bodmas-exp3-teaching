@@ -681,7 +681,9 @@ it locally (after `npm run setup_project`); `npm run build` must succeed before 
   paragraph. **The user wants participant text short; do not over-explain.**
 - **`quizQuestions.js`** 3 questions (what your answer is based on; exactly one mistake; a
   different-mistake statement means NO).
-- **`StrategyQuestionView.vue`** asks how participants decided whether to answer YES or NO.
+- **`StrategyQuestionView.vue`** asks "How did you decide which advice to choose? If you used
+  different strategies for different students, please describe all of them." (design v2 wording,
+  2026-10-06; replaced the old YES/NO question). Saved as `pageData_strategy`.
 - **`src/builtins/thanks/ThanksView.vue`** Prolific completion code **`CNIEB9GV`** (an old study's).
   Replace it in both the `prolific` and `web` blocks for this study's Prolific code before launch.
 - **`public/consent-form.pdf`** NYU IRB form (IRB-FY2026-11440, PI Mark Ho);

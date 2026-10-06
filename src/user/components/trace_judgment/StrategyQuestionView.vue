@@ -15,7 +15,7 @@ const complete = computed(() => api.persist.strategyinfo.strategy.trim() !== '')
 
 function autofill() {
   api.persist.strategyinfo.strategy =
-    'I looked for the step where the error happened and checked whether the advice would fix it.'
+    'I checked how many problems were wrong and picked general advice when the same mistake repeated.'
 }
 api.setAutofill(autofill)
 
@@ -35,8 +35,8 @@ function finish() {
     <div class="w-full max-w-3xl mx-auto text-center">
       <h1 class="text-3xl font-bold mb-4">Strategy question</h1>
       <p class="text-lg text-muted-foreground mb-8">
-        Please describe the strategy or strategies you used to decide whether to answer YES or NO to each piece of
-        advice. If you used different strategies for different problems, please describe all of them.
+        How did you decide which advice to choose? If you used different strategies for different students, please
+        describe all of them.
       </p>
 
       <Textarea

@@ -686,6 +686,7 @@ it locally (after `npm run setup_project`); `npm run build` must succeed before 
   2026-10-06; replaced the old YES/NO question). Saved as `pageData_strategy`.
 - **`src/builtins/thanks/ThanksView.vue`** Prolific completion code **`C1J5TWJJ`** (this study's, set
   2026-10-06; replaced an old study's `CNIEB9GV` in both the `prolific` and `web` blocks).
+  The "allow 1–5 business days for your bonus" note was removed from both blocks (no bonus in v2).
 - **`design.js`** `payrate` "$15USD/hour prorated for estimated completion time" (bonus phrase removed:
   Experiment 3 v2 has no bonus) and `estimated_time` "15-20 minutes" (matches the Prolific study
   description), both shown on the welcome page (`StudyPreviewText.vue`). Confirm both with the PI.

@@ -776,7 +776,12 @@ npm run upload_config                      # push deploy secrets from env/*.loca
 2. **Build v2 in the §0 build order.** Done: pool, advice file (draft wording), sampler. Next: the
    trial screen and trace renderer (steps 2 and 4), then the full flow. The user will iterate a lot
    on the frontend.
-3. **Neutral advice question + third practice item (correct work) are live** (pushes `7b090be`,
+3. **Ready for the user's pilots (2026-10-06):** strategy question reworded, Prolific code
+   `C1J5TWJJ`, welcome text without a bonus ("15-20 minutes"), thanks-page bonus note removed
+   (pushes `f425e92`, `3dcd307`, `d532006`; deploy run 37507351052, verified in the live bundle).
+   **After the pilots:** run `npm run getdata` and check that every trial/practice field reached
+   Firebase (so far fields were only checked in the dev store), and re-check the time estimate.
+   Earlier: **neutral advice question + third practice item (correct work) went live** (pushes `7b090be`,
    `13eff8a`; deploy run 37371458422, verified 2026-10-05: the live bundle has "Which advice would you
    give", "The advice you would give the student" and "This work is right", and no "get future
    problems right" or "next problems they solve"). The first two attempts were cancelled with 0 steps

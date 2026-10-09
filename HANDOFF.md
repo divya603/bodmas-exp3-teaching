@@ -96,6 +96,13 @@ thanks. Wording follows the function task, adapted to students and advice, with 
 Checked in the dev server end to end (2026-10-08): all three phases, the reveal, the defer choice,
 deferred trials, saved fields, and the branched strategy question.
 
+**Consent form (deferral only, 2026-10-09).** `public/consent-form.pdf` on this branch is Princeton's
+umbrella consent, protocol 18286 (PI Thomas Griffiths), converted with Pages from
+`~/Desktop/NYU/Darpa/18286_consent_clean_070126.docx` exactly as given. The user chose to use it
+as is, although its payment line is the yellow-highlighted template placeholder "[variable payment
+amount equivalent to $10-$15/hr]" (below the $16/hour paid on Prolific). `main` still has the old NYU
+form, because main was live on Prolific; switch it later. The debrief PDF is unchanged on both.
+
 **Open, before running anyone:**
 1. ~~Which AI arms to run~~ decided 2026-10-09 (right / wrong / policy, above).
 2. **What "performance" means for the bonus.** The pages say the $2 bonus depends on performance and

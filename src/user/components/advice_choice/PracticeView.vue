@@ -16,9 +16,12 @@ import StudentWork from '@/user/components/advice_choice/StudentWork.vue'
 
 const api = useViewAPI()
 
+// The deferral branch passes showReady=false: its structure page replaces the ready screen.
+const props = defineProps({ showReady: { type: Boolean, default: true } })
+
 const steps = api.steps.append([{ id: 'intro' }])
 steps.append(practiceItems.map((it) => ({ ...it })))
-steps.append([{ id: 'ready' }])
+if (props.showReady) steps.append([{ id: 'ready' }])
 
 const isIntro = computed(() => api.path[0] === 'intro')
 const isReady = computed(() => api.path[0] === 'ready')

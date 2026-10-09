@@ -28,9 +28,12 @@ import WindowSizerView from '@/builtins/windowSizer/WindowSizerView.vue'
 
 // 2. Import user View components
 import InstructionsView from '@/user/components/trace_judgment/InstructionsView.vue'
-import AdviceChoiceView from '@/user/components/advice_choice/AdviceChoiceView.vue'
+import DeferralExpView from '@/user/components/advice_choice/DeferralExpView.vue'
+import DeferralStructureView from '@/user/components/deferral/DeferralStructureView.vue'
+import DeferralPreTaskView from '@/user/components/deferral/DeferralPreTaskView.vue'
+import DeferralStrategyView from '@/user/components/deferral/DeferralStrategyView.vue'
+import { AI_ARMS } from '@/user/utils/sampleDeferral'
 import PracticeView from '@/user/components/advice_choice/PracticeView.vue'
-import StrategyQuestionView from '@/user/components/trace_judgment/StrategyQuestionView.vue'
 import TaskFeedbackSurveyView from '@/user/components/TaskFeedbackSurveyView.vue'
 
 // #3. Import smile API and timeline
@@ -84,6 +87,13 @@ api.setRuntimeConfig('debriefPdfUrl', `${import.meta.env.BASE_URL}debrief.pdf`)
 // you can also optionally set randomization weights for each condition. For
 // example, if you want twice as many participants to be assigned to instructions
 // version 1 compared to versions 2 and 3, you can set the weights as follows:
+// DEFERRAL branch: one AI per participant (between subjects), as in the
+// function task's deferral study. Which arms to run is not decided yet
+// (AI_ARMS in utils/sampleDeferral.js).
+api.randomAssignCondition({
+  aiCondition: AI_ARMS,
+})
+
 api.randomAssignCondition({
   instructionsVersion: ['1', '2', '3'],
   weights: [2, 1, 1], // weights are automatically normalized, so [4, 2, 2] would be the same
@@ -177,25 +187,34 @@ timeline.pushSeqView({
   component: InstructionsView,
 })
 
-// import the quiz questions
-import { QUIZ_QUESTIONS } from './components/quizQuestions'
-// instructions quiz
+// DEFERRAL branch order (as in the function task): instructions -> practice ->
+// structure -> quiz (a failure returns to structure, so practice is not
+// repeated) -> pretask -> the three phases.
+timeline.pushSeqView({
+  name: 'practice',
+  component: PracticeView,
+  props: { showReady: false },
+})
+
+timeline.pushSeqView({
+  name: 'structure',
+  component: DeferralStructureView,
+})
+
+import { QUIZ_QUESTIONS } from './components/deferral/quizQuestionsDeferral'
 timeline.pushSeqView({
   name: 'quiz',
   component: InstructionsQuizView,
   props: {
     questions: QUIZ_QUESTIONS,
-    returnTo: 'instructions',
-    randomizeQandA: true,
+    returnTo: 'structure',
+    randomizeQandA: false,
   },
 })
 
-// practice (design v2, user decision 2026-10-05): an intro, then one problem
-// at a time to mark right or wrong, with feedback explaining the mistake.
-// After the quiz, so failing the quiz (back to instructions) does not repeat it.
 timeline.pushSeqView({
-  name: 'practice',
-  component: PracticeView,
+  name: 'pretask',
+  component: DeferralPreTaskView,
 })
 
 // main experiment
@@ -204,13 +223,13 @@ timeline.pushSeqView({
 timeline.pushSeqView({
   name: 'exp',
   path: '/experiment',
-  component: AdviceChoiceView, // design v2 trial screen (HANDOFF §0)
+  component: DeferralExpView, // deferral: three phases with one AI (HANDOFF, Deferral experiment)
 })
 
-// strategy free-response (its own screen, right after the task)
+// questions about the Phase 3 choice, advice strategy and the AI
 timeline.pushSeqView({
   name: 'strategy',
-  component: StrategyQuestionView,
+  component: DeferralStrategyView,
 })
 
 // feedback survey

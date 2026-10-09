@@ -9,7 +9,8 @@
 3. **Keep `HANDOFF.md` current.** As you complete work (scripts, figures, findings, decisions,
    payments, deploys), update its relevant sections incrementally, or at the latest before the
    session ends. The next session must be able to pick up cold from HANDOFF.md alone.
-4. **Work on `main` only** (no second branch). **Pushing `main` deploys the live experiment** once
+4. **Work on `main` for the advice task.** The deferral experiment lives on the branch `deferral`
+   (HANDOFF, Deferral experiment), which deploys to its own path. **Pushing `main` deploys the live experiment** once
    the deploy secrets are uploaded. Ask before pushing experiment-material changes, and treat a
    change as done only once it is deployed and verified in the live bundle.
 5. Writing style for anything user-facing: no em dashes; keep participant-facing text short. LaTeX

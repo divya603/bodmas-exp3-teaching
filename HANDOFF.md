@@ -37,6 +37,66 @@ Provenance: Experiment 1 (`divya603/bodmas-exp1-position`) was split out of the 
 Experiment 2. Nothing is linked: **a change in Experiment 1 or 2 does not reach this repo**, and
 vice versa.
 
+### Deferral experiment (branch `deferral`, started 2026-10-08)
+
+**Branch, not main.** `main` keeps the advice task (design v2, piloted). The deferral study lives
+on the git branch **`deferral`**, which deploys automatically to
+`https://www.codec-lab.org/divya603/bodmas-exp3-teaching/deferral/` with its **own Firestore data
+path** (pull it with `npm run getdata -- --branch_name deferral`). The CLAUDE.md "main only" rule
+applies to main's advice task; deferral work goes on `deferral`. This mirrors the function task
+(`Func-Extr/Func-Smile-deferral`, branch `deferral`), whose paradigm it copies.
+
+**Design (user, 2026-10-08):** the function task's structure. **One AI per participant**
+(between-subjects condition `aiCondition`, design.js). Three phases of **6 students each** (18):
+- Phase 1, `self`: the main-branch trial (open, mark right/wrong, choose advice).
+- Phase 2, `self_then_ai`: the same, then **Submit** locks the answer. The AI box shows "AI
+  deciding..." for 2.5 s, then a "Show the AI's answer" button reveals the AI's marks (an "AI: Right
+  / Wrong" badge under each problem) and its advice pick ("AI's choice" tag). Next unlocks 2 s later.
+  Agreement is never highlighted and nobody's correctness is shown.
+- Phase 3, `choose`: one decision for all 6: "I'll do them myself" / "Defer them to the AI". If
+  deferred, each trial shows the work open, no participant answer, and the AI's work revealed the
+  same way.
+
+**Each block of 6** (sampler `src/user/utils/sampleDeferral.js`, tests
+`tests/vitest/user/sampleDeferral.test.js`, 11 passing over 1000 sessions): every misconception once
+on a set never reused; 3 systematic + 3 slip, with block 2's systematic misconceptions being block
+1's slips (each misconception meets both types), block 3 random; slip positions 1/2/3; the 4
+pairings once each plus 2 random (user); left/right random; no misconception repeated across a
+block edge.
+
+**The AI marks the problems and picks advice (user).** Which AI types to run is **NOT decided**.
+`AI_TYPES` defines the four candidates the user named: `right` (policy for systematic, instance for
+slip; the H1 pattern), `wrong` (the reverse), `policy` (always), `instance` (always). `AI_ARMS`
+(currently all four) is what design.js assigns. `AI_MARK_ACCURACY` (default 1.0) sets how often the
+AI's marks are right. Every trial records `ai_type`, `ai_marks`, `ai_marks_correct`, `ai_choice`,
+`ai_choice_scope`, `ai_choice_side`; plus `mode_effective`, `block3_choice`, `ai_ready_ms`,
+`ai_reveal_ms`, `ai_reveal_rt_ms`, `next_ms`, `agree_scope`, `agree_choice`, and all of main's fields
+(null where the participant did not answer). The `choice` step records `choice` and `choice_rt`.
+
+**Screens** (order follows the function task): consent -> instructions (main's) -> practice
+(main's 3 items, without the "Now the real task" screen: `showReady=false`) -> **structure**
+(`components/deferral/DeferralStructureView.vue`, "How the task is organized") -> **quiz**
+(`components/deferral/quizQuestionsDeferral.js`: check-and-mark, bonus when deferring, the Phase 3
+choice; a failure returns to *structure*, so practice is not repeated) -> **pretask**
+(`DeferralPreTaskView.vue`) -> **exp** (`components/advice_choice/DeferralExpView.vue`) ->
+**strategy** (`DeferralStrategyView.vue`: Phase 3 reason (branched on the choice, read from
+pageData_exp), "How did you decide which advice to choose?", and 0-10 ratings of effort on the AI's
+Phase 2 answers, own performance, and the AI's performance) -> feedback, demographics, debrief,
+thanks. Wording follows the function task, adapted to students and advice, with no em dashes.
+Checked in the dev server end to end (2026-10-08): all three phases, the reveal, the defer choice,
+deferred trials, saved fields, and the branched strategy question.
+
+**Open, before running anyone:**
+1. Which AI arms to run (and whether the AI's marks are always right).
+2. **What "performance" means for the bonus.** The pages say the $2 bonus depends on performance and
+   that the AI's performance counts if you defer (the function task's wording). Advice has no right
+   answer; if only the marks are scored, an AI with perfect marks makes deferring a pure win
+   regardless of its advice, so the defer choice would not reflect advice quality.
+3. Its own Prolific completion code (the branch still has main's `C1J5TWJJ`) and time estimate (18
+   students plus the AI phases is longer than main's 15-20 minutes).
+4. Phase 1 participants of main must be excluded on Prolific (different localStorage key per branch,
+   so `allowRepeats` will not stop them).
+
 ### Design v2 (agreed with the user 2026-10-02)
 
 **Hypotheses.** H1: P(choose policy advice) is higher for systematic traces than for slip traces.

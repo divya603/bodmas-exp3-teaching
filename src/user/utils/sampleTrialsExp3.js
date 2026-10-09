@@ -16,6 +16,9 @@
 //   - trial order is random, with no misconception on two trials in a row
 // Smile has no cross-participant counter, so balance ACROSS participants
 // (which set meets which condition) holds in expectation only.
+//
+// The helpers (makeRng, evenSpread, buildProblems, adviceOption,
+// STUDENT_NAMES) are also used by sampleDeferral.js on the deferral branch.
 
 export const CONFIG = {
   errorTypes: ['systematic', 'slip'],
@@ -26,7 +29,7 @@ export const CONFIG = {
   maxOrderAttempts: 10000,
 }
 
-const STUDENT_NAMES = [
+export const STUDENT_NAMES = [
   'Noah', 'Maya', 'Liam', 'Ava', 'Ethan', 'Zoe',
   'Mia', 'Lucas', 'Emma', 'Owen', 'Sofia', 'Caleb',
   'Ruby', 'Jonah', 'Isla', 'Felix', 'Nora', 'Dylan',
@@ -34,7 +37,7 @@ const STUDENT_NAMES = [
 ]
 
 // Small seeded PRNG (mulberry32) so a given seed always reproduces the same list.
-function makeRng(seed) {
+export function makeRng(seed) {
   let s = seed >>> 0
   function next() {
     s = (s + 0x6d2b79f5) | 0
@@ -55,7 +58,7 @@ function makeRng(seed) {
 }
 
 // n values cycling through `values`, then shuffled: as even a spread as n allows.
-function evenSpread(rng, values, n) {
+export function evenSpread(rng, values, n) {
   return rng.shuffle(Array.from({ length: n }, (_, i) => values[i % values.length]))
 }
 
@@ -64,7 +67,7 @@ function fill(template, vars) {
 }
 
 // The displayed problems for one trial, plus where flag/correction point.
-function buildProblems(set, errorType, slipPosition) {
+export function buildProblems(set, errorType, slipPosition) {
   const problems = set.problems.map((p) => {
     const isError = errorType === 'systematic' || p.problem_index === slipPosition
     return {
@@ -88,7 +91,7 @@ function buildProblems(set, errorType, slipPosition) {
   }
 }
 
-function adviceOption(code, misconception, target, advice) {
+export function adviceOption(code, misconception, target, advice) {
   if (code === 'rule' || code === 'example') {
     return { code, scope: 'policy', form: code === 'rule' ? 'abstract' : 'concrete',
              text: advice.by_misconception[misconception][code] }

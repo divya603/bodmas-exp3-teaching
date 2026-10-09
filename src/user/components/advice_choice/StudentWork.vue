@@ -27,6 +27,10 @@
 // Practice (PracticeView.vue) also uses this with a single problem, plus
 // `marksLocked` (the mark is final) and `highlightErrors` (feedback: the error
 // step turns pale yellow). Trials never set these.
+//
+// Deferral (DeferralExpView.vue, deferral branch) adds `aiMarks` (array of
+// 'right' | 'wrong' by problem, shown as an "AI: ..." badge under each card
+// once set) and `showMarkButtons` (false when the AI does the trial).
 import { mathText } from '@/user/utils/mathText'
 
 defineProps({
@@ -36,6 +40,8 @@ defineProps({
   marks: { type: Object, default: () => ({}) },
   marksLocked: { type: Boolean, default: false },
   highlightErrors: { type: Boolean, default: false },
+  aiMarks: { type: Array, default: null },
+  showMarkButtons: { type: Boolean, default: true },
 })
 const emit = defineEmits(['reveal', 'mark'])
 
@@ -85,6 +91,7 @@ function cells(line) {
       </div>
 
       <div
+        v-if="showMarkButtons"
         class="flex justify-center gap-2 mt-2"
         :class="{ invisible: !revealed.includes(p.problem_index) }"
       >
@@ -104,6 +111,15 @@ function cells(line) {
         >
           {{ m.label }}
         </button>
+      </div>
+
+      <div v-if="aiMarks" class="flex justify-center mt-2" :data-ai-mark="p.problem_index">
+        <span
+          class="rounded-md border-2 border-slate-500 bg-slate-100 px-2 py-0.5 text-sm text-slate-800"
+          :id="`ai-mark-${p.problem_index}`"
+        >
+          AI: {{ aiMarks[p.problem_index - 1] === 'wrong' ? 'Wrong' : 'Right' }}
+        </span>
       </div>
 
       <!-- covers the step rows (not the header or expression) until opened -->

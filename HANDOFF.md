@@ -94,6 +94,12 @@ simulated participants against the count-matching rule) and end to end in the de
 rule exactly; deferred trials showed them. The AI's "deciding..." wait also settles when the tab
 becomes visible again, because background tabs slow timers to about once a minute.
 
+**The four AIs are live on the deferral URL** (push `e80c1b3`, run 37993902011 attempt 4, verified
+2026-10-09 in the live bundle: markslip, runtime agree/disagree, count_matched_phases_1_2). Attempts
+1-3 failed at "Build burnett01/rsync-deployments" because Docker Hub (where the upload tool's image
+comes from) was in a partial outage (504 / 429). The re-run was held until dockerstatus.com showed
+"All Systems Operational". **If a deploy fails at that step, check dockerstatus.com and re-run once
+it is clear.**
 The earlier three-type set (right / wrong at 0.5 / always policy) was deployed 2026-10-09 (push
 `09089eb`, run 37963503990) and then replaced by the four types above. The first attempt failed at "create the remote
 folders" with an SSH `dial tcp ... i/o timeout` to the lab server (build fine, nothing uploaded); a

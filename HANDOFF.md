@@ -73,7 +73,12 @@ subjects by design.js:
   mark is right with probability **0.5**, independently, so some trials can come out all right by
   chance.
 - `policy`, **okay but limited**: always policy advice; marks always right.
-(An `instance`-always type was dropped on 2026-10-09.) Every trial records `ai_type`, `ai_marks`, `ai_marks_correct`, `ai_choice`,
+(An `instance`-always type was dropped on 2026-10-09.)
+Deployed to the deferral URL 2026-10-09 (push `09089eb`, run 37963503990; verified: the live bundle has
+mark accuracies 1 / 0.5 / 1 and no instance type). The first attempt failed at "create the remote
+folders" with an SSH `dial tcp ... i/o timeout` to the lab server (build fine, nothing uploaded); a
+re-run of the failed job succeeded a few minutes later. **If a deploy fails there, re-run it before
+debugging.** Every trial records `ai_type`, `ai_marks`, `ai_marks_correct`, `ai_choice`,
 `ai_choice_scope`, `ai_choice_side`; plus `mode_effective`, `block3_choice`, `ai_ready_ms`,
 `ai_reveal_ms`, `ai_reveal_rt_ms`, `next_ms`, `agree_scope`, `agree_choice`, and all of main's fields
 (null where the participant did not answer). The `choice` step records `choice` and `choice_rt`.

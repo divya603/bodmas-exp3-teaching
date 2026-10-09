@@ -64,18 +64,38 @@ on a set never reused; 3 systematic + 3 slip, with block 2's systematic misconce
 pairings once each plus 2 random (user); left/right random; no misconception repeated across a
 block edge.
 
-**The AI marks the problems and picks advice (user).** **Three AI types (user, 2026-10-09)**, in
-`AI_TYPES` (each with its advice rule and `markAccuracy`); `AI_ARMS` = all three, assigned between
-subjects by design.js:
-- `right`, a **really good AI**: policy advice for systematic, instance for slip (the H1 pattern);
-  marks always right.
-- `wrong`, a **visibly bad AI**: the reverse advice (instance for systematic, policy for slip); each
-  mark is right with probability **0.5**, independently, so some trials can come out all right by
-  chance.
-- `policy`, **okay but limited**: always policy advice; marks always right.
-(An `instance`-always type was dropped on 2026-10-09.)
-Deployed to the deferral URL 2026-10-09 (push `09089eb`, run 37963503990; verified: the live bundle has
-mark accuracies 1 / 0.5 / 1 and no instance type). The first attempt failed at "create the remote
+**The AI marks the problems and picks advice (user).** **Four AI types (user, 2026-10-09, replacing
+the three-type set of earlier that day)**, in `AI_TYPES`; `AI_ARMS` = all four, assigned between
+subjects by design.js (dev-only override: `VITE_TEST_AI_CONDITION=<arm>` in the environment of
+`npm run dev` forces one arm, as in the function task; production builds ignore it):
+- `right`: policy advice for systematic, instance for slip (the H1 pattern); every mark right.
+- `markslip`: the same advice as `right`, but **exactly one of its three marks is wrong on every
+  trial** (which problem is random).
+- `agree` (**runtime**): in Phase 2, the participant's own submitted marks and the same option.
+- `disagree` (**runtime**): in Phase 2, every one of their marks flipped, and the other option.
+
+`right` / `markslip` are fixed at sampling time (`aiResponse`). The runtime arms leave `ai_*` null in
+the sampler. Phase 2 is computed at Submit (`runtimeAIPhase2`). **Phase 3 is fixed at the Phase 3
+choice** (`phase3AIAnswers`, for deferrers and self-choosers alike, stored in `persist.phase3AI`)
+and **count-matched to the participant's Phases 1+2** (user's choice; the function task uses its
+Part 2 only):
+- marks: separately for actually-wrong and actually-right problems, `agree` is right on
+  round-half-up(own accuracy x m) of the m Phase 3 problems of that kind; `disagree` on the
+  complement;
+- advice: separately for systematic and slip trials, `agree` picks policy on round-half-up(own
+  policy share x m) of the m Phase 3 trials of that type; `disagree` on the complement.
+
+The participant's Phase 1-2 answers are kept in `persist.history` (`historyEntry`). The choice step
+records `phase3_rule` (`count_matched_phases_1_2` or `precomputed`), `phase3_ai_summary` (own
+accuracies and shares, and the AI's counts) and `n_history`. Every trial records the AI's work that
+was (or would have been) shown in `ai_*`. Tested: `sampleDeferral.test.js` (27 tests, including
+simulated participants against the count-matching rule) and end to end in the dev server as
+`disagree` (2026-10-09): flipped marks and the other option in Phase 2; Phase 3 counts matched the
+rule exactly; deferred trials showed them. The AI's "deciding..." wait also settles when the tab
+becomes visible again, because background tabs slow timers to about once a minute.
+
+The earlier three-type set (right / wrong at 0.5 / always policy) was deployed 2026-10-09 (push
+`09089eb`, run 37963503990) and then replaced by the four types above. The first attempt failed at "create the remote
 folders" with an SSH `dial tcp ... i/o timeout` to the lab server (build fine, nothing uploaded); a
 re-run of the failed job succeeded a few minutes later. **If a deploy fails there, re-run it before
 debugging.** Every trial records `ai_type`, `ai_marks`, `ai_marks_correct`, `ai_choice`,

@@ -16,6 +16,11 @@
 //   defer         phase 3 after choosing to defer: the work is shown open, the
 //                 participant does not answer, and the AI's work is revealed the
 //                 same way. Phase 3 after choosing "myself" is a self trial.
+// The AI's work on screen is `aiView`: the sampler's ai_* fields for the
+// precomputed AIs (right, markslip); for the runtime AIs (agree, disagree) the
+// Phase 2 answer is computed from the participant's submitted answer, and the
+// Phase 3 answers are fixed at the Phase 3 choice from their Phases 1+2
+// (persist.history -> persist.phase3AI), for deferrers and self-choosers alike.
 // No feedback on anyone's correctness. Waits are judged against the clock on
 // every click (timers fire late in background tabs).
 import { ref, computed, watch, onBeforeUnmount } from 'vue'
@@ -24,7 +29,9 @@ import { Button } from '@/uikit/components/ui/button'
 import { ConstrainedTaskWindow } from '@/uikit/layouts'
 import pool from '@/user/data/stimuli_exp3.json'
 import advice from '@/user/data/advice_exp3.json'
-import { sampleDeferral, N_BLOCK } from '@/user/utils/sampleDeferral'
+import {
+  sampleDeferral, N_BLOCK, isRuntimeAI, runtimeAIPhase2, historyEntry, phase3AIAnswers,
+} from '@/user/utils/sampleDeferral'
 import { randomSeed } from '@/user/utils/sampleTrialsExp3'
 import { useMouseTracking } from '@/user/utils/useMouseTracking'
 import StudentWork from '@/user/components/advice_choice/StudentWork.vue'
@@ -62,6 +69,18 @@ const modeEffective = computed(() => {
   return t.mode
 })
 const showsAI = computed(() => modeEffective.value !== 'self')
+
+const RUNTIME = isRuntimeAI(aiCondition)
+if (!api.persist.isDefined('history')) api.persist.history = [] // the participant's Phase 1-2 answers
+if (!api.persist.isDefined('phase3AI')) api.persist.phase3AI = null // runtime AIs' Phase 3 work
+const aiView = ref(null) // the AI's work for the current trial (ai_* fields)
+function aiForStep() {
+  const t = api.stepData
+  if (!RUNTIME) return { ai_type: t.ai_type, ai_marks: t.ai_marks, ai_marks_correct: t.ai_marks_correct,
+    ai_choice: t.ai_choice, ai_choice_scope: t.ai_choice_scope, ai_choice_side: t.ai_choice_side }
+  if (t.block === 3) return api.persist.phase3AI?.byTrial?.[t.trial_index] ?? null
+  return null // Phase 1 (never shown) / Phase 2 (set at submit)
+}
 
 // ── per-trial state ─────────────────────────────────────────────────
 const chosenSide = ref(null)
@@ -102,7 +121,15 @@ function wait(ms, done) {
   onWaitDone = done
   tickTimer = setInterval(settle, 200)
 }
-onBeforeUnmount(clearWait)
+// Background tabs slow timers to about once a minute, so also settle the
+// moment the participant comes back to the tab (the reveal button then appears
+// at once instead of up to a minute late).
+const onVisible = () => document.visibilityState === 'visible' && settle()
+document.addEventListener('visibilitychange', onVisible)
+onBeforeUnmount(() => {
+  clearWait()
+  document.removeEventListener('visibilitychange', onVisible)
+})
 
 function startAI() {
   aiState.value = 'deciding'
@@ -125,6 +152,7 @@ function resetTrial() {
   markEvents = []
   api.startTimer()
   mouse.reset()
+  aiView.value = isTrial.value ? aiForStep() : null
   if (isTrial.value && modeEffective.value === 'defer') {
     revealed.value = api.stepData.problems.map((p) => p.problem_index) // the AI's work is shown open
     canReveal.value = false
@@ -174,7 +202,14 @@ function submit() {
   submitted.value = true
   submitMs = api.elapsedTime()
   if (modeEffective.value === 'self') finishTrial()
-  else startAI()
+  else {
+    if (RUNTIME) {
+      const t = api.stepData
+      const own = t.problems.map((p) => marks.value[p.problem_index])
+      aiView.value = runtimeAIPhase2(t, aiCondition, own, t.options[chosenSide.value === 'left' ? 0 : 1].code)
+    }
+    startAI()
+  }
 }
 function revealAI() {
   settle()
@@ -234,12 +269,19 @@ function finishTrial() {
     ai_reveal_ms: aiRevealMs === null ? null : Math.round(aiRevealMs),
     ai_reveal_rt_ms: aiRevealMs !== null && aiReadyMs !== null ? Math.round(aiRevealMs - aiReadyMs) : null,
     next_ms: showsAI.value ? Math.round(api.elapsedTime()) : null,
-    agree_scope: opt && showsAI.value ? opt.scope === t.ai_choice_scope : null,
-    agree_choice: opt && showsAI.value ? opt.code === t.ai_choice : null,
+    // the AI's work on this trial (what was / would have been shown)
+    ...(aiView.value ?? { ai_marks: null, ai_marks_correct: null, ai_choice: null, ai_choice_scope: null, ai_choice_side: null }),
+    ai_type: aiCondition,
+    agree_scope: opt && showsAI.value && aiView.value ? opt.scope === aiView.value.ai_choice_scope : null,
+    agree_choice: opt && showsAI.value && aiView.value ? opt.code === aiView.value.ai_choice : null,
     highlight_errors: false,
     counterbalance_id: api.persist.trialSeed,
     mouse: mouse.getPoints(),
   })
+  if (t.block < 3 && opt) {
+    const own = t.problems.map((p) => marks.value[p.problem_index])
+    api.persist.history = [...api.persist.history, historyEntry(t, own, opt.code)]
+  }
   api.recordStep()
   api.goNextStep()
 }
@@ -252,10 +294,20 @@ let choiceShownAt = null
 watch(isChoice, (v) => v && (choiceShownAt = performance.now()), { immediate: true })
 function chooseBlock3(choice) {
   api.persist.block3Choice = choice
+  let phase3 = null
+  if (RUNTIME) {
+    // fixed now, from Phases 1+2, whether or not they defer
+    api.persist.phase3AI = phase3AIAnswers(trialList.filter((t) => t.block === 3), aiCondition,
+      api.persist.history, api.persist.trialSeed)
+    phase3 = api.persist.phase3AI.summary
+  }
   Object.assign(api.stepData, {
     choice,
     choice_rt: Math.round(performance.now() - (choiceShownAt ?? performance.now())),
     ai_condition: aiCondition,
+    phase3_rule: RUNTIME ? 'count_matched_phases_1_2' : 'precomputed',
+    phase3_ai_summary: phase3,
+    n_history: api.persist.history.length,
   })
   api.recordStep()
   api.saveData(true)
@@ -271,7 +323,7 @@ const prompt = computed(() => {
   if (modeEffective.value === 'defer') return `The AI checks ${name}'s work and chooses the advice for you.`
   return `Here is ${name}'s work on three problems. Open each one, check the work, and mark it right or wrong.`
 })
-const aiTagSide = computed(() => (aiState.value === 'shown' ? api.stepData.ai_choice_side : null))
+const aiTagSide = computed(() => (aiState.value === 'shown' ? aiView.value?.ai_choice_side : null))
 
 function autofill() {
   while (api.stepIndex < api.nSteps) {
@@ -375,7 +427,7 @@ api.setAutofill(autofill)
         :marks="marks"
         :marksLocked="submitted"
         :showMarkButtons="modeEffective !== 'defer'"
-        :aiMarks="aiState === 'shown' ? api.stepData.ai_marks : null"
+        :aiMarks="aiState === 'shown' ? aiView?.ai_marks : null"
         class="mb-5"
         @reveal="onReveal"
         @mark="onMark"

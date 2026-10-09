@@ -19,48 +19,145 @@
 //   - order shuffled; no misconception on consecutive trials across a block edge
 //
 // The AI (one per participant, a between-subjects condition set in design.js)
-// both marks each problem and picks one of the two advice options. Three
-// types (user, 2026-10-09), each with its advice rule and mark accuracy:
-//   right   really good: policy for systematic, instance for slip; marks all right
-//   wrong   visibly bad: the reverse advice; each mark right only half the time
-//   policy  okay-ish: always policy advice; marks all right
+// both marks each problem and picks one of the two advice options. Four types
+// (user, 2026-10-09):
+//   right      policy advice for systematic, instance for slip (the H1 pattern);
+//              every mark right
+//   markslip   the same advice as `right`, but exactly one of its three marks is
+//              wrong on every trial (which one is random)
+//   agree      RUNTIME: in Phase 2, the participant's own marks and advice pick
+//   disagree   RUNTIME: in Phase 2, every mark flipped and the other advice option
+// `right` / `markslip` are fixed here at sampling time. `agree` / `disagree`
+// leave the ai_* fields null: Phase 2 is computed from the participant's
+// answer (runtimeAIPhase2) and Phase 3 is fixed at the Phase 3 choice
+// (phase3AIAnswers), count-matched to the participant's Phases 1+2, as the
+// function task's aligned / misaligned arms are to its Part 2.
 
 import { STUDENT_NAMES, makeRng, evenSpread, buildProblems, adviceOption } from './sampleTrialsExp3'
 
 export const N_BLOCK = { 1: 6, 2: 6, 3: 6 }
 export const BLOCK_MODE = { 1: 'self', 2: 'self_then_ai', 3: 'choose' }
 
-// The AI types: the advice scope each picks for a systematic / slip trial, and
-// P(each of its right/wrong marks is correct).
+const H1 = { systematic: 'policy', slip: 'instance' }
 export const AI_TYPES = {
-  right: { systematic: 'policy', slip: 'instance', markAccuracy: 1.0 }, // the H1 pattern
-  wrong: { systematic: 'instance', slip: 'policy', markAccuracy: 0.5 }, // the reverse, marks at chance
-  policy: { systematic: 'policy', slip: 'policy', markAccuracy: 1.0 }, // always policy advice
+  right: { advice: H1, marks: 'all_right' },
+  markslip: { advice: H1, marks: 'one_wrong' },
+  agree: { runtime: 'agree' },
+  disagree: { runtime: 'disagree' },
 }
 export const AI_ARMS = Object.keys(AI_TYPES) // assigned between subjects in design.js
+export const isRuntimeAI = (aiType) => Boolean(AI_TYPES[aiType]?.runtime)
 
 const POLICY = ['rule', 'example']
 const INSTANCE = ['flag', 'correction']
 const PAIRINGS = POLICY.flatMap((p) => INSTANCE.map((i) => [p, i]))
 const SLIP_POSITIONS = [1, 2, 3]
 
-// The AI's work on one trial: a right/wrong mark per problem and an advice pick.
-export function aiResponse(trial, aiType, rng, markAccuracy = AI_TYPES[aiType].markAccuracy) {
-  const scope = AI_TYPES[aiType][trial.error_type]
-  const marks = trial.problems.map((p) => {
-    const truth = p.is_error ? 'wrong' : 'right'
-    if (rng.next() < markAccuracy) return truth
-    return truth === 'wrong' ? 'right' : 'wrong'
-  })
-  const code = scope === 'policy' ? trial.policy_option : trial.instance_option
+const truthOf = (p) => (p.is_error ? 'wrong' : 'right')
+const flip = (m) => (m === 'wrong' ? 'right' : 'wrong')
+const roundHalfUp = (x) => Math.floor(x + 0.5 + 1e-9)
+
+// ai_* fields for a trial, given the AI's marks and advice pick
+function aiFields(trial, aiType, marks, code) {
+  const opt = trial.options.find((o) => o.code === code)
   return {
     ai_type: aiType,
     ai_marks: marks,
-    ai_marks_correct: marks.map((m, i) => m === (trial.problems[i].is_error ? 'wrong' : 'right')),
+    ai_marks_correct: marks.map((m, i) => m === truthOf(trial.problems[i])),
     ai_choice: code,
-    ai_choice_scope: scope,
+    ai_choice_scope: opt.scope,
     ai_choice_side: trial.left_option === code ? 'left' : 'right',
   }
+}
+const nullAI = (aiType) => ({
+  ai_type: aiType, ai_marks: null, ai_marks_correct: null, ai_choice: null, ai_choice_scope: null, ai_choice_side: null,
+})
+
+// Precomputed AI (right / markslip): its work on one trial.
+export function aiResponse(trial, aiType, rng) {
+  const def = AI_TYPES[aiType]
+  if (def.runtime) return nullAI(aiType)
+  const marks = trial.problems.map(truthOf)
+  if (def.marks === 'one_wrong') {
+    const k = Math.floor(rng.next() * marks.length)
+    marks[k] = flip(marks[k])
+  }
+  const scope = def.advice[trial.error_type]
+  return aiFields(trial, aiType, marks, scope === 'policy' ? trial.policy_option : trial.instance_option)
+}
+
+// Runtime AI, Phase 2: from the participant's submitted marks ('right' | 'wrong'
+// per problem) and advice pick (an option code).
+export function runtimeAIPhase2(trial, aiType, ownMarks, ownChoice) {
+  const other = trial.options.find((o) => o.code !== ownChoice).code
+  if (aiType === 'agree') return aiFields(trial, aiType, ownMarks.slice(), ownChoice)
+  if (aiType === 'disagree') return aiFields(trial, aiType, ownMarks.map(flip), other)
+  throw new Error(`runtimeAIPhase2: not a runtime AI: ${aiType}`)
+}
+
+// One history entry per Phase 1-2 trial the participant answered.
+export function historyEntry(trial, ownMarks, ownChoice) {
+  return {
+    error_type: trial.error_type,
+    problems: trial.problems.map((p, i) => ({ is_error: p.is_error, mark_correct: ownMarks[i] === truthOf(p) })),
+    choose_policy: trial.options.find((o) => o.code === ownChoice).scope === 'policy',
+  }
+}
+
+// pick n of the items at random (the rest are the complement)
+function pickN(items, n, rng) {
+  return new Set(rng.shuffle(items.slice()).slice(0, n))
+}
+
+// Runtime AI, Phase 3: fixed at the Phase 3 choice from the participant's
+// Phases 1+2 (`history`), count-matched:
+//   marks   for actually-wrong problems and actually-right problems separately,
+//           `agree` marks correctly round-half-up(own accuracy x m) of the m
+//           Phase 3 problems of that kind; `disagree` the complement
+//   advice  for systematic and slip trials separately, `agree` picks policy
+//           on round-half-up(own policy share x m) of the m Phase 3 trials of
+//           that type; `disagree` the complement
+// Returns { byTrial: {trial_index: ai_* fields}, summary }.
+export function phase3AIAnswers(phase3Trials, aiType, history, seed) {
+  if (!isRuntimeAI(aiType)) throw new Error(`phase3AIAnswers: not a runtime AI: ${aiType}`)
+  const rng = makeRng((seed ^ 0x5eed3) >>> 0)
+  const agree = aiType === 'agree'
+  const summary = { phase3_rule: 'count_matched_phases_1_2', ai_type: aiType }
+
+  // marks
+  const slots = phase3Trials.flatMap((t) => t.problems.map((p, i) => ({ t, i, kind: p.is_error ? 'wrong' : 'right' })))
+  const marksOf = new Map(phase3Trials.map((t) => [t.trial_index, t.problems.map(truthOf)]))
+  const allOwn = history.flatMap((h) => h.problems)
+  for (const kind of ['wrong', 'right']) {
+    const own = allOwn.filter((p) => (p.is_error ? 'wrong' : 'right') === kind)
+    const base = own.length ? own : allOwn
+    const acc = base.length ? base.filter((p) => p.mark_correct).length / base.length : 1
+    const ks = slots.filter((s) => s.kind === kind)
+    const nAgree = roundHalfUp(acc * ks.length)
+    const nRight = agree ? nAgree : ks.length - nAgree
+    const rightSet = pickN(ks, nRight, rng)
+    for (const s of ks) if (!rightSet.has(s)) marksOf.get(s.t.trial_index)[s.i] = flip(kind)
+    summary[`own_mark_accuracy_${kind}_problems`] = acc
+    summary[`ai_marks_right_${kind}_problems`] = `${nRight}/${ks.length}`
+  }
+
+  // advice
+  const pickOf = new Map()
+  for (const et of ['systematic', 'slip']) {
+    const own = history.filter((h) => h.error_type === et)
+    const share = own.length ? own.filter((h) => h.choose_policy).length / own.length : 0.5
+    const ts = phase3Trials.filter((t) => t.error_type === et)
+    const nAgree = roundHalfUp(share * ts.length)
+    const nPolicy = agree ? nAgree : ts.length - nAgree
+    const policySet = pickN(ts, nPolicy, rng)
+    for (const t of ts) pickOf.set(t.trial_index, policySet.has(t) ? t.policy_option : t.instance_option)
+    summary[`own_policy_share_${et}`] = share
+    summary[`ai_policy_${et}`] = `${nPolicy}/${ts.length}`
+  }
+
+  const byTrial = {}
+  for (const t of phase3Trials) byTrial[t.trial_index] = aiFields(t, aiType, marksOf.get(t.trial_index), pickOf.get(t.trial_index))
+  return { byTrial, summary }
 }
 
 function pickSystematic(rng, misconceptions, block, prev) {
@@ -72,7 +169,6 @@ function pickSystematic(rng, misconceptions, block, prev) {
 export function sampleDeferral(pool, advice, seed, aiType, opts = {}) {
   const nBlock = opts.nBlock ?? N_BLOCK
   if (!AI_TYPES[aiType]) throw new Error(`unknown AI type ${aiType}`)
-  const markAccuracy = opts.markAccuracy ?? AI_TYPES[aiType].markAccuracy
   const rng = makeRng(seed)
   const misconceptions = [...new Set(pool.sets.map((s) => s.misconception))]
   const blocks = Object.keys(nBlock).map(Number)
@@ -136,7 +232,7 @@ export function sampleDeferral(pool, advice, seed, aiType, opts = {}) {
         ...t,
         block_index: i,
         student_name: names[out.length % names.length],
-        ...aiResponse(t, aiType, rng, markAccuracy),
+        ...aiResponse(t, aiType, rng),
       })
     })
   }

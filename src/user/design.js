@@ -88,10 +88,13 @@ api.setRuntimeConfig('debriefPdfUrl', `${import.meta.env.BASE_URL}debrief.pdf`)
 // example, if you want twice as many participants to be assigned to instructions
 // version 1 compared to versions 2 and 3, you can set the weights as follows:
 // DEFERRAL branch: one AI per participant (between subjects), as in the
-// function task's deferral study. Which arms to run is not decided yet
-// (AI_ARMS in utils/sampleDeferral.js).
+// function task's deferral study. The arms are AI_ARMS in utils/sampleDeferral.js:
+// right, markslip, agree, disagree (user, 2026-10-09).
+// Dev-only test override (as in the function task): VITE_TEST_AI_CONDITION=<arm>
+// runs every dev-server session in that arm; production builds ignore it.
+const _testArm = import.meta.env.DEV ? import.meta.env.VITE_TEST_AI_CONDITION : undefined
 api.randomAssignCondition({
-  aiCondition: AI_ARMS,
+  aiCondition: _testArm ? [_testArm] : AI_ARMS,
 })
 
 api.randomAssignCondition({

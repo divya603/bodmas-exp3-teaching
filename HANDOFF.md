@@ -64,11 +64,16 @@ on a set never reused; 3 systematic + 3 slip, with block 2's systematic misconce
 pairings once each plus 2 random (user); left/right random; no misconception repeated across a
 block edge.
 
-**The AI marks the problems and picks advice (user).** Which AI types to run is **NOT decided**.
-`AI_TYPES` defines the four candidates the user named: `right` (policy for systematic, instance for
-slip; the H1 pattern), `wrong` (the reverse), `policy` (always), `instance` (always). `AI_ARMS`
-(currently all four) is what design.js assigns. `AI_MARK_ACCURACY` (default 1.0) sets how often the
-AI's marks are right. Every trial records `ai_type`, `ai_marks`, `ai_marks_correct`, `ai_choice`,
+**The AI marks the problems and picks advice (user).** **Three AI types (user, 2026-10-09)**, in
+`AI_TYPES` (each with its advice rule and `markAccuracy`); `AI_ARMS` = all three, assigned between
+subjects by design.js:
+- `right`, a **really good AI**: policy advice for systematic, instance for slip (the H1 pattern);
+  marks always right.
+- `wrong`, a **visibly bad AI**: the reverse advice (instance for systematic, policy for slip); each
+  mark is right with probability **0.5**, independently, so some trials can come out all right by
+  chance.
+- `policy`, **okay but limited**: always policy advice; marks always right.
+(An `instance`-always type was dropped on 2026-10-09.) Every trial records `ai_type`, `ai_marks`, `ai_marks_correct`, `ai_choice`,
 `ai_choice_scope`, `ai_choice_side`; plus `mode_effective`, `block3_choice`, `ai_ready_ms`,
 `ai_reveal_ms`, `ai_reveal_rt_ms`, `next_ms`, `agree_scope`, `agree_choice`, and all of main's fields
 (null where the participant did not answer). The `choice` step records `choice` and `choice_rt`.
@@ -87,7 +92,7 @@ Checked in the dev server end to end (2026-10-08): all three phases, the reveal,
 deferred trials, saved fields, and the branched strategy question.
 
 **Open, before running anyone:**
-1. Which AI arms to run (and whether the AI's marks are always right).
+1. ~~Which AI arms to run~~ decided 2026-10-09 (right / wrong / policy, above).
 2. **What "performance" means for the bonus.** The pages say the $2 bonus depends on performance and
    that the AI's performance counts if you defer (the function task's wording). Advice has no right
    answer; if only the marks are scored, an AI with perfect marks makes deferring a pure win

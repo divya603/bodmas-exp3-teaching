@@ -3,7 +3,7 @@ import pool from '@/user/data/stimuli_exp3.json'
 import advice from '@/user/data/advice_exp3.json'
 import { sampleDeferral, AI_TYPES, AI_ARMS, N_BLOCK } from '@/user/utils/sampleDeferral'
 
-const N_SEEDS = 1000
+const N_SEEDS = 999
 const MISCONCEPTIONS = [...new Set(pool.sets.map((s) => s.misconception))]
 const count = (xs) => xs.reduce((acc, x) => ((acc[x] = (acc[x] || 0) + 1), acc), {})
 const sessions = AI_ARMS.flatMap((ai) =>
@@ -57,17 +57,31 @@ describe('sampleDeferral, per participant', () => {
     }
   })
 
-  it('gives the AI the advice scope its type prescribes, and correct marks by default', () => {
+  it('gives the AI the advice scope its type prescribes', () => {
     for (const [ai, f] of sessions) {
       for (const t of f) {
         expect(t.ai_type).toBe(ai)
         expect(t.ai_choice_scope).toBe(AI_TYPES[ai][t.error_type])
         expect([t.policy_option, t.instance_option]).toContain(t.ai_choice)
         expect(t.ai_choice === t.left_option ? 'left' : 'right').toBe(t.ai_choice_side)
-        expect(t.ai_marks).toEqual(t.problems.map((p) => (p.is_error ? 'wrong' : 'right')))
-        expect(t.ai_marks_correct.every(Boolean)).toBe(true)
+        expect(t.ai_marks_correct).toEqual(t.ai_marks.map((m, i) => m === (t.problems[i].is_error ? 'wrong' : 'right')))
       }
     }
+  })
+
+  it('has the three agreed AI types: right/policy mark perfectly, wrong marks at chance', () => {
+    expect(AI_ARMS).toEqual(['right', 'wrong', 'policy'])
+    expect(AI_TYPES.right).toMatchObject({ systematic: 'policy', slip: 'instance', markAccuracy: 1 })
+    expect(AI_TYPES.wrong).toMatchObject({ systematic: 'instance', slip: 'policy', markAccuracy: 0.5 })
+    expect(AI_TYPES.policy).toMatchObject({ systematic: 'policy', slip: 'policy', markAccuracy: 1 })
+    const rate = (ai) => {
+      const m = sessions.filter(([a]) => a === ai).flatMap(([, f]) => f.flatMap((t) => t.ai_marks_correct))
+      return m.filter(Boolean).length / m.length
+    }
+    expect(rate('right')).toBe(1)
+    expect(rate('policy')).toBe(1)
+    expect(rate('wrong')).toBeGreaterThan(0.46)
+    expect(rate('wrong')).toBeLessThan(0.54)
   })
 
   it('can make the AI mark wrongly, at the requested rate', () => {

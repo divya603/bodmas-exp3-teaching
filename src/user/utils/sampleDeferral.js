@@ -19,24 +19,25 @@
 //   - order shuffled; no misconception on consecutive trials across a block edge
 //
 // The AI (one per participant, a between-subjects condition set in design.js)
-// both marks each problem and picks one of the two advice options. Which AI
-// types to run is NOT decided yet (user, 2026-10-08): AI_ARMS lists the four
-// candidates, and AI_MARK_ACCURACY sets how often its marks are right.
+// both marks each problem and picks one of the two advice options. Three
+// types (user, 2026-10-09), each with its advice rule and mark accuracy:
+//   right   really good: policy for systematic, instance for slip; marks all right
+//   wrong   visibly bad: the reverse advice; each mark right only half the time
+//   policy  okay-ish: always policy advice; marks all right
 
 import { STUDENT_NAMES, makeRng, evenSpread, buildProblems, adviceOption } from './sampleTrialsExp3'
 
 export const N_BLOCK = { 1: 6, 2: 6, 3: 6 }
 export const BLOCK_MODE = { 1: 'self', 2: 'self_then_ai', 3: 'choose' }
 
-// Candidate AIs: which advice scope each picks for a systematic / slip trial.
+// The AI types: the advice scope each picks for a systematic / slip trial, and
+// P(each of its right/wrong marks is correct).
 export const AI_TYPES = {
-  right: { systematic: 'policy', slip: 'instance' }, // the H1 pattern
-  wrong: { systematic: 'instance', slip: 'policy' }, // the reverse
-  policy: { systematic: 'policy', slip: 'policy' }, // always policy advice
-  instance: { systematic: 'instance', slip: 'instance' }, // always instance advice
+  right: { systematic: 'policy', slip: 'instance', markAccuracy: 1.0 }, // the H1 pattern
+  wrong: { systematic: 'instance', slip: 'policy', markAccuracy: 0.5 }, // the reverse, marks at chance
+  policy: { systematic: 'policy', slip: 'policy', markAccuracy: 1.0 }, // always policy advice
 }
-export const AI_ARMS = ['right', 'wrong', 'policy', 'instance'] // TBD: which arms to run
-export const AI_MARK_ACCURACY = 1.0 // P(each AI mark is correct); TBD
+export const AI_ARMS = Object.keys(AI_TYPES) // assigned between subjects in design.js
 
 const POLICY = ['rule', 'example']
 const INSTANCE = ['flag', 'correction']
@@ -44,7 +45,7 @@ const PAIRINGS = POLICY.flatMap((p) => INSTANCE.map((i) => [p, i]))
 const SLIP_POSITIONS = [1, 2, 3]
 
 // The AI's work on one trial: a right/wrong mark per problem and an advice pick.
-export function aiResponse(trial, aiType, rng, markAccuracy = AI_MARK_ACCURACY) {
+export function aiResponse(trial, aiType, rng, markAccuracy = AI_TYPES[aiType].markAccuracy) {
   const scope = AI_TYPES[aiType][trial.error_type]
   const marks = trial.problems.map((p) => {
     const truth = p.is_error ? 'wrong' : 'right'
@@ -70,8 +71,8 @@ function pickSystematic(rng, misconceptions, block, prev) {
 
 export function sampleDeferral(pool, advice, seed, aiType, opts = {}) {
   const nBlock = opts.nBlock ?? N_BLOCK
-  const markAccuracy = opts.markAccuracy ?? AI_MARK_ACCURACY
   if (!AI_TYPES[aiType]) throw new Error(`unknown AI type ${aiType}`)
+  const markAccuracy = opts.markAccuracy ?? AI_TYPES[aiType].markAccuracy
   const rng = makeRng(seed)
   const misconceptions = [...new Set(pool.sets.map((s) => s.misconception))]
   const blocks = Object.keys(nBlock).map(Number)

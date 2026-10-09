@@ -163,6 +163,20 @@ participant) + (1 | misconception)`. Exclusion: failed attention checks.
 3. N, platform, pay and an RT exclusion rule (on hold).
 4. Practice trials (later).
 
+### Pilot analysis (2026-10-07/08)
+`analysis/notebooks/analysis_human.ipynb` (plain pandas/matplotlib on the system Python; `uv`, needed
+for the lab's `smiledata`, is not installed on this machine). Cell 1 sets `DATA_FILE`, `START_DATE`
+(2026-10-06, the publish date), `END_DATE` and `TIMEZONE`. It counts started / finished / withdrew /
+left, and analyses finished participants only. Sections: the trials table; overall policy vs
+instance; problems marked wrong by error type (the slip "1" bar is split by whether the marked
+problem was the real error); per-participant marking accuracy; policy vs instance by error type; per
+participant (labelled P1..Pn, no IDs); H1 within person (one line per participant); policy share by
+perceived error type (number marked wrong); choice time from the options unlocking. **No exclusion
+filter** (one was added and then removed at the user's request). Pilot so far: 16 finished on
+Prolific (one more than the 15 recruited; probably a timed-out/returned person who still finished),
+4 with marking accuracy of 50% or less, and 12/16 shifting in the H1 direction (mean policy share 67%
+systematic vs 44% slip).
+
 ### Build order and progress
 1. **Stimulus pool: DONE 2026-10-02.** `base-task/stimuli_exp3.py [--show]` writes
    `base-task/stimuli_exp3.json` and the frontend copy `src/user/data/stimuli_exp3.json` (20 sets x 6

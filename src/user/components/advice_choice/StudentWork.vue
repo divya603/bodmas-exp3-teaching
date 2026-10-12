@@ -115,7 +115,8 @@ function cells(line) {
 
       <div v-if="aiMarks" class="flex justify-center mt-2" :data-ai-mark="p.problem_index">
         <span
-          class="rounded-md border-2 border-slate-500 bg-slate-100 px-2 py-0.5 text-sm text-slate-800"
+          class="rounded-md border-2 px-2 py-0.5 text-sm"
+          :class="aiMarks[p.problem_index - 1] === 'wrong' ? 'border-red-600 bg-red-50 text-red-800' : 'border-green-600 bg-green-50 text-green-800'"
           :id="`ai-mark-${p.problem_index}`"
         >
           AI: {{ aiMarks[p.problem_index - 1] === 'wrong' ? 'Wrong' : 'Right' }}

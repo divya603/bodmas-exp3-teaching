@@ -87,6 +87,8 @@ const chosenSide = ref(null)
 const revealed = ref([])
 const canReveal = ref(true)
 const optionsUnlocked = ref(false)
+// advice text stays covered until all three problems are marked (deferred trials show it at once)
+const optionsHidden = computed(() => modeEffective.value !== 'defer' && !optionsUnlocked.value)
 const marks = ref({})
 const submitted = ref(false) // participant's answer locked (self_then_ai)
 const aiState = ref('idle') // idle | deciding | ready | shown
@@ -437,9 +439,7 @@ api.setAutofill(autofill)
         {{ modeEffective === 'defer' ? 'Which advice will the AI give' : 'Which advice would you give' }}
         {{ api.stepData.student_name }}?
       </p>
-      <p class="text-sm text-muted-foreground mb-3 h-5">
-        <template v-if="modeEffective !== 'defer' && !optionsUnlocked">Mark all three problems to choose.</template>
-      </p>
+      <div class="mb-3"></div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
         <button
           v-for="(opt, i) in api.stepData.options"
@@ -455,7 +455,7 @@ api.setAutofill(autofill)
               : chosenSide === (i === 0 ? 'left' : 'right')
                 ? 'border-primary bg-primary/10 cursor-pointer'
                 : 'border-border hover:border-primary/50 hover:bg-muted/40 cursor-pointer',
-            (!optionsUnlocked && modeEffective !== 'defer') ? 'opacity-50' : '',
+            optionsHidden ? 'border-dashed bg-muted/30' : '',
             aiTagSide === (i === 0 ? 'left' : 'right') ? 'ring-2 ring-slate-500 ring-offset-2' : '',
           ]"
           :aria-disabled="!optionsUnlocked || submitted"
@@ -469,7 +469,10 @@ api.setAutofill(autofill)
           <span v-if="submitted && chosenSide === (i === 0 ? 'left' : 'right')"
             class="absolute -top-3 left-3 rounded-md bg-primary px-2 py-0.5 text-xs font-semibold text-primary-foreground">
             Your choice</span>
-          {{ mathText(opt.text) }}
+          <span v-if="optionsHidden" class="flex items-center gap-2 text-sm text-muted-foreground">
+            <i-lucide-lock class="shrink-0" /> Visible after you mark all three problems
+          </span>
+          <template v-else>{{ mathText(opt.text) }}</template>
         </button>
       </div>
 

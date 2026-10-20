@@ -31,6 +31,9 @@ conversation history.
 >   (`divya603-bodmas-exp3-teaching-six-pairs`), so it never mixes with the main study. `npm run getdata`
 >   asks for the branch: answer `six-pairs`. Prolific link: the §7 URL with `main` replaced by
 >   `six-pairs`. Never merge this branch into `main` (it would change the main study).
+> - **Deployed 2026-10-20:** push `5c4274d`, deploy run 39458424147 (deploy job ran). Verified: the
+>   `/six-pairs/` URL returns 200 and its bundle contains `5c4274d`, `pair_kind` and the lock text.
+>   Not yet clicked through in a browser by the user.
 > - Local checkout: a git worktree at `~/Desktop/NYU/Darpa/Bodmas-Exp3-Teaching/bodmas-exp3-six-pairs`
 >   (`node_modules` symlinked to the main checkout's; `env/*.local` copied).
 

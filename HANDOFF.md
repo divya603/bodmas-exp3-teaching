@@ -40,6 +40,16 @@ conversation history.
 > - **Deployed 2026-10-20:** push `5c4274d`, deploy run 39458424147 (deploy job ran). Verified: the
 >   `/six-pairs/` URL returns 200 and its bundle contains `5c4274d`, `pair_kind` and the lock text.
 >   Not yet clicked through in a browser by the user.
+> - **Pilot data (2026-10-20):** first 10 Prolific participants finished (15 records: 1 withdrew, 4 did not
+>   finish, one of them the user's web test). All ran `27ffeee`. Design check passed (each pair type 10x per
+>   error type; systematic named problems 20/20/20). Marking accuracy 91%, 11-19 min. Policy share on
+>   cross-scope pairs 85% systematic vs 55% slip; rule chosen 90% over example in both error types;
+>   correction over flag 70% / 60%. The user is running 40 more (target 50).
+> - **Analysis notebook:** `analysis/notebooks/analysis_six_pairs.ipynb` (reads
+>   `data/real-all-six-pairs-data.json`; runs with `python3 -m nbconvert --to notebook --execute --inplace`).
+>   NOT committed yet: the user has not decided whether to commit it with outputs (they contain participant
+>   free text; the repo is public). Also open: `data/real-*.json` is NOT gitignored, so never `git add -A`
+>   / `git add data/`.
 > - Local checkout: a git worktree at `~/Desktop/NYU/Darpa/Bodmas-Exp3-Teaching/bodmas-exp3-six-pairs`
 >   (`node_modules` symlinked to the main checkout's; `env/*.local` copied).
 

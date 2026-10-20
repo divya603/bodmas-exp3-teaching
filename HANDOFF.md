@@ -18,6 +18,10 @@ conversation history.
 >   once slip). **Each pair type appears exactly once among the 6 systematic trials and once among the
 >   6 slip trials**, randomly matched to misconceptions; left/right random. So per participant: 8
 >   cross-scope trials, 2 policy-only, 2 instance-only.
+> - **Which problem flag/correction name (user, 2026-10-20; differs from `main`):** both always name the
+>   SAME problem and its error step. Slip: the wrong problem. Systematic: one of the 3 wrong problems,
+>   spread 2/2/2 over problems 1, 2, 3 across the 6 systematic trials, shuffled (`main` always named
+>   problem 1). Recorded as `target.problem` / `target.step`.
 > - **Advice text is hidden until all three problems are marked** (lock icon, "Visible after you mark
 >   all three problems"), like the deferral branch. This was an uncommitted edit on `main` at the time;
 >   the main pilot ran with the text visible but dimmed.

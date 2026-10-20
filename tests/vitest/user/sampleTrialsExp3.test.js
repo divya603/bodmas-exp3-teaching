@@ -87,11 +87,20 @@ describe('sampleTrialsExp3, per participant', () => {
     }
   })
 
-  it('points flag and correction at the first wrong problem and its error step', () => {
+  it('names one of the wrong problems: the slip one, or in systematic trials problems 1/2/3 twice each', () => {
+    for (const [, f] of forms) {
+      for (const t of f.filter((t) => t.error_type === 'slip')) expect(t.target.problem).toBe(t.slip_position)
+      const sys = f.filter((t) => t.error_type === 'systematic')
+      expect(count(sys.map((t) => t.target.problem))).toEqual({ 1: 2, 2: 2, 3: 2 })
+    }
+  })
+
+  it('points flag and correction at the same named problem and its error step', () => {
     for (const [, f] of forms) {
       for (const t of f) {
         const set = pool.sets.find((s) => s.set_id === t.set_id)
-        const p = t.error_type === 'systematic' ? 1 : t.slip_position
+        const p = t.target.problem
+        expect(t.problems[p - 1].is_error).toBe(true)
         const src = set.problems[p - 1]
         expect(t.target).toMatchObject({ problem: p, step: src.error_step })
         // the step named really is the misconceived line, and correct work differs there

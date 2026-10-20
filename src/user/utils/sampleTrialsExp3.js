@@ -16,7 +16,10 @@
 //     stay within it (rule vs example, flag vs correction). Each pair type
 //     appears once among the systematic trials and once among the slip
 //     trials, randomly matched to misconceptions; left/right is random
-//   - flag and correction point at the first erroneous problem's error step
+//   - flag and correction always point at the SAME problem and its error step.
+//     slip: the wrong problem. systematic (six-pairs change, 2026-10-20; main
+//     always used problem 1): one of the 3 wrong problems, spread evenly
+//     over 1, 2, 3 (2 each over the 6 systematic trials), shuffled
 //   - trial order is random, with no misconception on two trials in a row
 // Smile has no cross-participant counter, so balance ACROSS participants
 // (which set meets which condition) holds in expectation only.
@@ -74,8 +77,9 @@ function fill(template, vars) {
   return template.replace(/\{(\w+)\}/g, (_, k) => String(vars[k]))
 }
 
-// The displayed problems for one trial, plus where flag/correction point.
-function buildProblems(set, errorType, slipPosition) {
+// The displayed problems for one trial, plus where flag/correction point
+// (targetPosition: which wrong problem they name; a slip trial has only one).
+function buildProblems(set, errorType, slipPosition, targetPosition) {
   const problems = set.problems.map((p) => {
     const isError = errorType === 'systematic' || p.problem_index === slipPosition
     return {
@@ -87,14 +91,15 @@ function buildProblems(set, errorType, slipPosition) {
       error_step: isError ? p.error_step : null,
     }
   })
-  const first = set.problems.find((p) => problems[p.problem_index - 1].is_error)
+  const named = set.problems.find((p) => p.problem_index === targetPosition)
+  if (!problems[targetPosition - 1].is_error) throw new Error(`problem ${targetPosition} is not wrong`)
   return {
     problems,
     target: {
-      problem: first.problem_index,
-      step: first.error_step,
-      right_pair: first.right_pair,
-      wrong_pair: first.wrong_pair,
+      problem: named.problem_index,
+      step: named.error_step,
+      right_pair: named.right_pair,
+      wrong_pair: named.wrong_pair,
     },
   }
 }
@@ -145,12 +150,18 @@ export function sampleTrialsExp3(pool, advice, seed, config = CONFIG) {
   const slipList = evenSpread(rng, config.slipPositions, slipCells.length)
   slipCells.forEach((c, i) => (c.slipPosition = slipList[i]))
 
+  // 3b. which wrong problem flag/correction name in systematic trials: spread evenly over 1..3, shuffled
+  const sysCells = cells.filter((c) => c.errorType === 'systematic')
+  const targetList = evenSpread(rng, config.slipPositions, sysCells.length)
+  sysCells.forEach((c, i) => (c.targetPosition = targetList[i]))
+
   // 4. build trials
   const names = rng.shuffle(STUDENT_NAMES.slice())
   let trials = cells.map((c, i) => {
     const [a, b] = c.pair
     const slipPosition = c.errorType === 'slip' ? c.slipPosition : null
-    const { problems, target } = buildProblems(c.set, c.errorType, slipPosition)
+    const targetPosition = c.errorType === 'slip' ? slipPosition : c.targetPosition
+    const { problems, target } = buildProblems(c.set, c.errorType, slipPosition, targetPosition)
     const opts = [adviceOption(a, c.misconception, target, advice),
                   adviceOption(b, c.misconception, target, advice)]
     const scopes = opts.map((o) => o.scope)

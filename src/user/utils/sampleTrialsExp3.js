@@ -9,9 +9,13 @@
 //   - systematic: all 3 problems show the misconceived work
 //     slip: one problem shows it, the other two the correct work; the wrong
 //     problem's position is spread evenly over 1, 2, 3 (2 each), shuffled
-//   - each trial shows one policy option (rule | example) and one instance
-//     option (flag | correction); each of the 4 pairings appears equally
-//     often (3 each), randomly assigned to trials; left/right is random
+//   - six-pairs branch (pilot, 2026-10-20): each trial shows 2 of the 4
+//     advice types, and all 6 pair types are used: rule vs flag, rule vs
+//     example, rule vs correction, example vs flag, example vs correction,
+//     flag vs correction. So 4 pairs cross scope (policy vs instance) and 2
+//     stay within it (rule vs example, flag vs correction). Each pair type
+//     appears once among the systematic trials and once among the slip
+//     trials, randomly matched to misconceptions; left/right is random
 //   - flag and correction point at the first erroneous problem's error step
 //   - trial order is random, with no misconception on two trials in a row
 // Smile has no cross-participant counter, so balance ACROSS participants
@@ -20,8 +24,15 @@
 export const CONFIG = {
   errorTypes: ['systematic', 'slip'],
   trialsPerMisconceptionPerErrorType: 1, // 1 -> 12 trials; 2 -> 24
-  policyOptions: ['rule', 'example'],
-  instanceOptions: ['flag', 'correction'],
+  // the 6 pair types, each [a, b]; every one appears equally often within each error type
+  pairTypes: [
+    ['rule', 'flag'],
+    ['rule', 'example'],
+    ['rule', 'correction'],
+    ['example', 'flag'],
+    ['example', 'correction'],
+    ['flag', 'correction'],
+  ],
   slipPositions: [1, 2, 3],
   maxOrderAttempts: 10000,
 }
@@ -119,12 +130,15 @@ export function sampleTrialsExp3(pool, advice, seed, config = CONFIG) {
     }
   }
 
-  // 2. pairings: each (policy, instance) pair equally often, randomly placed
-  const pairings = config.policyOptions.flatMap((p) => config.instanceOptions.map((i) => [p, i]))
-  if (cells.length % pairings.length !== 0) {
-    throw new Error(`${cells.length} trials do not split evenly over ${pairings.length} pairings`)
+  // 2. pair types: within each error type, each pair type equally often, randomly placed
+  for (const errorType of config.errorTypes) {
+    const typeCells = cells.filter((c) => c.errorType === errorType)
+    if (typeCells.length % config.pairTypes.length !== 0) {
+      throw new Error(`${typeCells.length} ${errorType} trials do not split evenly over ${config.pairTypes.length} pair types`)
+    }
+    const pairList = evenSpread(rng, config.pairTypes, typeCells.length)
+    typeCells.forEach((c, i) => (c.pair = pairList[i]))
   }
-  const pairingList = evenSpread(rng, pairings, cells.length)
 
   // 3. slip positions: spread evenly over 1..3, shuffled
   const slipCells = cells.filter((c) => c.errorType === 'slip')
@@ -134,19 +148,25 @@ export function sampleTrialsExp3(pool, advice, seed, config = CONFIG) {
   // 4. build trials
   const names = rng.shuffle(STUDENT_NAMES.slice())
   let trials = cells.map((c, i) => {
-    const [policy, instance] = pairingList[i]
+    const [a, b] = c.pair
     const slipPosition = c.errorType === 'slip' ? c.slipPosition : null
     const { problems, target } = buildProblems(c.set, c.errorType, slipPosition)
-    const opts = [adviceOption(policy, c.misconception, target, advice),
-                  adviceOption(instance, c.misconception, target, advice)]
+    const opts = [adviceOption(a, c.misconception, target, advice),
+                  adviceOption(b, c.misconception, target, advice)]
+    const scopes = opts.map((o) => o.scope)
+    const cross = scopes[0] !== scopes[1]
     if (rng.next() < 0.5) opts.reverse()
     return {
       misconception_id: c.misconception,
       set_id: c.set.set_id,
       error_type: c.errorType,
       slip_position: slipPosition,
-      policy_option: policy,
-      instance_option: instance,
+      pair_type: `${a}_vs_${b}`,
+      // policy_vs_instance (the 4 cross-scope pairs), policy_only (rule vs example), instance_only (flag vs correction)
+      pair_kind: cross ? 'policy_vs_instance' : `${scopes[0]}_only`,
+      // as in the main study, for the cross-scope pairs only (null when both options share a scope)
+      policy_option: cross ? opts.find((o) => o.scope === 'policy').code : null,
+      instance_option: cross ? opts.find((o) => o.scope === 'instance').code : null,
       left_option: opts[0].code,
       right_option: opts[1].code,
       options: opts,

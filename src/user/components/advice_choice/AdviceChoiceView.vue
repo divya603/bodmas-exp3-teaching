@@ -261,9 +261,7 @@ function finish() {
       <p class="font-semibold mb-1">
         Which advice would you give {{ api.stepData.student_name }}?
       </p>
-      <p class="text-sm text-muted-foreground mb-3 h-5">
-        <template v-if="!optionsUnlocked">Mark all three problems to choose.</template>
-      </p>
+      <div class="mb-3"></div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
         <button
           v-for="(opt, i) in api.stepData.options"
@@ -273,7 +271,7 @@ function finish() {
           class="text-left rounded-lg border-2 px-4 py-3 transition-colors"
           :class="
             !optionsUnlocked
-              ? 'border-border opacity-50 cursor-not-allowed'
+              ? 'border-border border-dashed bg-muted/30 cursor-not-allowed'
               : chosenSide === (i === 0 ? 'left' : 'right')
                 ? 'border-primary bg-primary/10 cursor-pointer'
                 : 'border-border hover:border-primary/50 hover:bg-muted/40 cursor-pointer'
@@ -281,7 +279,11 @@ function finish() {
           :aria-disabled="!optionsUnlocked"
           @click="choose(i === 0 ? 'left' : 'right')"
         >
-          {{ mathText(opt.text) }}
+          <!-- advice text stays covered until all three problems are marked -->
+          <span v-if="!optionsUnlocked" class="flex items-center gap-2 text-sm text-muted-foreground">
+            <i-lucide-lock class="shrink-0" /> Visible after you mark all three problems
+          </span>
+          <template v-else>{{ mathText(opt.text) }}</template>
         </button>
       </div>
 

@@ -9,7 +9,8 @@
 3. **Keep `HANDOFF.md` current.** As you complete work (scripts, figures, findings, decisions,
    payments, deploys), update its relevant sections incrementally, or at the latest before the
    session ends. The next session must be able to pick up cold from HANDOFF.md alone.
-4. **Work on `main` only** (no second branch). **Pushing `main` deploys the live experiment** once
+4. **This checkout is the `six-pairs` branch** (a separate pilot; see the box at the top of HANDOFF.md). It deploys
+   to its own `/six-pairs/` URL and data path; never merge it into `main`. On `main`: **work on `main` only**. **Pushing `main` deploys the live experiment** once
    the deploy secrets are uploaded. Ask before pushing experiment-material changes, and treat a
    change as done only once it is deployed and verified in the live bundle.
 5. Writing style for anything user-facing: no em dashes; keep participant-facing text short. LaTeX

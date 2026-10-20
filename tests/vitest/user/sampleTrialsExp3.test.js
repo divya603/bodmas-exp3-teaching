@@ -28,19 +28,32 @@ describe('sampleTrialsExp3, per participant', () => {
     }
   })
 
-  it('shows each of the 4 pairings 3 times', () => {
+  it('shows each of the 6 pair types once systematic and once slip', () => {
+    const pairTypes = CONFIG.pairTypes.map(([a, b]) => `${a}_vs_${b}`).sort()
     for (const [, f] of forms) {
-      expect(Object.values(count(f.map((t) => `${t.policy_option}+${t.instance_option}`))).sort())
-        .toEqual([3, 3, 3, 3])
+      for (const et of ['systematic', 'slip']) {
+        expect(f.filter((t) => t.error_type === et).map((t) => t.pair_type).sort()).toEqual(pairTypes)
+      }
     }
   })
 
-  it('pairs one policy and one instance option, and logs left/right consistently', () => {
+  it('shows 2 different advice types per trial, and logs pair and left/right consistently', () => {
     for (const [, f] of forms) {
+      expect(count(f.map((t) => t.pair_kind))).toEqual({ policy_vs_instance: 8, policy_only: 2, instance_only: 2 })
       for (const t of f) {
-        expect(t.options.map((o) => o.scope).sort()).toEqual(['instance', 'policy'])
+        const [a, b] = t.pair_type.split('_vs_')
+        expect(new Set([t.left_option, t.right_option])).toEqual(new Set([a, b]))
+        expect(a).not.toBe(b)
         expect([t.left_option, t.right_option]).toEqual(t.options.map((o) => o.code))
-        expect(new Set([t.left_option, t.right_option])).toEqual(new Set([t.policy_option, t.instance_option]))
+        const scopes = t.options.map((o) => o.scope).sort()
+        if (t.pair_kind === 'policy_vs_instance') {
+          expect(scopes).toEqual(['instance', 'policy'])
+          expect(new Set([t.left_option, t.right_option])).toEqual(new Set([t.policy_option, t.instance_option]))
+        } else {
+          expect(scopes).toEqual(t.pair_kind === 'policy_only' ? ['policy', 'policy'] : ['instance', 'instance'])
+          expect(t.policy_option).toBeNull()
+          expect(t.instance_option).toBeNull()
+        }
       }
     }
   })
@@ -101,21 +114,21 @@ describe('sampleTrialsExp3, per participant', () => {
 })
 
 describe('sampleTrialsExp3, across participants', () => {
-  it('uses every set in both error types, and every pairing per misconception', () => {
+  it('uses every set in both error types, and every pair type per misconception and error type', () => {
     const setType = new Set()
     const mPairing = new Set()
     for (const [, f] of forms) {
       for (const t of f) {
         setType.add(`${t.set_id}|${t.error_type}`)
-        mPairing.add(`${t.misconception_id}|${t.error_type}|${t.policy_option}+${t.instance_option}`)
+        mPairing.add(`${t.misconception_id}|${t.error_type}|${t.pair_type}`)
       }
     }
     expect(setType.size).toBe(pool.sets.length * 2)
-    expect(mPairing.size).toBe(MISCONCEPTIONS.length * 2 * 4)
+    expect(mPairing.size).toBe(MISCONCEPTIONS.length * 2 * CONFIG.pairTypes.length)
   })
 
-  it('balances left/right for the policy option', () => {
-    const left = forms.flatMap(([, f]) => f.map((t) => t.left_option === t.policy_option)).filter(Boolean).length
+  it('balances left/right: the first advice type of each pair is on the left about half the time', () => {
+    const left = forms.flatMap(([, f]) => f.map((t) => t.left_option === t.pair_type.split('_vs_')[0])).filter(Boolean).length
     expect(left / (N_SEEDS * 12)).toBeGreaterThan(0.48)
     expect(left / (N_SEEDS * 12)).toBeLessThan(0.52)
   })
@@ -124,5 +137,6 @@ describe('sampleTrialsExp3, across participants', () => {
     const f = sampleTrialsExp3(pool, advice, 7, { ...CONFIG, trialsPerMisconceptionPerErrorType: 2 })
     expect(f).toHaveLength(24)
     expect(new Set(f.map((t) => t.set_id)).size).toBe(24)
+    expect(Object.values(count(f.map((t) => `${t.error_type}|${t.pair_type}`)))).toEqual(Array(12).fill(2))
   })
 })

@@ -8,6 +8,32 @@ conversation history.
 > you go or at the latest before your session ends. This file is the single source of truth; the
 > next session must be able to pick up cold from it alone.
 
+> **THIS IS THE `six-pairs` BRANCH (created 2026-10-20 from `main` at `ce55af5`).** A ~50-person
+> pilot requested by the professors after the main pilot: instead of always pairing one policy and
+> one instance option, each trial pairs 2 of the 4 advice types using **all 6 pair types**: rule vs
+> flag, rule vs example, rule vs correction, example vs flag, example vs correction, flag vs
+> correction. So rule vs example (policy only) and flag vs correction (instance only) give a direct
+> abstract vs concrete comparison within one scope. Everything else is the main study as piloted.
+> - **Design (user decisions 2026-10-20):** 12 trials as before (each misconception once systematic,
+>   once slip). **Each pair type appears exactly once among the 6 systematic trials and once among the
+>   6 slip trials**, randomly matched to misconceptions; left/right random. So per participant: 8
+>   cross-scope trials, 2 policy-only, 2 instance-only.
+> - **Advice text is hidden until all three problems are marked** (lock icon, "Visible after you mark
+>   all three problems"), like the deferral branch. This was an uncommitted edit on `main` at the time;
+>   the main pilot ran with the text visible but dimmed.
+> - **Code:** `src/user/utils/sampleTrialsExp3.js` (`CONFIG.pairTypes`). New per-trial fields:
+>   `pair_type` (e.g. `rule_vs_example`) and `pair_kind` (`policy_vs_instance` | `policy_only` |
+>   `instance_only`). `policy_option` / `instance_option` are filled for cross-scope pairs only and
+>   are `null` otherwise. `choice`, `choice_scope`, `choice_form`, `choose_policy` are unchanged.
+>   Tests: `npx vitest run tests/vitest/user/sampleTrialsExp3.test.js` (12 pass).
+> - **Deploy and data:** pushing this branch deploys to `/divya603/bodmas-exp3-teaching/six-pairs/`
+>   (not `main`'s URL), and data goes to its own Firestore project ref
+>   (`divya603-bodmas-exp3-teaching-six-pairs`), so it never mixes with the main study. `npm run getdata`
+>   asks for the branch: answer `six-pairs`. Prolific link: the §7 URL with `main` replaced by
+>   `six-pairs`. Never merge this branch into `main` (it would change the main study).
+> - Local checkout: a git worktree at `~/Desktop/NYU/Darpa/Bodmas-Exp3-Teaching/bodmas-exp3-six-pairs`
+>   (`node_modules` symlinked to the main checkout's; `env/*.local` copied).
+
 ---
 
 ## 0. What this repo is
